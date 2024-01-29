@@ -31,6 +31,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <AuthRoute component={MainPage} />
       },
+      // {
+      //   path: "home",
+      //   element: <ProtectedRoute component={HomePage} />
+      // },
       {
         path: "login",
         element: <AuthRoute component={LoginForm} />
