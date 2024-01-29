@@ -11,6 +11,7 @@ import SignupForm from './components/SessionForms/SignupForm';
 import Notes from './components/Notes/Notes';
 import Profile from './components/Profile/Profile';
 import NoteCompose from './components/Notes/NoteCompose';
+import CreateTrip from './components/Trips/CreateTrip';
 
 import { getCurrentUser } from './store/session';
 
@@ -56,7 +57,12 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProtectedRoute component={Profile} />
+      },
+      {
+        path: "trips",
+        element: <CreateTrip />
       }
+
     ]
   }
 ]);

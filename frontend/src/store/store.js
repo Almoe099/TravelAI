@@ -4,10 +4,13 @@ import session from "./session";
 import errors from "./errors";
 import notes from "./notes";
 
+import trips from "./trips";
+
 const rootReducer = combineReducers({
   notes,
   session,
-  errors
+  errors,
+  trips
 });
 
 let enhancer;
