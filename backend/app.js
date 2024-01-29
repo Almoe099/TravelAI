@@ -7,6 +7,7 @@ const csurf = require('csurf');
 /* --- Need to import these to load the models into mongoose --- */
 require('./models/User');
 require('./models/Note');
+require('./models/File');
 /* ------------------------------------------------------------- */
 require('./config/passport'); // Need to import to configure passport module
 const passport = require('passport');
