@@ -8,9 +8,9 @@ import NavBar from './components/NavBar/NavBar';
 import MainPage from './components/MainPage/MainPage';
 import LoginForm from './components/SessionForms/LoginForm';
 import SignupForm from './components/SessionForms/SignupForm';
-import Tweets from './components/Tweets/Tweets';
+import Notes from './components/Notes/Notes';
 import Profile from './components/Profile/Profile';
-import TweetCompose from './components/Tweets/TweetCompose';
+import NoteCompose from './components/Notes/NoteCompose';
 
 import { getCurrentUser } from './store/session';
 
@@ -40,16 +40,16 @@ const router = createBrowserRouter([
         element: <AuthRoute component={SignupForm} />
       },
       {
-        path: "tweets",
+        path: "notes",
         element: <Outlet />,
         children: [
           {
             index: true,
-            element: <ProtectedRoute component={Tweets} />
+            element: <ProtectedRoute component={Notes} />
           },
           {
             path: "new",
-            element: <ProtectedRoute component={TweetCompose} />
+            element: <ProtectedRoute component={NoteCompose} />
           }
         ]
       },
