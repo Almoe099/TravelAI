@@ -1,28 +1,28 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserTweets, clearTweetErrors, selectUserTweetsArray } from '../../store/tweets';
-import TweetBox from '../Tweets/TweetBox';
+import { fetchUserNotes, clearNoteErrors, selectUserNotesArray } from '../../store/notes';
+import NoteBox from '../Notes/NoteBox';
 
 function Profile () {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
-  const userTweets = useSelector(selectUserTweetsArray);
+  const userNotes = useSelector(selectUserNotesArray);
   
   useEffect(() => {
-    dispatch(fetchUserTweets(currentUser._id));
-    return () => dispatch(clearTweetErrors());
+    dispatch(fetchUserNotes(currentUser._id));
+    return () => dispatch(clearNoteErrors());
   }, [currentUser, dispatch]);
 
-  if (userTweets.length === 0) {
-    return <div>{currentUser.username} has no Tweets</div>;
+  if (userNotes.length === 0) {
+    return <div>{currentUser.username} has no Notes</div>;
   } else {
     return (
       <>
-        <h2>All of {currentUser.username}&apos;s Tweets</h2>
-        {userTweets.map(tweet => (
-          <TweetBox
-            key={tweet._id}
-            tweet={tweet}
+        <h2>All of {currentUser.username}&apos;s Notes</h2>
+        {userNotes.map(note => (
+          <NoteBox
+            key={note._id}
+            note={note}
           />
         ))}
       </>

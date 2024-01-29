@@ -7,7 +7,7 @@ export const AuthRoute = ({ component: Component, ...props }) => {
   return (
     !loggedIn ?
       <Component {...props} /> :
-      <Navigate to="/tweets" replace={true} />
+      <Navigate to="/notes" replace={true} />
   );
 };
 
