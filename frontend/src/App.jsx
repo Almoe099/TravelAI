@@ -11,6 +11,7 @@ import SignupForm from './components/SessionForms/SignupForm';
 import Tweets from './components/Tweets/Tweets';
 import Profile from './components/Profile/Profile';
 import TweetCompose from './components/Tweets/TweetCompose';
+import CreateTrip from './components/Trips/CreateTrip';
 
 import { getCurrentUser } from './store/session';
 
@@ -56,7 +57,12 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProtectedRoute component={Profile} />
+      },
+      {
+        path: "trips",
+        element: <CreateTrip />
       }
+
     ]
   }
 ]);

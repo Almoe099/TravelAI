@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from "./session";
 import errors from "./errors";
 import tweets from "./tweets";
+import trips from "./trips";
 
 const rootReducer = combineReducers({
   tweets,
   session,
-  errors
+  errors,
+  trips
 });
 
 let enhancer;
