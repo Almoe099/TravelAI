@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const { mongoURI: db } = require('../config/keys.js');
 const User = require('../models/User');
-const Tweet = require('../models/Tweet');
+const Note = require('../models/Note');
 const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
-const NUM_SEED_TWEETS = 30;
+const NUM_SEED_NOTES = 30;
 
 // Create users
 const users = [];
@@ -31,12 +31,12 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
   )
 }
   
-// Create tweets
-const tweets = [];
+// Create notes
+const notes = [];
 
-for (let i = 0; i < NUM_SEED_TWEETS; i++) {
-  tweets.push(
-    new Tweet ({
+for (let i = 0; i < NUM_SEED_NOTES; i++) {
+  notes.push(
+    new Note ({
       text: faker.hacker.phrase(),
       author: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id
     })
@@ -57,12 +57,12 @@ mongoose
 
 // Reset and seed db
 const insertSeeds = () => {
-  console.log("Resetting db and seeding users and tweets...");
+  console.log("Resetting db and seeding users and notes...");
 
   User.collection.drop()
-                 .then(() => Tweet.collection.drop())
+                 .then(() => Note.collection.drop())
                  .then(() => User.insertMany(users))
-                 .then(() => Tweet.insertMany(tweets))
+                 .then(() => Note.insertMany(notes))
                  .then(() => {
                    console.log("Done!");
                    mongoose.disconnect();

@@ -53,7 +53,7 @@ function SignupForm () {
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
-      <h2>Sign Up Form</h2>
+      <h2>Sign Up</h2>
       <div className="errors">{errors?.email}</div>
       <label>
         <span>Email</span>
