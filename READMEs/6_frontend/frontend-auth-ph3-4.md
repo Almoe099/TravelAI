@@ -15,9 +15,9 @@ component that users will see when they land on the home page:
 function MainPage() {
   return (
     <>
-      <p>A Twitter Clone</p>
+      <p>Your Travel Assistant</p>
       <footer>
-        Copyright &copy; 2023 MERN Twitter
+        Copyright &copy; 2024 TravelAI
       </footer>
     </>
   );
@@ -155,7 +155,7 @@ function NavBar () {
 
   return (
     <>
-      <h1>MERN Twitter</h1>
+      <h1>TravelAI</h1>
       { getLinks() }
     </>
   );
