@@ -7,8 +7,8 @@ const handleValidationErrors = require('./handleValidationErrors');
 const validateNoteInput = [
   check('text')
     .exists({ checkFalsy: true })
-    .isLength({ min: 5, max: 140 })
-    .withMessage('Note must be between 5 and 140 characters'),
+    .isLength({ min: 6})
+    .withMessage('Note must be at least 6 characters long'),
   handleValidationErrors
 ];
 
