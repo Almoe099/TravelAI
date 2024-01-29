@@ -48,9 +48,11 @@ app.use(
 const tweetsRouter = require('./routes/api/tweets');
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
+const tripsRouter = require('./routes/api/trips');
 app.use('/api/tweets', tweetsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
+app.use('/api/trips', tripsRouter);
 
 // Serve static React build files statically in production
 if (isProduction) {
