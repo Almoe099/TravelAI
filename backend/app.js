@@ -6,7 +6,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 /* --- Need to import these to load the models into mongoose --- */
 require('./models/User');
-require('./models/Tweet');
+require('./models/Note');
 /* ------------------------------------------------------------- */
 require('./config/passport'); // Need to import to configure passport module
 const passport = require('passport');
@@ -45,10 +45,10 @@ app.use(
 // app.get("/", (req, res) => res.send("Hello World!!"));
 
 // Attach Express routers
-const tweetsRouter = require('./routes/api/tweets');
+const notesRouter = require('./routes/api/notes');
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
-app.use('/api/tweets', tweetsRouter);
+app.use('/api/notes', notesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
 
