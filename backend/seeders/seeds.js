@@ -7,6 +7,7 @@ const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
 const NUM_SEED_NOTES = 30;
+const NUM_SEED_TRIPS = 5;
 
 // Create users
 const users = [];
@@ -42,6 +43,17 @@ for (let i = 0; i < NUM_SEED_NOTES; i++) {
     })
   )
 }
+
+// Create Trips
+// const trips = [];
+// for (let i = 0; i < NUM_SEED_NOTES; i++) {
+//   notes.push(
+//     new Note ({
+//       text: faker.hacker.phrase(),
+//       author: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id
+//     })
+//   )
+// }
     
 // Connect to database
 mongoose
