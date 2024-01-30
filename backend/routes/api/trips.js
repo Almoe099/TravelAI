@@ -82,7 +82,9 @@ router.post('/', async (req, res, next) => {
     
         const newTrip = new Trip({
             location: req.body.location,
-            dates: req.body.dates,
+            startdate: req.body.startdate,
+            enddate: req.body.enddate,
+            // dates: req.body.dates,
             author: req.body.authorId
         });
         // console.log("=======");

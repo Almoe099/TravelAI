@@ -10,8 +10,12 @@ const tripSchema = new Schema({
         type: String,
         required: true
     },
-    dates: {
-        type: Array,
+    startdate: {
+        type: Date,
+        required: true
+    },
+    enddate: {
+        type: Date,
         required: true
     }
 }, {
