@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './CreateTrip.css';
 import { generateTrip } from '../../store/trips';
+import { generateItinerary } from '../../store/itineraries';
 
 // console.log(import.meta.env.VITE_SOME_KEY);
 // let MY_KEY = import.meta.env.VITE_API_KEY;
@@ -104,7 +105,7 @@ function CreateTrip() {
             days: days,
             activitiesPerDay: activitiesPerDay
         };
-        dispatch(generateTrip(trip));
+        dispatch(generateItinerary(trip));
     }
   }
 

@@ -51,10 +51,13 @@ const notesRouter = require('./routes/api/notes');
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
 const tripsRouter = require('./routes/api/trips');
+const itinerariesRouter = require('./routes/api/itineraries');
+
 app.use('/api/notes', notesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
 app.use('/api/trips', tripsRouter);
+app.use('/api/itineraries', itinerariesRouter);
 
 // Serve static React build files statically in production
 if (isProduction) {
