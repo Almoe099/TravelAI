@@ -1,61 +1,115 @@
-
-.profile-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    align-items: center; 
-    z-index: 1;
-    margin-top: 100px;
+/* Base styles */
+body, input, button {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
   }
   
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 60px;
+    padding: 20px;
+    gap: 40px; /* Space between the two halves */
+    background-color: #f7f7f7;
+  }
+  
+  #profile-left-half,
+  #profile-right-half {
+    flex-basis: 50%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Typography */
   h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    color: #4b3f72; /* Dark purple for contrast */
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
   }
   
-  .modal {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-
+  /* Buttons and inputs */
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  color: white;
+  background-color: #6c63ff; /* Ensure all buttons have the same background color */
+}
   
-  
-  label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 10px;
+  button:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   }
   
   input[type="text"],
   input[type="date"] {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 15px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-
+  /* Modal styles */
+  #profile-modal {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
   .create-button {
-    background-color: #28a745;
+    background-color: #6c63ff; /* Light purple */
+    color: white;
+    /* Add the rest of your button styles here */
   }
   
   .create-button:hover {
-    background-color: #1e7e34;
+    background-color: #5a55e0; /* Slightly darker purple */
   }
   
-
   .cancel-button {
-    background-color: #dc3545;
+    background-color: #4b3f72; /* Dark purple */
   }
   
   .cancel-button:hover {
-    background-color: #bd2130;
+    background-color: #42366b; /* Even darker purple */
   }
   
-  .left-half {
-  text-align: center;
-}
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .profile-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    #profile-left-half,
+    #profile-right-half {
+      flex-basis: auto;
+    }
+  }
+  
+  .button-container {
+    width: 100%; /* Take up full width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

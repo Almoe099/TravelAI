@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { composeTrip } from '../../store/trips'; // Ensure this matches your file structure
 import TripBox from './Tripbox';
 import './Profile.css';
 
@@ -10,12 +12,8 @@ function Profile() {
     endDate: '',
   });
 
-  const userTrips = [];
-
-  useEffect(() => {
-    // Placeholder for dispatch(fetchUserTrips(currentUser._id));
-    // Placeholder for return () => dispatch(clearTripErrors());
-  }, []);
+  const dispatch = useDispatch();
+  const trips = useSelector(state => state.trips.all); 
 
   const handleNewTripClick = () => {
     setIsModalOpen(true);
@@ -34,26 +32,29 @@ function Profile() {
   };
 
   const handleCreateTrip = () => {
-    // Placeholder for handleCreateTrip logic
+    console.log('Creating trip with data:', newTripData);
+    dispatch(composeTrip(newTripData));
+    setIsModalOpen(false);
   };
 
   return (
     <div className="profile-container">
-      <div className="left-half">
+      <div id="profile-left-half">
         <h2>User Trips</h2>
-        {userTrips.length === 0 ? (
-          <div>Placeholder: User has no Trips</div>
+        {Object.keys(trips).length === 0 ? (
+          <div>User has no Trips</div>
         ) : (
-
-          <div>Placeholder for user trips</div> 
+          Object.values(trips).map((trip, index) => (
+            <TripBox key={index} trip={trip} />
+          ))
         )}
       </div>
-      <div className="right-half">
-        <div>
-          <button onClick={handleNewTripClick}>Create New Trip</button>
-        </div>
-        {isModalOpen && (
-          <div className="modal">
+      <div id="profile-right-half">
+  <div className="button-container">
+    <button className="create-button" onClick={handleNewTripClick}>Create New Trip</button>
+  </div>
+  {isModalOpen && (
+          <div id="profile-modal">
             <h3>Create a New Trip</h3>
             <label>
               Location:
