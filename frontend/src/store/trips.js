@@ -123,7 +123,7 @@ export const deleteTrip = tripId => async dispatch => {
 
 
 
-export const postTrip = (data) => async dispatch => {
+export const generateTrip = (data) => async dispatch => {
     try {
         console.log(data);
         console.log("DATA");

@@ -4,82 +4,94 @@ require('dotenv').config({path:'../../.env'})
 const express = require("express");
 const { response } = require("../../app");
 const router = express.Router();
-// console.log(require('dotenv').config({path:'../../.env'}))
-// const configuration = new Configuration({
-//     apiKey: process.env.OPENAI_API_KEY,
-// });
-// console.log(process.env.SOME_KEY);
+
 const openai = new OpenAIApi({ apiKey: process.env.OPENAI_API_KEY });
 
-// async function runCompletion(name, weatherPref, locationPref) {
-//     try {
-//         const completion = await openai.chat.completions.create({
-//             messages: [{ role: 'system', 
-//             // content: 'You are a helpful assistant.' 
-//             content: `Create an itinerary for a user with the following preferences: 
-//             {
-//                 "Name": ${name},
-//                 "Weather preference": ${weatherPref},
-//                 "Location preference": ${locationPref},
-//                 "Interests": "",
-//                 "Misc Info": ""
-//             }
-                      
-//             Your response must maintain the key names EXACTLY as they are shown here below.  This will be JSON parsed.
-//             The location value should include a city AND a country, at least.
-//             The trip will be 3 days long, and will have 4 activities per day - your response should reflect this while maintaining the name structure of the below keys.
-            
-//             Here is an example:
-//             {
-//                 "location": "",
-//                 "Activities": {
-//                     "Day 1": {
-//                         "activity1": "",
-//                         "activity2": "",
-//                         "activity3": ""
-//                     },
-//                     "Day 2": {
-//                         "activity1": "",
-//                         "activity2": "",
-//                         "activity3": ""
-//                     },
-//                     "Day 3": {
-//                         "activity1": "",
-//                         "activity2": "",
-//                         "activity3": ""
-//                     },
-//                     "Day 4": {
-//                         "activity1": "",
-//                         "activity2": "",
-//                         "activity3": ""
-//                     }
-//                 }
-//             }
-//             `
-//             }],
-//             model: 'gpt-3.5-turbo',
-//             max_tokens: 1000
-//         });
+/// ACTUAL BACKEND TRIP STUFF
 
-//         // if (completion.choices !== null && completion.choices !== undefined) {
-//         //     // console.log(completion.choices);
-//         //     console.log(completion.choices[0].message.content);
-            
-//         //     return JSON.parse(completion.choices[0].message.content);
-//         // }
-        
-//         // console.log(JSON.parse(completion.choices[0].message.content));
-//         // setResponse(completion.choices[0].message.content);
-//         // setItinerary(JSON.parse(completion.choices[0].message.content));
-//     } catch (error) {
-//         console.error('Error fetching response:', error);
-//     }
+// UPDATE TRIP
+router.patch('/update/:id', async (req,res) => {
+    const updatedTrip = await Trip.findByIdAndUpdate(req.params.id,req.body,{
+        new : true,
+        runValidators : true
+      })
+    try{
+        res.status(200).json({
+            status : 'Success',
+            data : {
+              updatedTrip
+            }
+          })
+    }catch(err){
+        console.log(err)
+    }
+})
+
+// DELETE TRIP
+router.delete('/delete/:id', async(req,res) => {
+    await Trip.findByIdAndDelete(req.params.id)
     
-// }
+    try{
+      res.status(204).json({
+          status : 'Success',
+          data : {}
+      })
+    }catch(err){
+        res.status(500).json({
+            status: 'Failed',
+            message : err
+        })
+    }
+})
 
-// runCompletion("Bob", "cold", "usa");
-// console.log();
+// GET ALL TRIPS
+router.get('/', async (req, res) => {
+    try {
+        const trips = await Note.find()
+                                .populate("author", "_id username")
+                                .sort({ createdAt: -1 });
+        return res.json(trips);
+    }
+    catch(err) {
+        return res.json([]);
+    }
+})
 
+// GET/SHOW TRIP
+router.get('/:id', async (req, res, next) => {
+    try {
+        const trip = await Trip.findById(req.params.id)
+                                // .populate("author", "_id username");
+        return res.json(trip);
+    }
+    catch(err) {
+        const error = new Error('Trip not found');
+        error.statusCode = 404;
+        error.errors = { message: "No trip found with that id" };
+        return next(error);
+    }
+})
+
+// POST TRIP
+router.post('/', async (req, res, next) => {
+    try {
+      const newTrip = new Note({
+        location: req.body.location,
+        dates: req.body.dates,
+        author: req.user._id
+      });
+  
+      let trip = await newTrip.save();
+      trip = await trip.populate('author', '_id username');
+      return res.json(trip);
+    }
+    catch(err) {
+      next(err);
+    }
+  });
+
+
+/// CHATGPT TRIP STUFF
 router.post('/', async (req, res, next) => {
     try {
         let name = req.body.name;

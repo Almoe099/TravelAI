@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import OpenAI from "openai";
 
 import './CreateTrip.css';
-import { postTrip } from '../../store/trips';
+import { generateTrip } from '../../store/trips';
 
 // console.log(import.meta.env.VITE_SOME_KEY);
 // let MY_KEY = import.meta.env.VITE_API_KEY;
@@ -104,7 +104,7 @@ function CreateTrip() {
             days: days,
             activitiesPerDay: activitiesPerDay
         };
-        dispatch(postTrip(trip));
+        dispatch(generateTrip(trip));
     }
   }
 
