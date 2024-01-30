@@ -12,7 +12,7 @@ const openai = new OpenAIApi({ apiKey: process.env.OPENAI_API_KEY });
 
 // UPDATE ITINERARY
 router.patch('/:id', async (req,res) => {
-    const updatedItinerary = await Trip.findByIdAndUpdate(req.params.id,req.body,{
+    const updatedItinerary = await Itinerary.findByIdAndUpdate(req.params.id,req.body,{
         new : true,
         runValidators : true
       })
@@ -81,26 +81,22 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const newItinerary = new Itinerary({
-            itinerary: {
-                "March 1": {
-                    activity1: "Go To Central Park",
-                    activity2: "Go To Restaurant",
-                    activity3: "Sleep"
-                },
-                "March 2": {
-                    activity1: "Go To Bryant Park",
-                    activity2: "Go To Restaurant",
-                    activity3: "Go To Beach"
-                },
-            },
-            author: req.body.authorId
+            itinerary: req.body.itinerary,
+            author: req.body.authorId,
+            trip: req.body.tripId
         });
-        // console.log("=======");
-        // console.log(newTrip);
-        // console.log("=======");
+        console.log("=======");
+        console.log(newItinerary);
+        console.log("=======");
 
         let itinerary = await newItinerary.save();
         itinerary = await itinerary.populate('author', '_id username');
+        itinerary = await itinerary.populate('trip', '_id location startdate enddate');
+        
+        console.log("=======");
+        console.log("itinerary");
+        console.log(itinerary);
+        console.log("=======");
         return res.json(itinerary);
     }
     catch(err) {
