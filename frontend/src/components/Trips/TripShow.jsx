@@ -72,7 +72,7 @@ const TripShow = () => {
 
                 <div className="itineraryContainer">
 
-                    <h1 className='intineraryH1'>Your Itinerary List</h1>
+                    <h1 className='intineraryH1'>Your Itinerary</h1>
                     {/* <Itinerary /> */}
                     <ul className='itineraryList'>
                         <li className='dayList'> 

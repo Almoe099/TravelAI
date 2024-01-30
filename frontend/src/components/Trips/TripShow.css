@@ -5,9 +5,9 @@
 
 
 .TripShowContainer1 {
-  margin-top: 10px;
+  padding: 50px;
+  margin-top: 20px;
   width: 100%;
-  width: 1500px;
   height: 100%;
   display: flex;
   flex-direction: row; 
@@ -15,11 +15,13 @@
 }
 
 .TripDetailsContainer {
-    width: 900px;
+    /* width: 900px; */
+    width: 60%;
   display: flex;
   align-items: center;
   padding: 10px;
   /* border: solid 3px blue; */
+  margin-right: 50px;
 }
 
 .TripInfoContainer {
@@ -43,12 +45,11 @@
 
 .itineraryContainer {
     padding: 20px;
-    width: 100%;
-  max-width: 600px;
+    width: 40%;
   display: flex;
   flex-direction: column;
   
-  /* background-color: red; */
+  /* border: solid 3px red; */
 }
 
 .TripButtonContainer {
@@ -63,7 +64,7 @@
 .restaurantButton,
 .itineraryButton {
   font-size: 14px;
-  background-color: red;
+  background-color: purple;
   padding: 8px; /* Adjusted padding for better appearance */
   width: 180px;
   height: 45px;
@@ -129,7 +130,7 @@
     font-size: 15px;
     padding: 10px;
     margin-bottom: 10px;
-    border: solid 3px red;
+    /* border: solid 3px red; */
 } 
 
 .subHeader {
