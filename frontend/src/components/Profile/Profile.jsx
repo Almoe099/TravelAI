@@ -1,26 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { composeTrip } from '../../store/trips'; // Ensure this matches your file structure
 import TripBox from './Tripbox';
 import './Profile.css';
+import { fetchTrips } from '../../store/trips';
 
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTripData, setNewTripData] = useState({
     location: '',
-    startDate: '',
-    endDate: '',
+    startdate: '',
+    enddate: '',
   });
 
   const dispatch = useDispatch();
   const trips = useSelector(state => state.trips.all); 
+  const sortedTrips = Object.values(trips).sort((a, b) => 
+  new Date(a.startdate) - new Date(b.startdate)
+);
+
+  useEffect(() => {
+    dispatch(fetchTrips()); // Fetch trips when the component mounts
+  }, [dispatch]); 
 
   const handleNewTripClick = () => {
     setIsModalOpen(true);
+    setNewTripData({ location: '', startdate: '', enddate: '' }); // Reset form fields
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+    setNewTripData({ location: '', startdate: '', enddate: '' }); // Reset form fields
   };
 
   const handleInputChange = (e) => {
@@ -32,19 +42,20 @@ function Profile() {
   };
 
   const handleCreateTrip = () => {
-    console.log('Creating trip with data:', newTripData);
     dispatch(composeTrip(newTripData));
     setIsModalOpen(false);
+    setNewTripData({ location: '', startdate: '', enddate: '' }); // Reset form fields
   };
+  
 
   return (
     <div className="profile-container">
       <div id="profile-left-half">
-        <h2>User Trips</h2>
-        {Object.keys(trips).length === 0 ? (
-          <div>User has no Trips</div>
+        <h2>Upcoming Trips</h2>
+        {sortedTrips.length === 0 ? (
+          <div className="no-trips">No Upcoming Trips</div>
         ) : (
-          Object.values(trips).map((trip, index) => (
+          sortedTrips.map((trip, index) => (
             <TripBox key={index} trip={trip} />
           ))
         )}
@@ -62,11 +73,11 @@ function Profile() {
             </label>
             <label>
               Start Date:
-              <input type="date" name="startDate" value={newTripData.startDate} onChange={handleInputChange} required />
+              <input type="date" name="startdate" value={newTripData.startdate} onChange={handleInputChange} required />
             </label>
             <label>
               End Date:
-              <input type="date" name="endDate" value={newTripData.endDate} onChange={handleInputChange} required />
+              <input type="date" name="enddate" value={newTripData.enddate} onChange={handleInputChange} required />
             </label>
             <button onClick={handleCreateTrip}>Create</button>
             <button onClick={handleModalClose}>Cancel</button>

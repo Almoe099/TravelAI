@@ -23,6 +23,12 @@ body, input, button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
+  #profile-left-half {
+    background-color: #f8f8f8; /* A slightly different shade for background */
+    padding: 40px; /* More padding for better spacing */
+    border-radius: 10px; /* Slightly rounder corners */
+  }
+
   /* Typography */
   h2 {
     color: #4b3f72; /* Dark purple for contrast */
@@ -112,4 +118,84 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .trip-box {
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px; /* Space between trip boxes */
+    text-align: center; /* Center align all content in the trip box */
+  }
+  
+  .trip-box h3 {
+    color: #4b3f72; /* Dark purple */
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .trip-box p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 5px 0;
+  }
+  
+  
+  /* Ensuring last trip box doesn't have a bottom margin */
+  .trip-box:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Enhance the look of dates */
+  .trip-box .trip-date {
+    color: #6c63ff; /* Light purple */
+    font-weight: bold;
+  }
+  
+  /* Add some styling to the 'No Trips' message */
+  .no-trips {
+    text-align: center;
+    color: #6c63ff;
+    font-size: 18px;
+    padding: 20px;
+  }
+  
+  #profile-left-half h2 {
+    text-align: center; /* Center the heading */
+    font-size: 32px; /* Increase the font size */
+    color: #4b3f72; /* Use a distinct color, already defined */
+    font-weight: 600; /* Make the font a bit bolder */
+    margin-bottom: 30px; /* Add more space below the heading */
+    padding-bottom: 10px; /* Padding at the bottom */
+    border-bottom: 2px solid #e0e0e0; /* Add a subtle bottom border */
+    margin-top: 0; /* Reset any top margin */
+  }
+
+  .trip-box .trip-actions {
+    margin-top: 10px; /* Add some space between details and buttons */
+    display: flex;
+    width: 30%;
+    justify-content: center; /* Align buttons next to each other */
+    gap: 10px; /* Add space between buttons */
+    margin-left: auto; /* Auto margin on the left */
+    margin-right: auto; /* Auto margin on the right */
+  }
+  
+  
+  
+  .trip-box button {
+    padding: 8px 12px; /* Smaller padding for smaller buttons */
+    font-size: 14px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6c63ff; /* Consistent with your primary button color */
+  }
+  
+  .trip-box button:nth-child(2) {
+    background-color: #e96e65; /* Red color for delete button */
   }
