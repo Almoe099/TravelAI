@@ -18,6 +18,11 @@
     font-size: 2em;
     font-weight: 500;
   }
+
+  .homeButton {
+    text-decoration: none;
+  }
+
   
   .nav-links-container {
     display: flex;
@@ -34,6 +39,7 @@
     color: #ffffff; 
     text-decoration: none;
     padding: 8px 15px;
+    margin-right: 30px;
     border-radius: 4px;
     background-color: transparent; 
     transition: background-color 0.3s, color 0.3s;
@@ -47,6 +53,7 @@
   
   .NavBar .logout-button {
     padding: 8px 15px;
+    width: 150px;
     background-color: #6c5b7b; 
     color: #ffffff; 
     border-radius: 4px;
