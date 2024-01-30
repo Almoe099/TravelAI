@@ -5,6 +5,7 @@ import App from './App';
 import './index.css';
 import configureStore from './store';
 import * as tripActions from './store/trips.js'
+import './reset.css'
 
 const store = configureStore();
 
