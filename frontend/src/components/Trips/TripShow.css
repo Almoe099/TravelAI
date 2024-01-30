@@ -1,0 +1,148 @@
+.TripShowMainContainer{
+    display: flex;
+    justify-content: center;
+}
+
+
+.TripShowContainer1 {
+  margin-top: 10px;
+  width: 100%;
+  width: 1500px;
+  height: 100%;
+  display: flex;
+  flex-direction: row; 
+  /* border: solid 3px black; */
+}
+
+.TripDetailsContainer {
+    width: 900px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  /* border: solid 3px blue; */
+}
+
+.TripInfoContainer {
+  display: flex;
+  flex-direction: column;
+  height: 83vh;
+  padding: 10px;
+  flex: 1;
+}
+
+.TripInfo {
+  height: 100px;
+  width: 100%;
+}
+
+.TripDate,
+.TripLocation {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.itineraryContainer {
+    padding: 20px;
+    width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  
+  /* background-color: red; */
+}
+
+.TripButtonContainer {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5%;
+  justify-content: center;
+}
+
+.activityButton,
+.restaurantButton,
+.itineraryButton {
+  font-size: 14px;
+  background-color: red;
+  padding: 8px; /* Adjusted padding for better appearance */
+  width: 180px;
+  height: 45px;
+  border: 1px rgb(132, 106, 41);
+  cursor: pointer;
+  border-radius: 20px; 
+  margin-right: 50px;
+} 
+
+
+.selectionContainer {
+  padding: 10px;
+  height: 100%;
+}
+
+.option {
+  width: 100%;
+  /* max-width: 800px; */
+  font-size: 15px;
+  padding: 10px;
+  margin-top: 18px;
+  inline-size: 100%;
+  overflow-wrap: break-word;
+
+  /* border: solid 3px red; */
+}
+
+.optionDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+.plus {
+    margin-top: 20px;
+    margin-right: 17px;
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    font-size: 20px;
+    width: fit-content;
+    border-radius: 50%;
+    color: red;
+    background-color: white;
+}
+
+
+.intineraryH1 {
+  padding: 20px;
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.itineraryList {
+  list-style: none;
+  padding: 0;
+  
+}
+
+ 
+.dayList {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: solid 3px red;
+} 
+
+.subHeader {
+  text-decoration: underline;
+  font-size: 19px;
+  margin-bottom: 5px;
+}
+
+
+.dayPlans {
+  inline-size: 100%;
+  overflow-wrap: break-word;
+    margin-top: 10px;
+  font-size: 15px;
+  white-space: normal;
+} 
