@@ -48,6 +48,8 @@ export const fetchTrips = () => async dispatch => {
   try {
     const res = await jwtFetch ('/api/trips');
     const trips = await res.json();
+    console.log("!!!");
+    console.log(trips);
     dispatch(receiveTrips(trips))
   } catch (err) {
     const resBody = await err.json();
@@ -60,8 +62,8 @@ export const fetchTrips = () => async dispatch => {
 export const fetchTrip = (tripId) => async dispatch => {
   try {
     const res = await jwtFetch (`/api/trips/${tripId}`);
-    const trips = await res.json();
-    dispatch(receiveTrip(trips))
+    const trip = await res.json();
+    dispatch(receiveTrip(trip))
   } catch (err) {
     const resBody = await err.json();
     if (resBody.statusCode == 400){
@@ -73,6 +75,8 @@ export const fetchTrip = (tripId) => async dispatch => {
 
 export const composeTrip = data => async dispatch => {
   try {
+    console.log("=======");
+    console.log(data);
     const res = await jwtFetch('/api/trips/', {
       method: 'POST',
       body: JSON.stringify(data)
@@ -105,16 +109,17 @@ export const updateTrip = trip => async dispatch => {
 };
 
 export const deleteTrip = tripId => async dispatch => {
-  try {
+  console.log(tripId);
+    try {
     const res = await jwtFetch(`/api/trips/${tripId}`, {
-      method: 'DELETE',
-      body: JSON.stringify(tripId)
+      method: 'DELETE'
+    //   body: JSON.stringify(tripId)
     });
-    const tripData = await res.json();
-    dispatch(removeTrip(tripData));
+        const tripData = await res.json();  // success
+        dispatch(removeTrip(tripId));
   } catch(err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
+    const resBody = await err;
+    if (resBody.statusCode === 500) {
       return dispatch(receiveErrors(resBody.errors));
     }
   }
@@ -127,12 +132,10 @@ export const generateTrip = (data) => async dispatch => {
     try {
         console.log(data);
         console.log("DATA");
-        const res = await jwtFetch('/api/trips/', {
+        const res = await jwtFetch('/api/trips/GPT', {
             method: 'POST',
             body: JSON.stringify(data)
           });
-        // console.log(res);
-        // const trip = await res;
         const trip = await res.json();
         console.log(trip);
         console.log("DONE!");
@@ -153,10 +156,14 @@ const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => 
       case RECEIVE_TRIPS:
         return {...state, all: action.trips, new: undefined}
       case RECEIVE_TRIP:
-        return {...state, user: action.trip.id, new: undefined}
+        return {...state, user: action.trip.id, new: action.trip}
       case REMOVE_TRIP:
-        delete state[action.trip.id]
-        return state
+        // console.log("hit");
+        // console.log(state.trips);
+        // console.log(state.trips.all);
+        // console.log(action.tripId);
+        // delete state.trips.all[action.tripId];
+        return state;
       case RECEIVE_USER_LOGOUT:
         return { ...state, user: {}, new: undefined }
       default:
