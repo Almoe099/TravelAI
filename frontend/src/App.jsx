@@ -12,6 +12,7 @@ import Notes from './components/Notes/Notes';
 import Profile from './components/Profile/Profile';
 import NoteCompose from './components/Notes/NoteCompose';
 import CreateTrip from './components/Trips/CreateTrip';
+import MakeTrip from './components/Trips/MakeTrip';
 
 import { getCurrentUser } from './store/session';
 import TripShow from './components/Trips/TripShow';
@@ -64,14 +65,17 @@ const router = createBrowserRouter([
         element: <ProtectedRoute component={Profile} />
       },
       {
-        path: "trips",
+        path: "tripsGPT",
         element: <CreateTrip />
+      },
+      {
+        path: "maketrip",
+        element: <MakeTrip />
       },
       {
         path: "tripshow",
         element: <TripShow />
       }
-
     ]
   }
 ]);
