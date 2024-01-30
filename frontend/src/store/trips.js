@@ -154,14 +154,14 @@ const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => 
       // Correctly adds the new trip to the 'all' object
       return {
         ...state,
-        all: { ...state.all, [action.trip.id]: action.trip }
+        all: { ...state.all, [action.trip._id]: action.trip }
       };
 
     case RECEIVE_TRIPS:
       // Assuming 'action.trips' is an array of trip objects
       const newAll = {};
       action.trips.forEach(trip => {
-        newAll[trip.id] = trip;
+        newAll[trip._id] = trip;
       });
       return {
         ...state,
@@ -171,8 +171,8 @@ const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => 
     case RECEIVE_TRIP:
       return {
         ...state,
-        all: { ...state.all, [action.trip.id]: action.trip },
-        user: action.trip.id,  // Assuming you store trip ID here
+        all: { ...state.all, [action.trip._id]: action.trip },
+        user: action.trip._id,  // Assuming you store trip ID here
         new: action.trip
       };
 
