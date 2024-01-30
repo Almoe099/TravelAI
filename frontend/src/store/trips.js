@@ -48,8 +48,8 @@ export const fetchTrips = () => async dispatch => {
   try {
     const res = await jwtFetch ('/api/trips');
     const trips = await res.json();
-    console.log("!!!");
-    console.log(trips);
+    // console.log("!!!");
+    // console.log(trips);
     dispatch(receiveTrips(trips))
   } catch (err) {
     const resBody = await err.json();
@@ -151,11 +151,12 @@ export const generateTrip = (data) => async dispatch => {
 const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
   switch(action.type) {
     case CREATE_TRIP:
-      // Correctly adds the new trip to the 'all' object
-      return {
+        // Correctly adds the new trip to the 'all' object
+        return {
         ...state,
-        all: { ...state.all, [action.trip._id]: action.trip }
-      };
+        all: { ...state.all, [action.trip._id]: action.trip },
+        new: action.trip
+        };
 
     case RECEIVE_TRIPS:
       // Assuming 'action.trips' is an array of trip objects

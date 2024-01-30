@@ -5,8 +5,9 @@ import * as tripActions from "../../store/trips.js"
 import './MakeTrip.css'
 
 function MakeTrip() {
-    let [location, setLocation] = useState("USA");
-    let [dates, setDates] = useState([]);
+    let [location, setLocation] = useState("");
+    let [startDate, setStartDate] = useState("");
+    let [endDate, setEndDate] = useState("");
     let [newDate, setNewDate] = useState("");
     let sessionUser = useSelector(state => state.session.user);
     let newTrip = useSelector(state => state.trips.new);
@@ -20,47 +21,45 @@ function MakeTrip() {
     function handleCreateTrip(e) {
         e.preventDefault();
         let authorId = sessionUser._id;
-        dispatch(tripActions.composeTrip({location, dates, authorId}));
+        let startdate = startDate;
+        let enddate = endDate;
+        dispatch(tripActions.composeTrip({location, startdate, enddate, authorId}));
     }
 
-    function handleAddDate(e) {
-        e.preventDefault();
-
-        let arr2 = [];
-        for (let i = 0; i < dates.length; i++) {
-            arr2.push(dates[i]);
-        }
-        arr2.push(newDate);
-        setDates(arr2);
-        console.log(dates);
-    }
     function handleClearDates(e) {
         e.preventDefault();
-
-        setDates([]);
-        console.log(dates);
     }
 
     return (
         <>
             <div className="tripHolder">
-            <p className="tripText">Location: </p>
-            <input className="tripInput" onChange={(e) => setLocation(e.target.value)} value={location}></input>
-            <p className="tripText">Dates: </p>
-            {dates.map((date) => 
-                <p className="tripText" key={date.toString()}>{date.toString()}</p>
+                <p className="tripText">Location: </p>
+                <input className="tripInput" onChange={(e) => setLocation(e.target.value)} value={location}></input>
+                <p className="tripText">Dates: </p>
+                {/* {dates.map((date) => 
+                    <p className="tripText" key={date.toString()}>{date.toString()}</p>
+                )} */}
+                <input className="tripInput" onChange={(e) => setNewDate(e.target.value)} value={newDate}></input>
+                <div className="tripHolder2">
+                    {/* <button onClick={(e) => handleAddDate(e)} className='tripButton'>Add Date</button> */}
+                    {/* <button onClick={(e) => handleClearDates(e)} className='tripButton'>Clear Dates</button> */}
+                    <button onClick={(e) => handleCreateTrip(e)} className='tripButton'>Create Trip</button>
+                </div>
+            </div>
+            {newTrip === null || newTrip === undefined ? (
+                <>
+                </>
+            ) : (
+                <>
+                    <div className="tripHolder">
+                        <p>Your Trip</p>
+                        <p>{newTrip.location}</p>
+                        <p>{newTrip.startdate}</p>
+                        <p>{newTrip.enddate}</p>
+                        <p></p>
+                    </div>
+                </>
             )}
-            <input className="tripInput" onChange={(e) => setNewDate(e.target.value)} value={newDate}></input>
-            <div className="tripHolder2">
-                <button onClick={(e) => handleAddDate(e)} className='tripButton'>Add Date</button>
-                <button onClick={(e) => handleClearDates(e)} className='tripButton'>Clear Dates</button>
-                <button onClick={(e) => handleCreateTrip(e)} className='tripButton'>Create Trip</button>
-            </div>
-            </div>
-            <div className="tripHolder">
-
-
-            </div>
         </>
     )
 }
