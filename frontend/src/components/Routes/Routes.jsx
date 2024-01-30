@@ -7,7 +7,7 @@ export const AuthRoute = ({ component: Component, ...props }) => {
   return (
     !loggedIn ?
       <Component {...props} /> :
-      <Navigate to="/notes" replace={true} />
+      <Navigate to="/profile" replace={true} />
   );
 };
 
@@ -17,6 +17,6 @@ export const ProtectedRoute = ({ component: Component, ...props }) => {
   return (
     loggedIn ? 
       <Component {...props} /> :
-      <Navigate to="/login" replace={true} />
+      <Navigate to="/" replace={true} />
   );
 };

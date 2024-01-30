@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <AuthRoute component={MainPage} />
+        element: <AuthRoute component={MainPage} redirectTo="/profile" />
       },
       // {
       //   path: "home",
@@ -66,15 +66,15 @@ const router = createBrowserRouter([
       },
       {
         path: "tripsGPT",
-        element: <CreateTrip />
+        element: <ProtectedRoute component={CreateTrip} />
       },
       {
         path: "maketrip",
-        element: <MakeTrip />
+        element: <ProtectedRoute component={MakeTrip} />
       },
       {
         path: "tripshow",
-        element: <TripShow />
+        element: <ProtectedRoute component={TripShow} />
       }
     ]
   }
@@ -83,6 +83,7 @@ const router = createBrowserRouter([
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCurrentUser()).finally(() => setLoaded(true));
   }, [dispatch]);

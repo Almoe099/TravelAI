@@ -16,16 +16,16 @@ function NavBar() {
 
   return (
     <nav className="NavBar">
-      <h1>TravelAI</h1>
+      <Link to={'/profile'} className='homeButton'><h1>Travel AI</h1></Link>
       <div className="nav-links-container">
         <div className={loggedIn ? 'links-nav' : 'links-auth'}>
           {loggedIn ? (
             <>
               <Link to='/profile'>Profile</Link>
-              <Link to="/travel-recommendations">Travel Recommendations</Link>
+              {/* <Link to="/travel-recommendations">Travel Recommendations</Link>
               <Link to="/itinerary-planning">Itinerary Planning</Link>
               <Link to="/personal-notes">Personal Notes</Link>
-              <Link to="/document-storage">Document Storage</Link>
+              <Link to="/document-storage">Document Storage</Link> */}
             </>
           ) : (
             <>

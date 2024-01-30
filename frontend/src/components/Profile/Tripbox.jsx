@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './Tripbox.css'
 
 function TripBox({ trip, onDelete, onView }) {
   return (
@@ -7,8 +9,8 @@ function TripBox({ trip, onDelete, onView }) {
       <p>Start Date: {new Date(trip.startdate).toLocaleDateString()}</p>
       <p>End Date: {new Date(trip.enddate).toLocaleDateString()}</p>
       <div className="trip-actions">
-        <button onClick={onView}>View</button>
-        <button onClick={onDelete}>Delete</button>
+        <Link to={'/tripshow'}><button className="tripBoxButtons"  onClick={onView}>View</button></Link>
+        <button onClick={onDelete} className="tripBoxButtons" >Delete</button>
       </div>
     </div>
   );
