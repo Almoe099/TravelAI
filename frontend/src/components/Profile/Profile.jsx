@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { composeTrip } from '../../store/trips'; // Ensure this matches your file structure
+import { composeTrip, fetchTrips, deleteTrip } from '../../store/trips';
 import TripBox from './Tripbox';
 import './Profile.css';
-import { fetchTrips } from '../../store/trips';
+import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,39 +14,46 @@ function Profile() {
   });
 
   const dispatch = useDispatch();
+  const history = useNavigate();
   const trips = useSelector(state => state.trips.all); 
-  const sortedTrips = Object.values(trips).sort((a, b) => 
-  new Date(a.startdate) - new Date(b.startdate)
-);
 
   useEffect(() => {
-    dispatch(fetchTrips()); // Fetch trips when the component mounts
+    dispatch(fetchTrips());
   }, [dispatch]); 
+
+
+    // fewve
+  const sortedTrips = Object.values(trips).sort((a, b) => 
+    new Date(a.startdate) - new Date(b.startdate)
+  );
 
   const handleNewTripClick = () => {
     setIsModalOpen(true);
-    setNewTripData({ location: '', startdate: '', enddate: '' }); // Reset form fields
+    setNewTripData({ location: '', startdate: '', enddate: '' });
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setNewTripData({ location: '', startdate: '', enddate: '' }); // Reset form fields
+    setNewTripData({ location: '', startdate: '', enddate: '' });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewTripData({
-      ...newTripData,
-      [name]: value,
-    });
+    setNewTripData({ ...newTripData, [name]: value });
   };
 
   const handleCreateTrip = () => {
     dispatch(composeTrip(newTripData));
     setIsModalOpen(false);
-    setNewTripData({ location: '', startdate: '', enddate: '' }); // Reset form fields
   };
-  
+
+  const handleDeleteTrip = tripId => {
+    dispatch(deleteTrip(tripId));
+  };
+
+  const handleViewTrip = tripId => {
+    history.push(`/trips/${tripId}`); // Adjust the URL according to your routing
+  };
 
   return (
     <div className="profile-container">
@@ -56,15 +63,22 @@ function Profile() {
           <div className="no-trips">No Upcoming Trips</div>
         ) : (
           sortedTrips.map((trip, index) => (
-            <TripBox key={index} trip={trip} />
+            <TripBox
+              key={index}
+              trip={trip}
+              onDelete={() => handleDeleteTrip(trip._id)}
+              onView={() => handleViewTrip(trip._id)}
+            />
           ))
         )}
       </div>
       <div id="profile-right-half">
-  <div className="button-container">
-    <button className="create-button" onClick={handleNewTripClick}>Create New Trip</button>
-  </div>
-  {isModalOpen && (
+        <div className="button-container">
+          <button className="create-button" onClick={handleNewTripClick}>
+            Create New Trip
+          </button>
+        </div>
+        {isModalOpen && (
           <div id="profile-modal">
             <h3>Create a New Trip</h3>
             <label>
@@ -86,6 +100,6 @@ function Profile() {
       </div>
     </div>
   );
-        }  
+}
 
 export default Profile;
