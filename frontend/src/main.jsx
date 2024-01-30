@@ -4,9 +4,11 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
 import configureStore from './store';
+
 import * as tripActions from './store/trips.js'
 import * as itineraryActions from './store/itineraries.js'
 import './reset.css'
+
 
 const store = configureStore();
 
@@ -15,6 +17,7 @@ if (import.meta.env.MODE !== "production") {
   window.store = store;
   window.tripActions = tripActions;
   window.itineraryActions = itineraryActions;
+
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

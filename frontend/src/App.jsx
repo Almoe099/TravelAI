@@ -15,6 +15,7 @@ import CreateTrip from './components/Trips/CreateTrip';
 import MakeTrip from './components/Trips/MakeTrip';
 
 import { getCurrentUser } from './store/session';
+import TripShow from './components/Trips/TripShow';
 
 const Layout = () => {
   return (
@@ -70,8 +71,11 @@ const router = createBrowserRouter([
       {
         path: "maketrip",
         element: <MakeTrip />
+      },
+      {
+        path: "tripshow",
+        element: <TripShow />
       }
-
     ]
   }
 ]);
