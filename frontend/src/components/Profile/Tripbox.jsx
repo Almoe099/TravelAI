@@ -1,14 +1,18 @@
 import React from 'react';
 
-function TripBox({ trip }) {
-  return (
-    <div className="trip-box">
-      <h3>Trip Details</h3>
-      <p>Location: {trip.location}</p>
-      <p>Start Date: {trip.startDate}</p>
-      <p>End Date: {trip.endDate}</p>
-    </div>
-  );
-}
-
+function TripBox({ trip, onDelete, onView }) {
+    return (
+      <div className="trip-box">
+        {/* Existing trip details */}
+        <h3>Trip to {trip.location}</h3>
+        <p>Start Date: {new Date(trip.startdate).toLocaleDateString()}</p>
+        <p>End Date: {new Date(trip.enddate).toLocaleDateString()}</p>
+        <div className="trip-actions">
+          <button onClick={() => onView(trip._id)}>View</button>
+          <button onClick={() => onDelete(trip._id)}>Delete</button>
+        </div>
+      </div>
+    );
+  }
+  
 export default TripBox;
