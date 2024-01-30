@@ -1,33 +1,14 @@
-/* Reset styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-/* Global styles */
-body, html {
-    height: 100%;
-    font-family: 'Segoe UI', 'Roboto', sans-serif;
-    background: #f2f2f2;
-    color: #424242;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Full page content section */
 .content-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
+    height: 100vh; 
+    width: 100vw; 
     padding: 40px;
-    background-color: #ffffff; /* Consider making this transparent or matching the body's background */
+    background-color: #f5f3f7; 
 }
 
-/* Info section styles */
 .info-section {
     flex: 1;
     padding: 40px;
@@ -36,17 +17,16 @@ body, html {
 
 .info-section h2 {
     font-size: 2.8em;
-    color: #1a73e8;
+    color: #5e548e; 
     margin-bottom: 20px;
 }
 
 .info-section p {
     font-size: 1.1em;
     line-height: 1.6;
-    color: #555;
+    color: #6c648b; 
 }
 
-/* Form section styles */
 .form-section {
     flex: 1;
     padding: 40px;
@@ -55,46 +35,36 @@ body, html {
     align-items: center;
 }
 
-
 button {
-    padding: 10px 20px; /* Adjust padding */
+    padding: 10px 20px;
     margin-top: 20px;
-    border-radius: 30px; /* Rounded edges */
-    font-size: 0.9em; /* Adjust font size */
+    border-radius: 30px;
+    font-size: 0.9em;
     font-weight: 600;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
     text-transform: uppercase;
-    width: 50%; /* Decrease the width of the buttons */
-    align-self: center; /* Center buttons within the form container */
+    width: 50%;
+    align-self: center;
+    background-color: #5e548e; 
+    color: white;
 }
 
+button:hover {
+    filter: brightness(90%);
+    background-color: #7c7ca1; 
+}
 
 .form-container {
-    width: 80%; /* Increase the width of the login/signup form */
-    margin: auto; /* Centering the form */
+    width: 80%;
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-
-.toggle-form:hover, .demo-login-btn:hover {
-    filter: brightness(90%);
-}
-
-.demo-login-btn, .toggle-form {
-    background-color: #1a73e8;
-    color: white;
-}
-
-.demo-login-btn {
-    background-color: #4CAF50;
-}
-
-/* Responsive styles */
 @media (max-width: 768px) {
     .content-section {
         flex-direction: column;
@@ -104,14 +74,16 @@ button {
         width: 100%;
         padding: 30px;
     }
+    
     .demo-login-btn, .toggle-form, .form-box {
-        width: 90%; /* Adjust for smaller screens */
+        width: 90%;
     }
+    
     .form-container {
-        width: 90%; /* Adjust for smaller screens */
+        width: 90%;
     }
 
     button {
-        width: 70%; /* Adjust button width for smaller screens */
+        width: 70%;
     }
 }
