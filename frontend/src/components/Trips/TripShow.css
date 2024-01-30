@@ -1,149 +1,107 @@
-.TripShowMainContainer{
-    display: flex;
-    justify-content: center;
-}
-
-
-.TripShowContainer1 {
-  padding: 50px;
-  margin-top: 20px;
-  width: 100%;
-  height: 100%;
+.TripShowMainContainer {
   display: flex;
-  flex-direction: row; 
-  /* border: solid 3px black; */
+  justify-content: stretch; /* This will stretch the child elements to take the full width */
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  height: 100vh; /* This will make the container take the full viewport height */
+  margin: 0;
+  padding: 0;
 }
 
-.TripDetailsContainer {
-    /* width: 900px; */
-    width: 60%;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  /* border: solid 3px blue; */
-  margin-right: 50px;
-}
-
-.TripInfoContainer {
+.TripDetailsHalf, .ItineraryHalf {
+  flex: 1; /* This ensures that each half takes up half the width of the container */
   display: flex;
   flex-direction: column;
-  height: 83vh;
-  padding: 10px;
-  flex: 1;
+  justify-content: start;
+  align-items: stretch; /* This will make the children take the full width */
+  padding: 60px; /* This padding will ensure there's space from the top (below navbar), sides, and between halves */
 }
 
 .TripInfo {
-  height: 100px;
-  width: 100%;
+  margin-bottom: 30px;
 }
 
-.TripDate,
-.TripLocation {
-  padding: 10px;
-  font-size: 20px;
-}
-
-.itineraryContainer {
-    padding: 20px;
-    width: 40%;
-  display: flex;
-  flex-direction: column;
-  
-  /* border: solid 3px red; */
+.TripLocation, .TripDate {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .TripButtonContainer {
-  padding: 10px;
   display: flex;
-  flex-direction: row;
-  margin-bottom: 5%;
-  justify-content: center;
+  justify-content: space-around; /* This will space the buttons evenly */
+  margin-bottom: 30px;
 }
 
-.activityButton,
-.restaurantButton,
-.itineraryButton {
-  font-size: 14px;
-  background-color: purple;
-  padding: 8px; /* Adjusted padding for better appearance */
-  width: 180px;
-  height: 45px;
-  border: 1px rgb(132, 106, 41);
+.button {
+  font-size: 16px;
+  color: #fff;
+  background-color: #5f4b8b; /* A professional purple shade */
+  border: none;
+  padding: 15px 30px;
   cursor: pointer;
-  border-radius: 20px; 
-  margin-right: 50px;
-} 
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  flex-grow: 1; /* This will make all buttons grow equally */
+  margin: 0 10px; /* This adds a bit of margin between the buttons */
+}
 
+.button:hover {
+  background-color: #503d74; /* A darker shade of purple for hover effect */
+}
 
 .selectionContainer {
-  padding: 10px;
-  height: 100%;
+  margin-bottom: 30px;
+}
+
+.optionList {
+  list-style: none;
+  padding: 0;
 }
 
 .option {
-  width: 100%;
-  /* max-width: 800px; */
-  font-size: 15px;
-  padding: 10px;
-  margin-top: 18px;
-  inline-size: 100%;
-  overflow-wrap: break-word;
-
-  /* border: solid 3px red; */
+  font-size: 16px;
+  padding: 15px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.optionDiv {
-    display: flex;
-    flex-direction: row;
+.option:hover {
+  background-color: #f5f5f5;
 }
 
-.plus {
-    margin-top: 20px;
-    margin-right: 17px;
-    height: 40px;
-    width: 40px;
-    padding: 10px;
-    font-size: 20px;
-    width: fit-content;
-    border-radius: 50%;
-    color: red;
-    background-color: white;
+.ItineraryHalf {
+  background: #f0f0f0; /* Different background for contrast */
 }
-
 
 .intineraryH1 {
-  padding: 20px;
-  text-align: center;
-  font-size: 25px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 .itineraryList {
   list-style: none;
   padding: 0;
-  
 }
 
- 
-.dayList {
-    width: 100%;
-    font-size: 15px;
-    padding: 10px;
-    margin-bottom: 10px;
-    /* border: solid 3px red; */
-} 
+.dayList + .dayList {
+  margin-top: 15px;
+}
 
 .subHeader {
-  text-decoration: underline;
-  font-size: 19px;
+  font-size: 22px;
+  color: 503d74;
   margin-bottom: 5px;
 }
 
-
 .dayPlans {
-  inline-size: 100%;
-  overflow-wrap: break-word;
-    margin-top: 10px;
-  font-size: 15px;
-  white-space: normal;
-} 
+  font-size: 16px;
+}
+
+.button:first-child {
+  margin-left: 0;
+}
+
+.button:last-child {
+  margin-right: 0;
+}

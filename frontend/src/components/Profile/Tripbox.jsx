@@ -7,8 +7,8 @@ function TripBox({ trip, onDelete, onView }) {
       <p>Start Date: {new Date(trip.startdate).toLocaleDateString()}</p>
       <p>End Date: {new Date(trip.enddate).toLocaleDateString()}</p>
       <div className="trip-actions">
-        <button onClick={onDelete}>Delete</button>
         <button onClick={onView}>View</button>
+        <button onClick={onDelete}>Delete</button>
       </div>
     </div>
   );

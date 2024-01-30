@@ -66,8 +66,8 @@ function Profile() {
             <TripBox
               key={index}
               trip={trip}
-              onDelete={() => handleDeleteTrip(trip._id)}
               onView={() => handleViewTrip(trip._id)}
+              onDelete={() => handleDeleteTrip(trip._id)}
             />
           ))
         )}
