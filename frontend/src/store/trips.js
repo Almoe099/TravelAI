@@ -7,7 +7,7 @@ const createTrip = trip => ({
   });
 
 
-export const postTrip = (data) => async dispatch => {
+export const generateTrip = (data) => async dispatch => {
     try {
         console.log(data);
         console.log("DATA");
