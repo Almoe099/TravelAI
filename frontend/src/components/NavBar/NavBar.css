@@ -2,53 +2,78 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1a73e8; /* Adjusted blue background */
+    background-color: #2c3e50;
     padding: 10px 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: #f9f9f9; /* Light text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    color: #ecf0f1;
   }
   
   .NavBar h1 {
-    color: #fff;
+    color: #ecf0f1;
     margin: 0;
-    font-size: 1.8em;
+    font-size: 2em;
+    font-weight: 500;
+  }
+  
+  .nav-links-container {
+    display: flex;
+    align-items: center;
   }
   
   .links-nav, .links-auth {
     display: flex;
-    gap: 15px; 
+    gap: 20px;
+    flex-grow: 1; /* Added to allow the links to expand */
   }
   
-  .links-nav a, .links-auth a, .NavBar button {
-    color: #fff;
+  .links-nav a, .links-auth a {
+    color: #ecf0f1;
     text-decoration: none;
-    padding: 6px 12px;
-    border: 2px solid #fff; /* Border for visibility */
-    border-radius: 20px; /* Rounded edges */
+    padding: 8px 15px;
+    border-radius: 4px;
+    background-color: transparent;
     transition: background-color 0.3s, color 0.3s;
+    font-weight: 500;
   }
   
-  .links-nav a:hover, .links-auth a:hover, .NavBar button:hover {
-    background-color: #fff;
-    color: #1a73e8;
+  .links-nav a:hover, .links-auth a:hover {
+    background-color: #34495e;
+    color: #ecf0f1;
   }
   
-  /* For smaller screens */
+  .NavBar .logout-button {
+    padding: 5px 10px; /* Adjust padding if necessary */
+    background-color: #cd6155;
+    color: #ecf0f1;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    /* Removed box-sizing, min-width, max-width */
+  }
+  
+  .NavBar .logout-button .button-text {
+    display: block; /* Ensure the text behaves as a block */
+    max-width: fit-content; /* Fit the width to the content */
+  }
+  
+  .NavBar .logout-button:hover {
+    background-color: #b03a2e;
+  }
+  
   @media (max-width: 768px) {
     .NavBar {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
     }
   
-    .links-nav, .links-auth {
+    .nav-links-container {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       width: 100%;
     }
   
-    .links-nav a, .links-auth a, .NavBar button {
+    .links-nav, .links-auth, .NavBar .logout-button {
       width: 100%;
-      text-align: center;
+      text-align: left;
       margin: 5px 0;
     }
   }
