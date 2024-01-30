@@ -75,18 +75,18 @@ export const fetchTrip = (tripId) => async dispatch => {
 
 export const composeTrip = data => async dispatch => {
   try {
-    console.log("=======");
-    console.log(data);
     const res = await jwtFetch('/api/trips/', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
     const trip = await res.json();
-    dispatch(receiveTrip(trip));
-  } catch(err) {
+    console.log("Received trip data:", trip);
+    dispatch(createTrip(trip));
+  } catch (err) {
     const resBody = await err.json();
     if (resBody.statusCode === 400) {
-      return dispatch(receiveErrors(resBody.errors));
+      dispatch(receiveErrors(resBody.errors));
     }
   }
 };
@@ -149,26 +149,48 @@ export const generateTrip = (data) => async dispatch => {
 };
 
 const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
-    switch(action.type) {
-      case CREATE_TRIP:
-        state["trip"] = action.trip;
-        return { ...state};
-      case RECEIVE_TRIPS:
-        return {...state, all: action.trips, new: undefined}
-      case RECEIVE_TRIP:
-        return {...state, user: action.trip.id, new: action.trip}
-      case REMOVE_TRIP:
-        // console.log("hit");
-        // console.log(state.trips);
-        // console.log(state.trips.all);
-        // console.log(action.tripId);
-        // delete state.trips.all[action.tripId];
-        return state;
-      case RECEIVE_USER_LOGOUT:
-        return { ...state, user: {}, new: undefined }
-      default:
-        return state;
-    }
-  };
+  switch(action.type) {
+    case CREATE_TRIP:
+      // Correctly adds the new trip to the 'all' object
+      return {
+        ...state,
+        all: { ...state.all, [action.trip.id]: action.trip }
+      };
+
+    case RECEIVE_TRIPS:
+      // Assuming 'action.trips' is an array of trip objects
+      const newAll = {};
+      action.trips.forEach(trip => {
+        newAll[trip.id] = trip;
+      });
+      return {
+        ...state,
+        all: newAll
+      };
+
+    case RECEIVE_TRIP:
+      return {
+        ...state,
+        all: { ...state.all, [action.trip.id]: action.trip },
+        user: action.trip.id,  // Assuming you store trip ID here
+        new: action.trip
+      };
+
+    case REMOVE_TRIP:
+      const updatedAll = { ...state.all };
+      delete updatedAll[action.tripId];
+      return {
+        ...state,
+        all: updatedAll
+      };
+
+    case RECEIVE_USER_LOGOUT:
+      return { ...state, user: {}, new: undefined };
+
+    default:
+      return state;
+  }
+};
+
   
   export default tripsReducer;
