@@ -2,21 +2,31 @@ import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import * as tripActions from "../../store/trips.js"
+import * as itineraryActions from "../../store/itineraries.js"
 import './MakeTrip.css'
 
 function MakeTrip() {
     let [location, setLocation] = useState("");
     let [startDate, setStartDate] = useState("");
     let [endDate, setEndDate] = useState("");
-    let [newDate, setNewDate] = useState("");
+
     let sessionUser = useSelector(state => state.session.user);
     let newTrip = useSelector(state => state.trips.new);
+    // let newTrip = useSelector(state => Object.values(state.trips.all)[0]);
+    let newItinerary = useSelector(state => state.itineraries.new);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         console.log(newTrip);
     }, [newTrip])
+    useEffect(() => {
+        console.log(newItinerary);
+    }, [newItinerary])
+    useEffect(() => {
+        dispatch(tripActions.fetchTrips());
+        dispatch(itineraryActions.fetchItineraries());
+    }, [])
 
     function handleCreateTrip(e) {
         e.preventDefault();
@@ -25,9 +35,33 @@ function MakeTrip() {
         let enddate = endDate;
         dispatch(tripActions.composeTrip({location, startdate, enddate, authorId}));
     }
+    function handleCreateItinerary(e) {
+        e.preventDefault();
+        
+        // get list of dates
+        var getDaysArray = function(start, end) {
+            for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+                arr.push(new Date(dt));
+            }
+            return arr;
+        };
+        let days = getDaysArray(newTrip.startdate, newTrip.enddate);
+        console.log(days);
+        // let ed = new Date(endDate);
+        // let edMonth = Date.getMonth(ed);
+        // console.log(edMonth);
+        // console.log(Date.getMonth(startDate));
+        // console.log(Date.getMonth(endDate));
+
+        let authorId = sessionUser._id;
+        // dispatch(itineraryActions.composeItinerary({authorId}));
+    }
 
     function handleClearDates(e) {
         e.preventDefault();
+    }
+    function checkItinerary(e) {
+        console.log(newItinerary);
     }
 
     return (
@@ -35,14 +69,12 @@ function MakeTrip() {
             <div className="tripHolder">
                 <p className="tripText">Location: </p>
                 <input className="tripInput" onChange={(e) => setLocation(e.target.value)} value={location}></input>
-                <p className="tripText">Dates: </p>
-                {/* {dates.map((date) => 
-                    <p className="tripText" key={date.toString()}>{date.toString()}</p>
-                )} */}
-                <input className="tripInput" onChange={(e) => setNewDate(e.target.value)} value={newDate}></input>
+                <p className="tripText">Start Date: </p>
+                <input className="tripInput" onChange={(e) => setStartDate(e.target.value)} value={startDate}></input>
+                <p className="tripText">End Date: </p>
+                <input className="tripInput" onChange={(e) => setEndDate(e.target.value)} value={endDate}></input>
                 <div className="tripHolder2">
-                    {/* <button onClick={(e) => handleAddDate(e)} className='tripButton'>Add Date</button> */}
-                    {/* <button onClick={(e) => handleClearDates(e)} className='tripButton'>Clear Dates</button> */}
+                
                     <button onClick={(e) => handleCreateTrip(e)} className='tripButton'>Create Trip</button>
                 </div>
             </div>
@@ -56,8 +88,20 @@ function MakeTrip() {
                         <p>{newTrip.location}</p>
                         <p>{newTrip.startdate}</p>
                         <p>{newTrip.enddate}</p>
-                        <p></p>
+                        <button onClick={(e) => handleCreateItinerary(e)} className='tripButton'>Create Itinerary</button>
                     </div>
+                    {newItinerary === null || newItinerary === undefined ? (
+                        <>
+
+                        </>
+                    ) : (
+                        <>
+                            <div className="tripHolder">
+                                <p>Your Itinerary</p>
+                                <button onClick={(e) => checkItinerary(e)} className='tripButton'>Check Itinerary</button>
+                            </div>
+                        </>
+                    )}
                 </>
             )}
         </>

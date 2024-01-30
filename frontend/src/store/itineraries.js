@@ -52,7 +52,7 @@ export const fetchItineraries = () => async dispatch => {
     console.log(itineraries);
     dispatch(receiveTrips(trips))
   } catch (err) {
-    const resBody = await err.json();
+    const resBody = await err;
     if (resBody.statusCode == 400){
       dispatch(receiveErrors(resBody.errors))
     }
@@ -82,7 +82,7 @@ export const composeItinerary = data => async dispatch => {
       body: JSON.stringify(data)
     });
     const itinerary = await res.json();
-    dispatch(receiveItinerary(itinerary));
+    dispatch(createItinerary(itinerary));
   } catch(err) {
     const resBody = await err.json();
     if (resBody.statusCode === 400) {
@@ -148,12 +148,13 @@ export const generateItinerary = (data) => async dispatch => {
 const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
     switch(action.type) {
       case CREATE_ITINERARY:
-        state["itinerary"] = action.itinerary;
-        return { ...state};
+        return {
+            ...state, all: { ...state.all, [action.itinerary._id]: action.itinerary }, new: action.itinerary
+            };
       case RECEIVE_ITINERARIES:
         return {...state, all: action.itineraries, new: undefined}
       case RECEIVE_ITINERARY:
-        return {...state, user: action.itinerary.id, new: action.trip}
+        return {...state, user: action.itinerary.id, new: action.itinerary}
       case REMOVE_ITINERARY:
         // console.log("hit");
         // console.log(state.trips);

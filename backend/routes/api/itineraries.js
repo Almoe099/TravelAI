@@ -52,7 +52,8 @@ router.delete('/:id', async(req,res) => {
 // GET ALL ITINERARIES
 router.get('/', async (req, res) => {
     try {
-        const itineraries = await Itinerary.find().populate("author", "_id username")
+        const itineraries = await Itinerary.find()
+                                .populate("author", "_id username")
                                 .sort({ createdAt: -1 });
         return res.json(itineraries);
     }

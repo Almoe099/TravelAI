@@ -6,6 +6,10 @@ const itinerarySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    // trip: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Trip'
+    // },
     itinerary: {
         type: Object,
         required: true
