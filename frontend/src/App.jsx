@@ -14,6 +14,7 @@ import NoteCompose from './components/Notes/NoteCompose';
 import CreateTrip from './components/Trips/CreateTrip';
 
 import { getCurrentUser } from './store/session';
+import TripShow from './components/Trips/TripShow';
 
 const Layout = () => {
   return (
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "trips",
         element: <CreateTrip />
+      },
+      {
+        path: "tripshow",
+        element: <TripShow />
       }
 
     ]
