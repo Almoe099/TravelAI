@@ -1,5 +1,5 @@
 .footer-space {
-  /* height: 50px; Adjust as needed */
+  /* Optional: Add styling for the space above the footer */
 }
 
 .footer-container {
@@ -7,6 +7,8 @@
   mask-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(1, 2, 3, 0.9));
   padding: 50px 0;
   color: #fff;
+  text-align: center;
+  position: relative;
 }
 
 .footer-column {
@@ -20,8 +22,15 @@
 }
 
 .column h3 {
-  font-size: 24px;
+  font-size: 18px;
   margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.column h1 {
+  font-size: 12px;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .column ul {
@@ -44,14 +53,29 @@
 }
 
 .LinkList {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
 }
 
+
 .link {
-    padding: 20px;
-    height: 100px;
-    object-fit: scale-down;
+  padding: 20px;
+  height: 100px;
+  object-fit: scale-down;
+}
+
+.rights {
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+.LinkList a {
+    padding: 10px; 
+    transition: transform 0.3s ease; /* Add animation transition */
+}
+
+.LinkList a:hover {
+  transform: scale(1.2); /* Slightly enlarge icons on hover */
 }
