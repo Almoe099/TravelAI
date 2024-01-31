@@ -4,6 +4,7 @@ import { composeTrip, fetchTrips, deleteTrip } from '../../store/trips';
 import TripBox from './Tripbox';
 import './Profile.css';
 import Footer from '../Footer/Footer';
+
 // import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 
 function Profile() {
@@ -63,6 +64,13 @@ function Profile() {
     <>
     <div className="profile-container">
       <div id="profile-left-half">
+        <div id="profile-right-half">
+        <div className="button-container">
+          <button className="create-button" onClick={handleNewTripClick}>
+            Create New Trip
+          </button>
+        </div>
+        </div>
         <h2>Upcoming Trips</h2>
         {sortedTrips.length === 0 ? (
           <div className="no-trips">No Upcoming Trips</div>
@@ -77,12 +85,7 @@ function Profile() {
           ))
         )}
       </div>
-      <div id="profile-right-half">
-        <div className="button-container">
-          <button className="create-button" onClick={handleNewTripClick}>
-            Create New Trip
-          </button>
-        </div>
+      </div>
         {isModalOpen && (
           <div id="profile-modal">
             <h3>Create a New Trip</h3>
@@ -102,8 +105,6 @@ function Profile() {
             <button onClick={handleModalClose}>Cancel</button>
           </div>
         )}
-      </div>
-    </div>
       <Footer />
       </>
   );

@@ -12,14 +12,25 @@ body, input, button {
     gap: 40px; /* Space between the two halves */
     background-color: #f7f7f7;
   }
+
+ 
   
-  #profile-left-half,
-  #profile-right-half {
-    flex-basis: 50%;
+  #profile-left-half {
+    flex-basis: 60%;
     padding: 30px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  #profile-right-half {
+    padding: 20px;
+    padding-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    /* margin-left: 200px;
+    margin-right: 200px; */
   }
 
   #profile-left-half {
@@ -198,4 +209,33 @@ button {
   
   .trip-box button:nth-child(2) {
     background-color: #e96e65; /* Red color for delete button */
+  }
+
+  .planeImage {
+    height: 300px;
+    object-fit: scale-down;
+    /* margin-top: 150px; */
+    max-width: 100%; /* Ensure the image is responsive and doesn't overflow */
+    height: 500px; /* Maintain aspect ratio */
+    /* margin-bottom: 20px; Space between the image and the text */
+    /* filter: invert(25%) sepia(20%) saturate(1000%) hue-rotate(270deg) brightness(60%) contrast(90%); */
+  }
+
+  .profile-right {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 50px;
+  }
+  .profile-right h1 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  #profile-right-half3 {
+    flex-basis: 50%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
