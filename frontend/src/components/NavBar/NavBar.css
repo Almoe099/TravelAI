@@ -93,3 +93,7 @@
     }
   }
   
+.TravelAiLogo{
+  height: 50px;
+  object-fit: scale-down
+}

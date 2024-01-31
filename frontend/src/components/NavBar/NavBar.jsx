@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './NavBar.css';
 import { logout } from '../../store/session';
+import TravelAILogo from '../../../public/TravelAILogo.png';
 
 function NavBar() {
   const loggedIn = useSelector(state => !!state.session.user);
@@ -16,7 +17,10 @@ function NavBar() {
 
   return (
     <nav className="NavBar">
-      <Link to={'/profile'} className='homeButton'><h1>TravelAI</h1></Link>
+      <Link to={'/profile'}>
+        <img src={TravelAILogo} alt="TravelAI logo image" className="TravelAiLogo" />
+      </Link>
+  
       <div className="nav-links-container">
         <div className={loggedIn ? 'links-nav' : 'links-auth'}>
           {loggedIn ? (
