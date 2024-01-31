@@ -14,6 +14,7 @@ const TripShow = () => {
     const myTrip = useSelector(state => state.trips.new);
     const myItinerary = useSelector(state => state.itineraries.selected);
     const itineraries = useSelector(state => state.itineraries.all);
+    const mySuggestions = useSelector(state => state.itineraries.suggestions)
     const [check, setCheck] = useState(false);
     const [option1, setOption1] = useState("option 1");
     const [option2, setOption2] = useState("option 2");
@@ -51,12 +52,19 @@ const TripShow = () => {
             // console.log(myItinerary);
         }
     }, [myItinerary])
+    useEffect(() => {
+        if (mySuggestions !== null && mySuggestions !== undefined) {
+            console.log(mySuggestions);
+        }
+    }, [mySuggestions])
 
     function findItineraryByTripId(tripId) {
         let itineraries2 = [];
         for (let i = 0; i < itineraries.length; i++) {
-            if (itineraries[i].trip._id === tripId) {
-                itineraries2.push(itineraries[i]);
+            if (itineraries[i].trip !== null && itineraries[i].trip !== undefined) {
+                if (itineraries[i].trip._id === tripId) {
+                    itineraries2.push(itineraries[i]);
+                }
             }
         }
         let itinerary = null;
@@ -124,7 +132,6 @@ const TripShow = () => {
     }
     function handleAddToItinerary(e, myActivity){
         e.preventDefault();
-
         // console.log("=======");
         // console.log("START ITINERARY");
         // console.log(myItinerary.itinerary);
@@ -158,6 +165,59 @@ const TripShow = () => {
         let id = myItinerary._id
         dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
     }
+    function handleDeleteFromItinerary(e, myActivity) {
+        e.preventDefault();
+        let itinerary = Object.entries(myItinerary.itinerary);
+        let used = false;
+        for (let i = 0; i < itinerary.length; i++) {
+            for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
+                if (!used) {
+                    if (Object.entries(itinerary[i][1])[j][1] === myActivity) {
+                        // set.
+                        let newDay = Object.assign(itinerary[i][1]);
+                        newDay = Object.entries(newDay);
+                        newDay[j][1] = "";
+                        newDay = Object.fromEntries(newDay);
+                        itinerary[i][1] = newDay;
+                        used = true;
+                    }
+                }
+            }
+        }
+        itinerary = Object.fromEntries(itinerary);
+        let author = sessionUser._id;
+        let trip = myTrip._id;
+        let id = myItinerary._id
+        dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
+    }
+    function handleClearItinerary(e) {
+        e.preventDefault();
+        let itinerary = Object.entries(myItinerary.itinerary);
+        for (let i = 0; i < itinerary.length; i++) {
+            for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
+                if (Object.entries(itinerary[i][1])[j][1] !== "") {
+                    // set.
+                    let newDay = Object.assign(itinerary[i][1]);
+                    newDay = Object.entries(newDay);
+                    newDay[j][1] = "";
+                    newDay = Object.fromEntries(newDay);
+                    itinerary[i][1] = newDay;
+                }
+            }
+        }
+        itinerary = Object.fromEntries(itinerary);
+        let author = sessionUser._id;
+        let trip = myTrip._id;
+        let id = myItinerary._id;
+        dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
+    }
+    function handleSuggestActivities(e) {
+        e.preventDefault();
+        console.log("SUGGESTING ACTIVITIES !!!");
+
+        let location = myTrip.location;
+        dispatch(itineraryActions.suggestActivities({location}));
+    }
 
     function showItinerary() {
         if (myItinerary.itinerary === undefined) {
@@ -172,15 +232,67 @@ const TripShow = () => {
                     <h2 className='subHeader'>{formatTripDate(day[0], "short")}</h2>
                     {checkIfHasPlans(day[1]) ? (
                         <>
-                            <p className="dayPlans">{Object.values(day[1])[0]}</p>
-                            <p className="dayPlans">{Object.values(day[1])[1]}</p>
-                            <p className="dayPlans">{Object.values(day[1])[2]}</p>
+                            <div className="dayPlanBox">
+                                    {Object.values(day[1])[0] === "" ? (
+                                        <>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="dayPlanHolder">
+                                                <div className="dayPlanTextHolder">
+                                                    <p className="dayPlans">{Object.values(day[1])[0]}</p>
+                                                </div>
+                                                <div className="dayPlanDeleteHolder">
+                                                    <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, Object.values(day[1])[0])}>Delete</button>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                    {Object.values(day[1])[1] === "" ? (
+                                            <>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="dayPlanHolder">
+                                                    <div className="dayPlanTextHolder">
+                                                        <p className="dayPlans">{Object.values(day[1])[1]}</p>
+                                                    </div>
+                                                    <div className="dayPlanDeleteHolder">
+                                                        <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, Object.values(day[1])[1])}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            </>
+                                    )}
+                                    {Object.values(day[1])[2] === "" ? (
+                                            <>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="dayPlanHolder">
+                                                    <div className="dayPlanTextHolder">
+                                                        <p className="dayPlans">{Object.values(day[1])[2]}</p>
+                                                    </div>
+                                                    <div className="dayPlanDeleteHolder">
+                                                        <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, Object.values(day[1])[2])}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            </>
+                                    )}
+                            </div>
                         </>
                     ) : (
                         <>
-                            <p className="dayPlans">No Plans Yet!</p>
-                            <p className="dayPlans"></p>
-                            <p className="dayPlans"></p>
+                            <div className="dayPlanBox">
+                                <div className="dayPlanHolder">
+                                    <p className="dayPlansEmpty">No Plans Yet!</p>
+                                </div>
+                                <div className="dayPlanHolder">
+                                    <p className="dayPlans"></p>
+                                </div>
+                                <div className="dayPlanHolder">
+                                    <p className="dayPlans"></p>
+                                </div>
+                            </div>
                             
                         </>
                     )} 
@@ -208,7 +320,7 @@ const TripShow = () => {
         </div>
 
         <div className='TripButtonContainer'>
-          <button className='button activityButton'>Suggest Activities</button>
+          <button onClick={(e) => handleSuggestActivities(e)} className='button activityButton'>Suggest Activities</button>
           <button className='button restaurantButton'>Suggest Restaurants</button>
           <button className='button itineraryButton'>Generate Itinerary</button>
         </div>
@@ -231,7 +343,12 @@ const TripShow = () => {
       </div>
 
       <div className="ItineraryHalf">
-        <h1 className='intineraryH1'>Your Itinerary</h1>
+        <div className="ItineraryTopBar">
+            <h1 className='yourItinerary'>Your Itinerary</h1>
+            <div className="clearButtonHolder">
+                <button onClick={(e) => handleClearItinerary(e)}className='clearButton'>Clear Itinerary</button>
+            </div>
+        </div>
         {/* Placeholder for Itinerary Component */}
         <ul className='itineraryList'>
           {/* Iterate through itinerary data to generate this list */}

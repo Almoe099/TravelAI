@@ -4,6 +4,7 @@ import { RECEIVE_USER_LOGOUT } from './session';
 
 const SELECT_ITINERARY = "itineraries/SELECT_ITINERARY";
 const CREATE_ITINERARY = "itineraries/CREATE_ITINERARY";
+const CREATE_SUGGESTIONS = "itineraries/CREATE_SUGGESTIONS";
 const CLEAR_SELECTED = "itineraries/CLEAR_SELECTED";
 const RECEIVE_ITINERARIES = "itineraries/RECEIVE_ITINERARIES";
 const UPDATE_ITINERARY = "itineraries/UPDATE_ITINERARY";
@@ -15,6 +16,10 @@ const createItinerary = itinerary => ({
   type: CREATE_ITINERARY,
   itinerary
 });
+const createSuggestions = suggestions => ({
+    type: CREATE_SUGGESTIONS,
+    suggestions
+})
 
 const receiveItineraries = itineraries => ({
   type: RECEIVE_ITINERARIES,
@@ -151,17 +156,47 @@ export const deleteItinerary = itineraryId => async dispatch => {
   }
 };
 
+// CHATGPT STUFF
+export const suggestActivities = (data) => async dispatch => {
+    try {
+        const res = await jwtFetch('/api/itineraries/GPT/activities', {
+            method: 'POST',
+            body: JSON.stringify(data)
+          });
+        const suggestions = await res.json();
+        dispatch(createSuggestions(suggestions));
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            dispatch(receiveErrors(resBody.errors));
+        }
+    }
+};
+export const suggestRestaurants = (data) => async dispatch => {
+    try {
+        const res = await jwtFetch('/api/itineraries/GPT/restaurants', {
+            method: 'POST',
+            body: JSON.stringify(data)
+          });
+        const suggestions = await res.json();
+        dispatch(createSuggestions(suggestions));
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            dispatch(receiveErrors(resBody.errors));
+        }
+    }
+};
+
 export const generateItinerary = (data) => async dispatch => {
     try {
-        console.log(data);
-        console.log("DATA");
+        // console.log(data);
+        // console.log("DATA");
         const res = await jwtFetch('/api/itineraries/GPT', {
             method: 'POST',
             body: JSON.stringify(data)
           });
         const itinerary = await res.json();
-        console.log(itinerary);
-        console.log("DONE!");
         dispatch(createItinerary(itinerary));
     } catch (err) {
         const resBody = await err.json();
@@ -176,6 +211,8 @@ const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, actio
     console.log(newAll);
 
     switch(action.type) {
+        case CREATE_SUGGESTIONS:
+            return {...state, suggestions: action.suggestions}
         case SELECT_ITINERARY:
             return {...state, selected: action.itinerary}
         case CLEAR_SELECTED:
