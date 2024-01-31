@@ -10,7 +10,6 @@ const Footer = () => {
         <div className='footer-column'>
           <div className='column'>
             <h3>Christopher Green</h3>
-            <h1>Team&apos;s Lead</h1>
             <div className='LinkList'>
               <a href='https://github.com/cgreen66' target='_blank' rel='noopener noreferrer'>
                 <FaGithub size={30} color='#fff' />
@@ -27,7 +26,6 @@ const Footer = () => {
 
           <div className='column'>
             <h3>Nick Cioffi</h3>
-            <h1>Team&apos;s Backend</h1>
             <div className='LinkList'>
               <a href='https://github.com/ncioffi1' target='_blank' rel='noopener noreferrer'>
                 <FaGithub size={30} color='#fff' />
@@ -44,7 +42,6 @@ const Footer = () => {
 
           <div className='column'>
             <h3>Almutasim Mohamed</h3>
-            <h1>Team&apos;s Frontend</h1>
             <div className='LinkList'>
               <a href='https://github.com/almoe099' target='_blank' rel='noopener noreferrer'>
                 <FaGithub size={30} color='#fff'  className="icons"/>

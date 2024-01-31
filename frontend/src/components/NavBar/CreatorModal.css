@@ -1,5 +1,12 @@
 /* CreatorModal.css */
 
+.logo-image {
+    filter: invert(25%) sepia(80%) saturate(1000%) hue-rotate(230deg) brightness(70%) contrast(90%);
+    width: 450px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
 .creator-modal-backdrop {
     position: fixed;
     top: 0;
@@ -18,8 +25,8 @@
     padding: 40px;
     border-radius: 15px; /* Slightly larger border-radius for a softer look */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Softer shadow for depth */
-    width: 80%; /* Larger width for a more spacious layout */
-    max-width: 1140px; /* Accommodate larger screens */
+    width: 90%; /* Larger width for a more spacious layout */
+    max-width: 1200px; /* Accommodate larger screens */
     animation: modalEnter 0.3s ease-out;
     display: flex;
     flex-direction: column; /* Stack content vertically */
@@ -146,4 +153,80 @@
   .social-icon:hover {
     color: #007bff;
     transform: scale(1.1); /* Slightly enlarge icons on hover */
+  }
+
+
+  .modal-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab.active {
+    background-color: #eaeaea; /* Active tab background */
+    color: #333;
+    border-radius: 15px;
+  }
+  
+  .about-section {
+    text-align: left; /* Align text to the left for a cleaner look */
+    color: #333; /* Darker text for better readability */
+    padding: 20px; /* Add padding for spacing */
+    background-color: #f4f4f4; /* Subtle background color */
+    border-radius: 4px; /* Soften the corners */
+    margin-top: 20px; /* Space from the header */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+  }
+  
+  .technologies-used {
+    display: flex; /* Use grid for better alignment of elements */
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Responsive grid */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;  
+    align-items: center; /* Center items vertically */
+    padding: 20px; /* Padding inside the grid */
+    background-color: #fff; /* White background for the grid area */
+    border-radius: 4px; /* Rounded corners for the grid area */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow for each technology */
+    margin-top: 10px; /* Space from the summary text */
+  }
+
+  .creator-modal .about-section .technologies-title {
+    font-size: 25px; /* Adjusted size for the title */
+    margin-top: 40px; /* Increased space above the title */
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center;
+  }
+  
+  .technology-icon {
+    display: inline-flex; /* Use inline-flex for alignment */
+    justify-content: center;
+    align-items: center;
+    width: 45px; /* Adjust based on the new size of icons */
+    height: 45px; /* Adjust based on the new size of icons */
+  }
+
+  .technologies-used img {
+    width: 40px; /* Example size, adjust as needed */
+    height: 40px;
+  }
+
+  .technology-name {
+    display: block; /* Names take their own line */
+    text-align: center; /* Center text */
+    font-size: 0.9rem; /* Smaller font size for technology names */
+    color: #333; /* Color for readability */
+    text-transform: uppercase; /* Uppercase for a more formal look */
+    font-weight: bold; /* Bold for emphasis */
   }
