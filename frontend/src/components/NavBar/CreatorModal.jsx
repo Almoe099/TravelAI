@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './CreatorModal.css'; 
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import TechnologyStack from './TechnologyStack';
 import logo from '../../Pictures/TravelAI-1-31-2024_1.png'
 
@@ -42,9 +42,9 @@ const CreatorModal = ({ show, onClose, creators, projectInfo }) => {
             
             {activeTab === 'about' && (
               <div className="about-section">
-                {projectInfo.summary.split("\n\n").map((paragraph, index) => (
-                  <p key={index}>{paragraph.trim()}</p>
-                ))}
+    {projectInfo.summary.split("\n\n").map((paragraph, index) => (
+      <p key={index}>{paragraph.trim()}</p>
+    ))}
                 <h2 className="technologies-title">Technologies Used</h2>
                 <div className="technologies-used">
                   {projectInfo.technologies.map((tech, index) => (
@@ -73,6 +73,9 @@ const CreatorModal = ({ show, onClose, creators, projectInfo }) => {
                       <a href={creator.linkedin} target="_blank" rel="noopener noreferrer">
                         <FaLinkedin className="social-icon" />
                       </a>
+                      <a href={`mailto:${creator.email}`} target="_blank" rel="noopener noreferrer">
+                    <FaEnvelope className="social-icon" /> {/* Add the email button */}
+                  </a>
                     </div>
                   </div>
                 ))}
