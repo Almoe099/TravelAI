@@ -16,7 +16,7 @@ function NavBar() {
 
   return (
     <nav className="NavBar">
-      <Link to={'/profile'} className='homeButton'><h1>Travel AI</h1></Link>
+      <Link to={'/profile'} className='homeButton'><h1>TravelAI</h1></Link>
       <div className="nav-links-container">
         <div className={loggedIn ? 'links-nav' : 'links-auth'}>
           {loggedIn ? (
