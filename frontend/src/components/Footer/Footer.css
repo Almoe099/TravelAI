@@ -1,0 +1,57 @@
+.footer-space {
+  /* height: 50px; Adjust as needed */
+}
+
+.footer-container {
+  background-color: #5e548e;
+  mask-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(1, 2, 3, 0.9));
+  padding: 50px 0;
+  color: #fff;
+}
+
+.footer-column {
+  display: flex;
+  justify-content: space-around;
+}
+
+.column {
+  flex: 1;
+  text-align: center;
+}
+
+.column h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.column li {
+  margin-bottom: 10px;
+}
+
+.column a {
+  text-decoration: none;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.column a:hover {
+  color: #fff;
+}
+
+.LinkList {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.link {
+    padding: 20px;
+    height: 100px;
+    object-fit: scale-down;
+}

@@ -26,6 +26,7 @@ body, input, button {
     background-color: #f8f8f8; /* A slightly different shade for background */
     padding: 40px; /* More padding for better spacing */
     border-radius: 10px; /* Slightly rounder corners */
+    margin-bottom: 300px;
   }
 
   /* Typography */

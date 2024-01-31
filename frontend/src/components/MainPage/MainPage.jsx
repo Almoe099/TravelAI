@@ -5,6 +5,7 @@ import './MainPage.css';
 import { login } from '../../store/session';
 import { useDispatch } from 'react-redux';
 import airplaneGlobeImage from '../../../public/Noun_15537_ccElliotVerhaeren_travel.svg.png';
+import Footer from '../Footer/Footer';
 
 function MainPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -29,6 +30,7 @@ function MainPage() {
   const formContainerClass = isLogin ? "form-container login" : "form-container signup";
   
   return (
+    <>
     <div className="main-page">
       <div className="content-section">
         <div className="info-section">
@@ -50,6 +52,7 @@ function MainPage() {
         </div>
       </div>
     </div>
+    </>
   );
   }  
 
