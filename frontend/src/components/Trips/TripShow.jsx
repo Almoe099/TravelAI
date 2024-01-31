@@ -15,6 +15,16 @@ const TripShow = () => {
     const myItinerary = useSelector(state => state.itineraries.selected);
     const itineraries = useSelector(state => state.itineraries.all);
     const [check, setCheck] = useState(false);
+    const [option1, setOption1] = useState("option 1");
+    const [option2, setOption2] = useState("option 2");
+    const [option3, setOption3] = useState("option 3");
+    const [option4, setOption4] = useState("option 4");
+    const [option5, setOption5] = useState("option 5");
+    const [option6, setOption6] = useState("option 6");
+    const [option7, setOption7] = useState("option 7");
+    const [option8, setOption8] = useState("option 8");
+    const [option9, setOption9] = useState("option 9");
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,14 +47,18 @@ const TripShow = () => {
     }, [itineraries])
     useEffect(() => {
         if (myItinerary !== null && myItinerary !== undefined) {
-            console.log("MY ITINERARY");
-            console.log(myItinerary);
+            // console.log("MY ITINERARY");
+            // console.log(myItinerary);
         }
     }, [myItinerary])
 
     function findItineraryByTripId(tripId) {
-        let itineraries1 = itineraries;
-        let itineraries2 = itineraries1.filter((entry) => entry.trip._id === tripId);
+        let itineraries2 = [];
+        for (let i = 0; i < itineraries.length; i++) {
+            if (itineraries[i].trip._id === tripId) {
+                itineraries2.push(itineraries[i]);
+            }
+        }
         let itinerary = null;
         if (itineraries2.length >= 1) {
             itinerary = itineraries2[0];
@@ -108,13 +122,49 @@ const TripShow = () => {
         }
         return false;
     }
+    function handleAddToItinerary(e, myActivity){
+        e.preventDefault();
+
+        // console.log("=======");
+        // console.log("START ITINERARY");
+        // console.log(myItinerary.itinerary);
+        let itinerary = Object.entries(myItinerary.itinerary);
+        let used = false;
+        for (let i = 0; i < itinerary.length; i++) {
+            for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
+                if (!used) {
+                    // console.log("=======");
+                    // console.log(Object.entries(itinerary[i][1]));
+                    // console.log(Object.entries(itinerary[i][1])[j]);
+                    // console.log(Object.entries(itinerary[i][1])[j][1]);
+                    if (Object.entries(itinerary[i][1])[j][1] === "") {
+                        // set.
+                        let newDay = Object.assign(itinerary[i][1]);
+                        newDay = Object.entries(newDay);
+                        newDay[j][1] = myActivity;
+                        newDay = Object.fromEntries(newDay);
+                        itinerary[i][1] = newDay;
+                        used = true;
+                    }
+                }
+            }
+        }
+        // console.log("=======");
+        // console.log("END ITINERARY");
+        itinerary = Object.fromEntries(itinerary);
+        // console.log(itinerary);
+        let author = sessionUser._id;
+        let trip = myTrip._id;
+        let id = myItinerary._id
+        dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
+    }
 
     function showItinerary() {
+        if (myItinerary.itinerary === undefined) {
+            return;
+        }
         // console.log(myItinerary.itinerary);
-        console.log(Object.entries(myItinerary.itinerary));
-        // Object.entries(myItinerary.itinerary).map((day) => {
-        //     <h2 className='subHeader'>TEST</h2>
-        // })
+        // console.log(Object.entries(myItinerary.itinerary));
         return (
             <>  
                 {Object.entries(myItinerary.itinerary).map(day => 
@@ -141,11 +191,11 @@ const TripShow = () => {
     }
 
     if (myTrip === null || myTrip === undefined) {
-        console.log("myTrip");
+        // console.log("myTrip");
         return null;
     }
     if (myItinerary === null || myItinerary === undefined) {
-        console.log("myItinerary");
+        // console.log("myItinerary");
         return null;
     }
 
@@ -166,15 +216,15 @@ const TripShow = () => {
         <div className='selectionContainer'>
           {/* Placeholder for TripOptions Component */}
           <ul className='optionList'>
-          <li className='option'> Option 1</li>
-          <li className='option'> Option 2</li>
-          <li className='option'> Option 3</li>
-          <li className='option'> Option 4</li>
-          <li className='option'> Option 5</li>
-          <li className='option'> Option 6</li>
-          <li className='option'> Option 7</li>
-          <li className='option'> Option 8</li>
-          <li className='option'> Option 9</li>
+          <li onClick={(e) => handleAddToItinerary(e, option1)} className='option'>{option1}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option2)} className='option'>{option2}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option3)} className='option'>{option3}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option4)} className='option'>{option4}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option5)} className='option'>{option5}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option6)} className='option'>{option6}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option7)} className='option'>{option7}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option8)} className='option'>{option8}</li>
+          <li onClick={(e) => handleAddToItinerary(e, option9)} className='option'>{option9}</li>
             {/* Additional options can be added here */}
           </ul>
         </div>
