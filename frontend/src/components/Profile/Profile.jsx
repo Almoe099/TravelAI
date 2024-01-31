@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { composeTrip, fetchTrips, deleteTrip } from '../../store/trips';
 import TripBox from './Tripbox';
 import './Profile.css';
+import Footer from '../Footer/Footer';
 // import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 
 function Profile() {
@@ -59,6 +60,7 @@ function Profile() {
   };
 
   return (
+    <>
     <div className="profile-container">
       <div id="profile-left-half">
         <h2>Upcoming Trips</h2>
@@ -102,6 +104,8 @@ function Profile() {
         )}
       </div>
     </div>
+      <Footer />
+      </>
   );
 }
 
