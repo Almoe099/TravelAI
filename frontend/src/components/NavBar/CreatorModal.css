@@ -20,6 +20,10 @@
     z-index: 1000;
   }
   
+  .creator-modal .about-section p {
+    margin-bottom: 16px; /* Adjust the value as needed to control the spacing between paragraphs */
+  }
+
   .creator-modal {
     background-color: white;
     padding: 40px;
@@ -112,13 +116,14 @@
   }
   
   .social-links {
+    display: flex;
     justify-content: center;
-    gap: 20px; /* Increase gap for better separation */
+    gap: 10px; /* Increase gap for better separation */
   }
   
   .social-icon {
-    width: 40px; /* Larger icon size */
-    height: 40px;
+    width: 35px; /* Larger icon size */
+    height: 35px;
     color: #5e548e;
     transition: color 0.3s; /* Transition for color change on hover */
   }
@@ -169,7 +174,7 @@
     font-size: 1rem;
     cursor: pointer;
     margin: 0 5px;
-    transition: background-color 0.3s ease;
+    animation: tabEnter 0.3s ease; /* Apply animation */
   }
   
   .tab.active {
@@ -178,9 +183,11 @@
     border-radius: 15px;
   }
   
+  
   .about-section {
     text-align: left; /* Align text to the left for a cleaner look */
     color: #333; /* Darker text for better readability */
+    font-size: 20px;
     padding: 20px; /* Add padding for spacing */
     background-color: #f4f4f4; /* Subtle background color */
     border-radius: 4px; /* Soften the corners */
@@ -215,11 +222,13 @@
     align-items: center;
     width: 45px; /* Adjust based on the new size of icons */
     height: 45px; /* Adjust based on the new size of icons */
+    transition: transform 0.3s ease, color 0.3s ease;
   }
 
   .technologies-used img {
     width: 40px; /* Example size, adjust as needed */
     height: 40px;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
   .technology-name {
@@ -229,4 +238,25 @@
     color: #333; /* Color for readability */
     text-transform: uppercase; /* Uppercase for a more formal look */
     font-weight: bold; /* Bold for emphasis */
+  }
+
+  .technology-icon:hover {
+    transform: scale(1.2); /* Enlarge icons on hover */
+    color: #007bff; /* Change color on hover */
+  }
+  
+  .technologies-used img:hover {
+    transform: scale(1.2); /* Enlarge images on hover */
+    filter: brightness(150%); /* Highlight images on hover */
+  }
+
+  @keyframes tabEnter {
+    from {
+      transform: scale(0.95);
+      opacity: 0.7;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }

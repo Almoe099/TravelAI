@@ -17,11 +17,12 @@ function NavBar() {
   const navigate = useNavigate();
 
   const projectInfo = {
-    summary: `TravelAI revolutionizes travel planning by harnessing the power of AI to provide personalized destination recommendations and streamlined itinerary planning. Users can set up a profile, enter their travel preferences, and quickly receive AI-curated travel options that cater to their unique tastes and budget constraints.
-  
+    summary: `TravelAI revolutionizes travel planning by harnessing the power of AI to provide highly personalized destination recommendations and streamlined itinerary planning. Upon setting up a profile, users have the opportunity to define their travel preferences with precision, ranging from specific interests to dietary requirements. Our AI-driven system then rapidly curates a range of travel options tailored to each individual's unique tastes and budget constraints.
 
-    
-    The platform's interface, built on React.js and Node.js, offers a user-friendly experience, while MongoDB ensures robust data management. Our platform simplifies the journey from destination selection to trip creation with an intuitive drag-and-drop interface for itinerary planning. It presents users with a selection of activities and dining experiences, alongside essential travel guides and cultural insights, making TravelAI an indispensable companion for modern travelers seeking tailored travel experiences.`,
+    \n\n
+    The platform's interface, meticulously crafted using cutting-edge technologies such as React.js and Node.js, guarantees a user-friendly and visually appealing experience. Behind the scenes, MongoDB handles data management with utmost efficiency, ensuring that your travel plans are securely stored and readily accessible.\n\n
+    Our platform takes the hassle out of the entire travel planning process, from selecting a destination to creating a comprehensive itinerary. Thanks to an intuitive drag-and-drop interface, users can effortlessly organize their travel schedules, incorporating activities, dining experiences, and more. Additionally, TravelAI provides access to a wealth of travel guides and cultural insights, empowering modern travelers with valuable information and local knowledge.
+    In summary, TravelAI is not just a travel planning tool; it's your ultimate companion for crafting personalized travel experiences that cater to your every need and desire.`,
     technologies: [
       { name: 'MongoDB', icon: DiMongodb, color: "#47A248", link: 'https://www.mongodb.com/' },
       { name: 'Express.js', icon: SiExpress, color: "#000000", link: 'https://expressjs.com/' },
@@ -35,7 +36,7 @@ function NavBar() {
       { name: 'Prettier', icon: SiPrettier, color: "#F7B93E", link: 'https://prettier.io/' },
       { name: 'Postman', icon: SiPostman, color: "#FF6C37", link: 'https://www.postman.com/' },
       { name: 'Redux', icon: SiRedux, color: "#764ABC", link: 'https://redux.js.org/' },
-      // { name: 'AWS', icon: FaAws, color: "#FF9900", link: 'https://aws.amazon.com/' },
+      { name: 'AWS', icon: FaAws, color: "#FF9900", link: 'https://aws.amazon.com/' },
       { name: 'AWS S3', icon: FaAws, color: "#569A31", link: 'https://aws.amazon.com/s3/' },
       { name: 'Visual Studio Code', icon: SiVisualstudiocode, color: "#007ACC", link: 'https://code.visualstudio.com/' },
     ],
@@ -49,6 +50,7 @@ function NavBar() {
       role: 'Team Lead',
       github: 'https://github.com/cgreen66', 
       linkedin: 'https://linkedin.com/in/christophergreenn',
+      email: 'christophergreennyc@gmail.com',
       image: 'https://amasphere-seeds1.s3.amazonaws.com/IMG_1978.jpg'
     },
     { 
@@ -56,6 +58,7 @@ function NavBar() {
       role: 'Backend',
       github: 'https://github.com/ncioffi1', 
       linkedin: 'https://linkedin.com/in/creator1',
+      email: 'imnickcioffi@gmail.com',
       image: 'https://amasphere-seeds1.s3.amazonaws.com/Panigale-V4R-MY23-Model-Preview-1050x650.png' 
     },
     { 
@@ -63,6 +66,7 @@ function NavBar() {
       role: 'Frontend',
       github: 'https://github.com/almoe099', 
       linkedin: 'https://linkedin.com/in/creator2',
+      email: 'almoe099@gmail.com',
       image: 'https://amasphere-seeds1.s3.amazonaws.com/MY-21-Superleggera-V4-01-Model-Blocks-630x390-v03.png'
     }
   ];
