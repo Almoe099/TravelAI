@@ -6,11 +6,13 @@ import './Profile.css';
 import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 
 function Profile() {
+  const sessionUser = useSelector(state => state.session.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTripData, setNewTripData] = useState({
     location: '',
     startdate: '',
     enddate: '',
+    author: sessionUser._id,
   });
 
   const dispatch = useDispatch();
@@ -29,12 +31,12 @@ function Profile() {
 
   const handleNewTripClick = () => {
     setIsModalOpen(true);
-    setNewTripData({ location: '', startdate: '', enddate: '' });
+    setNewTripData({ location: '', startdate: '', enddate: '', author: sessionUser._id });
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setNewTripData({ location: '', startdate: '', enddate: '' });
+    setNewTripData({ location: '', startdate: '', enddate: '', author: sessionUser._id });
   };
 
   const handleInputChange = (e) => {
@@ -52,7 +54,7 @@ function Profile() {
   };
 
   const handleViewTrip = tripId => {
-    history.push(`/trips/${tripId}`); // Adjust the URL according to your routing
+    // history.push(`/trips/${tripId}`); // this line doesn't work...  am navigating from tripbox now.
   };
 
   return (
