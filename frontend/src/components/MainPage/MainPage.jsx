@@ -4,6 +4,7 @@ import SignupForm from '../SessionForms/SignupForm';
 import './MainPage.css';
 import { login } from '../../store/session';
 import { useDispatch } from 'react-redux';
+import airplaneGlobeImage from '/Users/christopher/TravelAI/frontend/public/Noun_15537_ccElliotVerhaeren_travel.svg.png';
 
 function MainPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,22 +26,25 @@ function MainPage() {
     }
   };
   
+  const formContainerClass = isLogin ? "form-container login" : "form-container signup";
   
   return (
     <div className="main-page">
       <div className="content-section">
         <div className="info-section">
+          <img src={airplaneGlobeImage} alt="Airplane flying over a globe" className="info-image" />
           <h2>Welcome to TravelAI</h2>
           <p>Your smart companion for travel planning!</p>
         </div>
         <div className="form-section">
-          <div className="form-container">
+          <div className={formContainerClass}>
             {isLogin ? <LoginForm /> : <SignupForm />}
+            <div className="divider"></div>
             <button onClick={handleDemoLogin} className="demo-login-btn">
               Demo Login
             </button>
             <button onClick={() => setIsLogin(!isLogin)} className="toggle-form">
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Log in"}
+              {isLogin ? "Create new account" : "Log in"}
             </button>
           </div>
         </div>

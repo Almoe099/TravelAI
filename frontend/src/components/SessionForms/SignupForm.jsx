@@ -60,7 +60,7 @@ function SignupForm () {
         <input type="text"
           value={email}
           onChange={update('email')}
-          placeholder="Email"
+          placeholder="Enter your email"
         />
       </label>
       <div className="errors">{errors?.username}</div>
@@ -69,7 +69,7 @@ function SignupForm () {
         <input type="text"
           value={username}
           onChange={update('username')}
-          placeholder="Username"
+          placeholder="Choose a username"
         />
       </label>
       <div className="errors">{errors?.password}</div>
@@ -78,7 +78,7 @@ function SignupForm () {
         <input type="password"
           value={password}
           onChange={update('password')}
-          placeholder="Password"
+          placeholder="Create a password"
         />
       </label>
       <div className="errors">
@@ -89,7 +89,7 @@ function SignupForm () {
         <input type="password"
           value={password2}
           onChange={update('password2')}
-          placeholder="Confirm Password"
+          placeholder="Re-enter your password"
         />
       </label>
       <input

@@ -2,17 +2,27 @@
 .content-section {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    width: 100vw; 
-    padding: 40px;
-    background-color: #f5f3f7; 
+    align-items: start; /* Align items to the start of the container */
+    height: calc(100vh - 80px); /* Adjust height to account for any headers/navbars */
+    width: 100vw;
+    padding-top: 40px; /* Add padding at the top to push content down slightly */
+    padding-bottom: 40px; /* Add padding at the bottom for balance */
+    background-color: #f5f3f7;
 }
 
 .info-section {
     flex: 1;
     padding: 40px;
     text-align: left;
+    position: relative;
+    text-align: center; /* Center align the content for a better visual hierarchy */
+}
+
+.info-image {
+    max-width: 100%; /* Ensure the image is responsive and doesn't overflow */
+    height: 500px; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between the image and the text */
+    filter: invert(25%) sepia(70%) saturate(1500%) hue-rotate(250deg) brightness(60%) contrast(90%);
 }
 
 .info-section h2 {
@@ -36,34 +46,45 @@
 }
 
 button {
-    padding: 10px 20px;
+    padding: 8px 16px; /* Reduced padding for smaller buttons */
     margin-top: 20px;
-    border-radius: 30px;
-    font-size: 0.9em;
-    font-weight: 600;
-    letter-spacing: 1px;
+    border-radius: 30px; /* You can reduce this if you want less rounded corners */
+    font-size: 0.4em; /* Reduced font size */
+    font-weight: 600; /* Keeps the font weight to medium */
+    letter-spacing: normal; /* Resets to default letter spacing */
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    text-transform: uppercase;
-    width: 50%;
+    text-transform: none; /* Change from uppercase to normal casing */
+    width: auto; /* Adjusts the width to fit the content */
     align-self: center;
     background-color: #5e548e; 
     color: white;
-}
-
-button:hover {
     filter: brightness(90%);
-    background-color: #7c7ca1; 
-}
+  }
+  
+  button:hover {
+    filter: brightness(80%);
+    background-color: #5E548E; 
+  }
 
 .form-container {
+    margin-top: 40px;
     width: 80%;
-    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: margin-top 0.8s ease; /* Smooth transition for the container movement */
+    position: relative; 
 }
+
+.form-container.login {
+    margin-top: 40px; /* Or any other value that suits the design */
+  }
+
+  .form-container.signup {
+    margin-top: -40px; /* Raise the signup form higher up */
+  }
 
 @media (max-width: 768px) {
     .content-section {
@@ -86,4 +107,23 @@ button:hover {
     button {
         width: 70%;
     }
+    .info-image {
+        width: 50%; /* Adjust image size on smaller screens */
+    }
+}
+
+.divider {
+    height: 1px; /* Height of the divider */
+    width: 70%; /* Width of the divider */
+    background-color: #c5b1b1; /* Color of the divider */
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+
+.demo-login-btn,
+.toggle-form {
+    width: 50%; /* Make buttons full width inside the container */
+    margin-top: 10px; /* Spacing between the buttons */
+    /* ... other styles ... */
 }

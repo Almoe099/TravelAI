@@ -35,7 +35,7 @@ function LoginForm () {
         <input type="text"
           value={email}
           onChange={update('email')}
-          placeholder="Email"
+          placeholder="Enter your email"
         />
       </label>
       <div className="errors">{errors?.password}</div>
@@ -44,7 +44,7 @@ function LoginForm () {
         <input type="password"
           value={password}
           onChange={update('password')}
-          placeholder="Password"
+          placeholder="Enter your password"
         />
       </label>
       <input
