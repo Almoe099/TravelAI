@@ -1,81 +1,59 @@
-.footer-space {
-  /* Optional: Add styling for the space above the footer */
-}
-
 .footer-container {
-  background-color: #5e548e;
-  mask-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(1, 2, 3, 0.9));
-  padding: 50px 0;
-  color: #fff;
+  background-color: #5e548e; /* Darker shade for a more professional look */
+  padding: 40px 0;
+  color: #adb9c3; /* Light grey text for subtlety */
   text-align: center;
   position: relative;
+  font-family: Arial, sans-serif; /* Common in corporate designs */
 }
 
 .footer-column {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap; /* Ensures responsiveness */
 }
 
 .column {
   flex: 1;
   text-align: center;
+  padding: 0 15px; /* Adds padding on smaller screens */
 }
 
 .column h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
-  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold; /* Use bold for hierarchy */
+  color: #fff; /* White for main titles */
+  margin-bottom: 8px;
 }
 
 .column h1 {
-  font-size: 12px;
-  margin-bottom: 15px;
-  margin-top: 10px;
-}
-
-.column ul {
-  list-style: none;
-  padding: 0;
-}
-
-.column li {
-  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #adb9c3; /* Light grey for less emphasis */
+  margin-top: 0;
 }
 
 .column a {
   text-decoration: none;
-  color: #ccc;
+  color: #adb9c3; /* Match the text color */
   transition: color 0.3s ease;
 }
 
 .column a:hover {
-  color: #fff;
-}
-
-.LinkList {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-
-.link {
-  padding: 20px;
-  height: 100px;
-  object-fit: scale-down;
-}
-
-.rights {
-    font-size: 20px;
-    margin-bottom: 50px;
+  color: #fff; /* White on hover for contrast */
 }
 
 .LinkList a {
-    padding: 10px; 
-    transition: transform 0.3s ease; /* Add animation transition */
+    margin: 0 12px; /* Even spacing around icons */
+    transition: transform 0.3s ease;
 }
 
 .LinkList a:hover {
-  transform: scale(1.2); /* Slightly enlarge icons on hover */
+  transform: scale(1.05); /* Subtle scale */
+}
+
+.rights {
+    font-size: 14px; /* Smaller font size for legal text */
+    margin-top: 30px; /* Space from the icons */
+    color: #adb9c3; /* Match other text */
 }
