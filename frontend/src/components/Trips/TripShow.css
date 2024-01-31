@@ -95,11 +95,68 @@
   margin-bottom: 10px; /* Adjust the bottom margin if needed */
 }
 
+
+.dayPlanBox {
+  height: 94px;
+  min-height: 94px;
+  max-height: 94px;
+  width: 100%;
+  /* border: 2px solid orange; */
+}
 .dayPlans {
-  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: row;
+  /* align-items: left; */
+  justify-content: left;
+  /* border: 1px solid red; */
   font-size: 16px;
   min-height: 20px;
-  margin-bottom: 10px; /* Adds space after the text for each day */
+  /* margin-bottom: 10px;  */
+}
+.dayPlanHolder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  height: 25px;
+  min-height: 25px;
+  max-height: 25px;
+  /* border: 2px solid red; */
+}
+.dayPlanDelete {
+  font-size: 14px;
+  color: #fff;
+  width: 60px;
+  max-width: 60px;
+  margin: 0;
+  /* padding: 0; */
+  padding: 4px;
+  background-color: #5f4b8b; /* A professional purple shade */
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  flex-grow: 1; /* This will make all buttons grow equally */
+}
+.dayPlanTextHolder {
+  width: 86%;
+}
+.dayPlanDeleteHolder {
+  width: 14%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+.dayPlansEmpty {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: left;
+  width: 100%;
+  font-size: 16px;
+  min-height: 20px;
 }
 
 .button:first-child {
@@ -110,6 +167,41 @@
   margin-right: 0;
 }
 
+.ItineraryTopBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: space-evenly; */
+  margin-bottom: 20px;
+  /* border: 1px solid red; */
+}
+.clearButtonHolder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 50%;
+  /* border: 1px solid red; */
+}
+.clearButton {
+  /* border: 2px solid red; */
+  font-size: 16px;
+  color: #fff;
+  width: 150px;
+  max-width: 150px;
+  margin: 0;
+  padding: 10px;
+  background-color: #5f4b8b; /* A professional purple shade */
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  flex-grow: 1; /* This will make all buttons grow equally */
+}
+.yourItinerary {
+  /* border: 2px solid red; */
+  width: 50%;
+  font-size: 28px;
+}
 .option {
   display: flex;
   align-items: center; /* Align the icon and text */
