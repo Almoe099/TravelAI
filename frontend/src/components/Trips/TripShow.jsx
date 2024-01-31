@@ -14,23 +14,21 @@ const TripShow = () => {
     const myTrip = useSelector(state => state.trips.new);
     const myItinerary = useSelector(state => state.itineraries.selected);
     const itineraries = useSelector(state => state.itineraries.all);
-    const mySuggestions = useSelector(state => state.itineraries.suggestions)
+    const mySuggestions = useSelector(state => state.itineraries.suggestions);
+    const myGeneration = useSelector(state => state.itineraries.generation);
     const [check, setCheck] = useState(false);
-    const [option1, setOption1] = useState("option 1");
-    const [option2, setOption2] = useState("option 2");
-    const [option3, setOption3] = useState("option 3");
-    const [option4, setOption4] = useState("option 4");
-    const [option5, setOption5] = useState("option 5");
-    const [option6, setOption6] = useState("option 6");
-    const [option7, setOption7] = useState("option 7");
-    const [option8, setOption8] = useState("option 8");
-    const [option9, setOption9] = useState("option 9");
+    const [options, setOptions] = useState(["", "", "", "", "", "", "", "", ""])
+    const [suggestingA, setSuggestingA] = useState(false);
+    const [suggestingR, setSuggestingR] = useState(false);
+    const [generatingI, setGeneratingI] = useState(false);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(tripActions.fetchTrip(tripId));
         dispatch(itineraryActions.clearingSelected());
+        dispatch(itineraryActions.clearingSuggestions());
+        dispatch(itineraryActions.clearingGeneration());
         dispatch(itineraryActions.fetchItineraries());
         setCheck(false);
     }, [])
@@ -55,8 +53,31 @@ const TripShow = () => {
     useEffect(() => {
         if (mySuggestions !== null && mySuggestions !== undefined) {
             console.log(mySuggestions);
+            console.log(Object.values(mySuggestions));
+            let mySuggestions2 = Object.values(mySuggestions);
+            let newOptions = [];
+            for (let i = 0; i < mySuggestions2.length; i++) {
+                newOptions.push(mySuggestions2[i]);
+            }
+            setOptions(newOptions);
+            if (suggestingA) {
+                setSuggestingA(false);
+            }
+            if (suggestingR) {
+                setSuggestingR(false);
+            }
         }
     }, [mySuggestions])
+    useEffect(() => {
+        if (myGeneration !== null && myGeneration !== undefined) {
+            console.log("GENERATION COMPLETE!!!");
+            console.log(myGeneration);
+            if (generatingI) {
+                setGeneratingI(false);
+                handleUpdateGeneratedItinerary();
+            }
+        }
+    }, [myGeneration])
 
     function findItineraryByTripId(tripId) {
         let itineraries2 = [];
@@ -165,14 +186,15 @@ const TripShow = () => {
         let id = myItinerary._id
         dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
     }
-    function handleDeleteFromItinerary(e, myActivity) {
+    function handleDeleteFromItinerary(e, myDay, myActivity) {
         e.preventDefault();
+        // console.log("=======");
         let itinerary = Object.entries(myItinerary.itinerary);
         let used = false;
         for (let i = 0; i < itinerary.length; i++) {
             for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
                 if (!used) {
-                    if (Object.entries(itinerary[i][1])[j][1] === myActivity) {
+                    if (itinerary[i][0] === myDay && Object.entries(itinerary[i][1])[j][1] === myActivity) {
                         // set.
                         let newDay = Object.assign(itinerary[i][1]);
                         newDay = Object.entries(newDay);
@@ -214,9 +236,49 @@ const TripShow = () => {
     function handleSuggestActivities(e) {
         e.preventDefault();
         console.log("SUGGESTING ACTIVITIES !!!");
+        setSuggestingA(true);
 
         let location = myTrip.location;
         dispatch(itineraryActions.suggestActivities({location}));
+    }
+    function handleSuggestRestaurants(e) {
+        e.preventDefault();
+        console.log("SUGGESTING RESTAURANTS !!!");
+        setSuggestingR(true);
+
+        let location = myTrip.location;
+        dispatch(itineraryActions.suggestRestaurants({location}));
+    }
+    function handleGenerateItinerary(e) {
+        e.preventDefault();
+        console.log("GENERATING ITINERARY !!!");
+        setGeneratingI(true);
+
+        let location = myTrip.location;
+        let days = Object.keys(myItinerary.itinerary).length;
+        // let days = myItinerary.itinerary 
+        dispatch(itineraryActions.generateItinerary({location, days}));
+    }
+    function handleUpdateGeneratedItinerary() {
+        let itinerary = Object.entries(myItinerary.itinerary);
+        for (let i = 0; i < itinerary.length; i++) {
+            for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
+                let newDay = Object.assign(itinerary[i][1]);
+                newDay = Object.entries(newDay);
+
+                let myEntry = Object.values(myGeneration)[i];
+                myEntry = Object.entries(myEntry);
+                
+                newDay[j][1] = myEntry[j][1];
+                newDay = Object.fromEntries(newDay);
+                itinerary[i][1] = newDay;
+            }
+        }
+        itinerary = Object.fromEntries(itinerary);
+        let author = sessionUser._id;
+        let trip = myTrip._id;
+        let id = myItinerary._id;
+        dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
     }
 
     function showItinerary() {
@@ -243,7 +305,7 @@ const TripShow = () => {
                                                     <p className="dayPlans">{Object.values(day[1])[0]}</p>
                                                 </div>
                                                 <div className="dayPlanDeleteHolder">
-                                                    <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, Object.values(day[1])[0])}>Delete</button>
+                                                    <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], Object.values(day[1])[0])}>Delete</button>
                                                 </div>
                                             </div>
                                         </>
@@ -258,7 +320,7 @@ const TripShow = () => {
                                                         <p className="dayPlans">{Object.values(day[1])[1]}</p>
                                                     </div>
                                                     <div className="dayPlanDeleteHolder">
-                                                        <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, Object.values(day[1])[1])}>Delete</button>
+                                                        <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], Object.values(day[1])[1])}>Delete</button>
                                                     </div>
                                                 </div>
                                             </>
@@ -273,7 +335,7 @@ const TripShow = () => {
                                                         <p className="dayPlans">{Object.values(day[1])[2]}</p>
                                                     </div>
                                                     <div className="dayPlanDeleteHolder">
-                                                        <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, Object.values(day[1])[2])}>Delete</button>
+                                                        <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], Object.values(day[1])[2])}>Delete</button>
                                                     </div>
                                                 </div>
                                             </>
@@ -320,23 +382,47 @@ const TripShow = () => {
         </div>
 
         <div className='TripButtonContainer'>
-          <button onClick={(e) => handleSuggestActivities(e)} className='button activityButton'>Suggest Activities</button>
-          <button className='button restaurantButton'>Suggest Restaurants</button>
-          <button className='button itineraryButton'>Generate Itinerary</button>
+            {suggestingA ? (
+                <>
+                    <button className='buttonG'>Suggesting...</button>
+                </>
+            ) : (
+                <>
+                    <button onClick={(e) => handleSuggestActivities(e)} className='button'>Suggest Activities</button>
+                </>
+            )}
+            {suggestingR ? (
+                <>
+                    <button className='buttonG'>Suggesting...</button>
+                </>
+            ) : (
+                <>
+                    <button onClick={(e) => handleSuggestRestaurants(e)} className='button'>Suggest Restaurants</button>
+                </>
+            )}
+            {generatingI ? (
+                <>
+                    <button className='buttonG'>Generating...</button>
+                </>
+            ) : (
+                <>
+                    <button onClick={(e) => handleGenerateItinerary(e)} className='button'>Generate Itinerary</button>
+                </>
+            )}
         </div>
 
         <div className='selectionContainer'>
           {/* Placeholder for TripOptions Component */}
           <ul className='optionList'>
-          <li onClick={(e) => handleAddToItinerary(e, option1)} className='option'>{option1}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option2)} className='option'>{option2}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option3)} className='option'>{option3}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option4)} className='option'>{option4}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option5)} className='option'>{option5}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option6)} className='option'>{option6}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option7)} className='option'>{option7}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option8)} className='option'>{option8}</li>
-          <li onClick={(e) => handleAddToItinerary(e, option9)} className='option'>{option9}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[0])} className='option'>{options[0]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[1])} className='option'>{options[1]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[2])} className='option'>{options[2]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[3])} className='option'>{options[3]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[4])} className='option'>{options[4]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[5])} className='option'>{options[5]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[6])} className='option'>{options[6]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[7])} className='option'>{options[7]}</li>
+          <li onClick={(e) => handleAddToItinerary(e, options[8])} className='option'>{options[8]}</li>
             {/* Additional options can be added here */}
           </ul>
         </div>
