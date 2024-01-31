@@ -174,3 +174,8 @@
 - Add sharing options for travel documents.
 - Perform thorough testing and debugging of all features.
 - Prepare the project for deployment and production.
+
+
+## CC & Liscensing
+
+<a href="https://www.textstudio.com/">Font generator</a>
