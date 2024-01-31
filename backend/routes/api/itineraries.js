@@ -127,60 +127,36 @@ router.post('/', async (req, res, next) => {
 // SUGGEST RESTAURANTS
 router.post('/GPT/restaurants', async (req, res, next) => {
     try {
-        let name = req.body.name;
-        let weatherPref = req.body.weatherPref;
-        let locationPref = req.body.locationPref;
-        let interests = req.body.interests;
-        let miscInfo = req.body.miscInfo;
-        let days = req.body.days;
-        let activitiesPerDay = req.body.activitiesPerDay;
+        let location = req.body.location;
+
         // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
         const completion = await openai.chat.completions.create({
             messages: [{ role: 'system', 
             // content: 'You are a helpful assistant.' 
-            content: `Create an itinerary for a user with the following preferences: 
+            content: `Create a list of possible restaurants for a travelling user to go to with the following preferences: 
             {
-                "Name": ${name},
-                "Weather preference": ${weatherPref},
-                "Location preference": ${locationPref},
-                "Interests": ${interests},
-                "Misc Info": ${miscInfo}
+                "Location": ${location}
             }
                       
             Your response must maintain the key names EXACTLY as they are shown here below.  This will be JSON parsed.
-            The location value should include a city AND a country, at least.
-            The trip will be ${days} days long, and will have ${activitiesPerDay} activities per day - your response should reflect this while maintaining the name structure of the below keys.
+            You will suggest a total of 9 restaurants a user could visit.  Your response should reflect this while maintaining the name structure of the below keys.
             
             Here is an example:
             {
-                "location": "",
-                "Activities": {
-                    "Day 1": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    },
-                    "Day 2": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    },
-                    "Day 3": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    },
-                    "Day 4": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    }
-                }
+                "activity1": "Try the famous pastrami sandwich at Katz's Delicatessen.",
+                "activity2": "Enjoy a classic steakhouse dinner at Peter Luger Steak House.",
+                "activity3": "",
+                "activity4": "",
+                "activity5": "",
+                "activity6": "",
+                "activity7": "",
+                "activity8": "",
+                "activity9": "",
             }
             `
             }],
             model: 'gpt-3.5-turbo',
-            max_tokens: 1000
+            max_tokens: 500
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
@@ -229,7 +205,7 @@ router.post('/GPT/activities', async (req, res, next) => {
             `
             }],
             model: 'gpt-3.5-turbo',
-            max_tokens: 200
+            max_tokens: 500
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
@@ -249,54 +225,42 @@ router.post('/GPT/activities', async (req, res, next) => {
 /// GENERATE ITINERARY
 router.post('/GPT', async (req, res, next) => {
     try {
-        let name = req.body.name;
-        let weatherPref = req.body.weatherPref;
-        let locationPref = req.body.locationPref;
-        let interests = req.body.interests;
-        let miscInfo = req.body.miscInfo;
+        let location = req.body.location;
         let days = req.body.days;
-        let activitiesPerDay = req.body.activitiesPerDay;
         // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
         const completion = await openai.chat.completions.create({
             messages: [{ role: 'system', 
             // content: 'You are a helpful assistant.' 
             content: `Create an itinerary for a user with the following preferences: 
             {
-                "Name": ${name},
-                "Weather preference": ${weatherPref},
-                "Location preference": ${locationPref},
-                "Interests": ${interests},
-                "Misc Info": ${miscInfo}
+                "Location": ${location}
             }
                       
             Your response must maintain the key names EXACTLY as they are shown here below.  This will be JSON parsed.
-            The location value should include a city AND a country, at least.
-            The trip will be ${days} days long, and will have ${activitiesPerDay} activities per day - your response should reflect this while maintaining the name structure of the below keys.
-            
+            The trip will be ${days} days long, and will have 3 activities per day - your response should reflect this while maintaining the name structure of the below keys.
+            Half of the activities you generate will be things you can do in the area.  The other half will be suggestions of a restaurant that a user could visit.
+
             Here is an example:
             {
-                "location": "",
-                "Activities": {
-                    "Day 1": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    },
-                    "Day 2": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    },
-                    "Day 3": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    },
-                    "Day 4": {
-                        "activity1": "",
-                        "activity2": "",
-                        "activity3": ""
-                    }
+                "Day 1": {
+                    "activity1": "",
+                    "activity2": "",
+                    "restaurant1": ""
+                },
+                "Day 2": {
+                    "activity1": "",
+                    "activity2": "",
+                    "restaurant1": ""
+                },
+                "Day 3": {
+                    "activity1": "",
+                    "activity2": "",
+                    "restaurant1": ""
+                },
+                "Day 4": {
+                    "activity1": "",
+                    "activity2": "",
+                    "restaurant1": ""
                 }
             }
             `

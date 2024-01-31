@@ -5,7 +5,12 @@ import { RECEIVE_USER_LOGOUT } from './session';
 const SELECT_ITINERARY = "itineraries/SELECT_ITINERARY";
 const CREATE_ITINERARY = "itineraries/CREATE_ITINERARY";
 const CREATE_SUGGESTIONS = "itineraries/CREATE_SUGGESTIONS";
+const CREATE_GENERATION = "itineraries/CREATE_GENERATION";
+
 const CLEAR_SELECTED = "itineraries/CLEAR_SELECTED";
+const CLEAR_SUGGESTIONS = "itineraries/CLEAR_SUGGESTIONS";
+const CLEAR_GENERATION = "itineraries/CLEAR_GENERATION";
+
 const RECEIVE_ITINERARIES = "itineraries/RECEIVE_ITINERARIES";
 const UPDATE_ITINERARY = "itineraries/UPDATE_ITINERARY";
 const RECEIVE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
@@ -19,6 +24,10 @@ const createItinerary = itinerary => ({
 const createSuggestions = suggestions => ({
     type: CREATE_SUGGESTIONS,
     suggestions
+})
+const createGeneration = generation => ({
+    type: CREATE_GENERATION,
+    generation
 })
 
 const receiveItineraries = itineraries => ({
@@ -52,9 +61,21 @@ const receiveErrors = errors => ({
 const clearSelected = () => ({
     type: CLEAR_SELECTED
 });
+const clearSuggestions = () => ({
+    type: CLEAR_SUGGESTIONS
+});
+const clearGeneration = () => ({
+    type: CLEAR_GENERATION
+});
 
 export const clearingSelected = () => async dispatch => {
     dispatch(clearSelected());
+}
+export const clearingSuggestions = () => async dispatch => {
+    dispatch(clearSuggestions());
+}
+export const clearingGeneration = () => async dispatch => {
+    dispatch(clearGeneration());
 }
 
 // const selectAllItineraries = state => state.itineraries.all;
@@ -196,8 +217,8 @@ export const generateItinerary = (data) => async dispatch => {
             method: 'POST',
             body: JSON.stringify(data)
           });
-        const itinerary = await res.json();
-        dispatch(createItinerary(itinerary));
+        const generation = await res.json();
+        dispatch(createGeneration(generation));
     } catch (err) {
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
@@ -213,10 +234,16 @@ const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, actio
     switch(action.type) {
         case CREATE_SUGGESTIONS:
             return {...state, suggestions: action.suggestions}
+        case CREATE_GENERATION:
+            return {...state, generation: action.generation}
         case SELECT_ITINERARY:
             return {...state, selected: action.itinerary}
         case CLEAR_SELECTED:
             return {...state, selected: null}
+        case CLEAR_SUGGESTIONS:
+            return {...state, suggestions: null}
+        case CLEAR_GENERATION:
+            return {...state, generation: null}
         case CREATE_ITINERARY:
             newAll.push(action.itinerary);
             return {

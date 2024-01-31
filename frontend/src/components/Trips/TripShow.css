@@ -32,6 +32,22 @@
   margin-bottom: 30px;
 }
 
+.buttonG {
+  font-size: 16px;
+  color: #fff;
+  background-color: gray;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  flex-grow: 1; /* This will make all buttons grow equally */
+  margin: 0 10px; /* This adds a bit of margin between the buttons */
+}
+.buttonG:hover {
+  background-color: rgb(125, 125, 125);
+}
+
 .button {
   font-size: 16px;
   color: #fff;
@@ -97,9 +113,9 @@
 
 
 .dayPlanBox {
-  height: 94px;
+  /* height: 94px; */
   min-height: 94px;
-  max-height: 94px;
+  /* max-height: 94px; */
   width: 100%;
   /* border: 2px solid orange; */
 }
@@ -119,9 +135,9 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
-  height: 25px;
+  /* height: 25px; */
   min-height: 25px;
-  max-height: 25px;
+  /* max-height: 25px; */
   /* border: 2px solid red; */
 }
 .dayPlanDelete {
