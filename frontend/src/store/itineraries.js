@@ -6,7 +6,7 @@ const SELECT_ITINERARY = "itineraries/SELECT_ITINERARY";
 const CREATE_ITINERARY = "itineraries/CREATE_ITINERARY";
 const CLEAR_SELECTED = "itineraries/CLEAR_SELECTED";
 const RECEIVE_ITINERARIES = "itineraries/RECEIVE_ITINERARIES";
-const UPDATE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
+const UPDATE_ITINERARY = "itineraries/UPDATE_ITINERARY";
 const RECEIVE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
 const REMOVE_ITINERARY = "itineraries/REMOVE_ITINERARY";
 const RECEIVE_ITINERARY_ERRORS = "itineraries/RECEIVE_ITINERARY_ERRORS";
@@ -67,8 +67,6 @@ export const fetchItineraries = () => async dispatch => {
   try {
     const res = await jwtFetch ('/api/itineraries');
     const itineraries = await res.json();
-    // console.log("!!!");
-    // console.log(itineraries);
     dispatch(receiveItineraries(itineraries))
   } catch (err) {
     const resBody = await err;
@@ -120,19 +118,20 @@ export const composeItinerary = data => async dispatch => {
 
 
 export const updateItinerary = itinerary => async dispatch => {
-  try {
-    const res = await jwtFetch(`/api/itineraries/${itinerary.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(itinerary)
-    });
-    const itineraryData = await res.json();
-    dispatch(updatingItinerary(itineraryData));
-  } catch(err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
-      return dispatch(receiveErrors(resBody.errors));
+    try {
+        const res = await jwtFetch(`/api/itineraries/${itinerary.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(itinerary)
+        });
+        const itineraryData = await res.json();
+        console.log("TEST");
+        dispatch(updatingItinerary(itineraryData));
+    } catch(err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+        return dispatch(receiveErrors(resBody.errors));
+        }
     }
-  }
 };
 
 export const deleteItinerary = itineraryId => async dispatch => {
@@ -192,9 +191,13 @@ const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, actio
             newAll.push(action.itinerary);
             return {...state, all: newAll, user: action.itinerary._id, new: action.itinerary, selected: action.itinerary}
         case UPDATE_ITINERARY:
-            let i = newAll.findIndex((ele) => ele._id === action.itinerary._id);
-            newAll[i] = action.itinerary;
-            return {...state, all: newAll, user: action.itinerary._id, new: action.itinerary, selected: action.itinerary}
+            // console.log("LOG");
+            // console.log(action.itinerary);
+            // console.log(action.itinerary.data);
+            // console.log(action.itinerary.data.updatedItinerary);
+            let i = newAll.findIndex((ele) => ele._id === action.itinerary.data.updatedItinerary._id);
+            newAll[i] = action.itinerary.data.updatedItinerary;
+            return {...state, all: newAll, user: action.itinerary.data.updatedItinerary._id, new: action.itinerary.data.updatedItinerary, selected: action.itinerary.data.updatedItinerary}
         
         case REMOVE_ITINERARY:
             let updatedAll = { ...state.all };

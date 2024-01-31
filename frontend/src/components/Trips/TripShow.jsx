@@ -47,16 +47,18 @@ const TripShow = () => {
     }, [itineraries])
     useEffect(() => {
         if (myItinerary !== null && myItinerary !== undefined) {
-            console.log("MY ITINERARY");
-            console.log(myItinerary);
+            // console.log("MY ITINERARY");
+            // console.log(myItinerary);
         }
     }, [myItinerary])
 
     function findItineraryByTripId(tripId) {
-        let itineraries1 = itineraries;
-        let itineraries2 = itineraries1.filter((entry) => {
-            entry.trip !== null && entry.trip._id === tripId
-        });
+        let itineraries2 = [];
+        for (let i = 0; i < itineraries.length; i++) {
+            if (itineraries[i].trip._id === tripId) {
+                itineraries2.push(itineraries[i]);
+            }
+        }
         let itinerary = null;
         if (itineraries2.length >= 1) {
             itinerary = itineraries2[0];
@@ -123,9 +125,9 @@ const TripShow = () => {
     function handleAddToItinerary(e, myActivity){
         e.preventDefault();
 
-        console.log("=======");
-        console.log("START ITINERARY");
-        console.log(myItinerary.itinerary);
+        // console.log("=======");
+        // console.log("START ITINERARY");
+        // console.log(myItinerary.itinerary);
         let itinerary = Object.entries(myItinerary.itinerary);
         let used = false;
         for (let i = 0; i < itinerary.length; i++) {
@@ -147,17 +149,20 @@ const TripShow = () => {
                 }
             }
         }
-        console.log("=======");
-        console.log("END ITINERARY");
+        // console.log("=======");
+        // console.log("END ITINERARY");
         itinerary = Object.fromEntries(itinerary);
-        console.log(itinerary);
+        // console.log(itinerary);
         let author = sessionUser._id;
         let trip = myTrip._id;
         let id = myItinerary._id
-        dispatch(itineraryActions.updateItinerary(itinerary, author, trip, id));
+        dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
     }
 
     function showItinerary() {
+        if (myItinerary.itinerary === undefined) {
+            return;
+        }
         // console.log(myItinerary.itinerary);
         // console.log(Object.entries(myItinerary.itinerary));
         return (
@@ -186,11 +191,11 @@ const TripShow = () => {
     }
 
     if (myTrip === null || myTrip === undefined) {
-        console.log("myTrip");
+        // console.log("myTrip");
         return null;
     }
     if (myItinerary === null || myItinerary === undefined) {
-        console.log("myItinerary");
+        // console.log("myItinerary");
         return null;
     }
 
