@@ -26,7 +26,7 @@ function MakeTrip() {
     useEffect(() => {
         dispatch(tripActions.fetchTrips());
         dispatch(itineraryActions.fetchItineraries());
-    }, [])
+    }, [dispatch])
 
     function handleCreateTrip(e) {
         e.preventDefault();
@@ -70,10 +70,10 @@ function MakeTrip() {
         // dispatch(itineraryActions.composeItinerary({authorId}));
     }
 
-    function handleClearDates(e) {
-        e.preventDefault();
-    }
-    function checkItinerary(e) {
+    // function handleClearDates(e) {
+    //     e.preventDefault();
+    // }
+    function checkItinerary() {
         console.log(newItinerary);
     }
 
