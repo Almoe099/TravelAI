@@ -95,7 +95,9 @@
 }
 
 .dayPlans {
+  /* border: 2px solid red; */
   font-size: 16px;
+  min-height: 20px;
   margin-bottom: 10px; /* Adds space after the text for each day */
 }
 

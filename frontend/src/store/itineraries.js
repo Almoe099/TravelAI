@@ -2,11 +2,14 @@ import { createSelector } from 'reselect';
 import jwtFetch from './jwt';
 import { RECEIVE_USER_LOGOUT } from './session';
 
-const CREATE_ITINERARY = "trips/CREATE_ITINERARY";
-const RECEIVE_ITINERARIES = "trips/RECEIVE_ITINERARIES";
-const RECEIVE_ITINERARY = "trips/RECEIVE_ITINERARY";
-const REMOVE_ITINERARY = "trips/REMOVE_ITINERARY";
-const RECEIVE_ITINERARY_ERRORS = "trips/RECEIVE_ITINERARY_ERRORS";
+const SELECT_ITINERARY = "itineraries/SELECT_ITINERARY";
+const CREATE_ITINERARY = "itineraries/CREATE_ITINERARY";
+const CLEAR_SELECTED = "itineraries/CLEAR_SELECTED";
+const RECEIVE_ITINERARIES = "itineraries/RECEIVE_ITINERARIES";
+const UPDATE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
+const RECEIVE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
+const REMOVE_ITINERARY = "itineraries/REMOVE_ITINERARY";
+const RECEIVE_ITINERARY_ERRORS = "itineraries/RECEIVE_ITINERARY_ERRORS";
 
 const createItinerary = itinerary => ({
   type: CREATE_ITINERARY,
@@ -18,10 +21,18 @@ const receiveItineraries = itineraries => ({
   itineraries
 });
 
+const updatingItinerary = itinerary => ({
+    type: UPDATE_ITINERARY,
+    itinerary
+  });
 const receiveItinerary = itinerary => ({
   type: RECEIVE_ITINERARY,
   itinerary
 });
+const selectItinerary = itinerary => ({
+    type: SELECT_ITINERARY,
+    itinerary
+  });
 
 const removeItinerary = itineraryId => ({
   type: REMOVE_ITINERARY,
@@ -32,6 +43,14 @@ const receiveErrors = errors => ({
   type: RECEIVE_ITINERARY_ERRORS,
   errors
 });
+
+const clearSelected = () => ({
+    type: CLEAR_SELECTED
+});
+
+export const clearingSelected = () => async dispatch => {
+    dispatch(clearSelected());
+}
 
 // const selectAllItineraries = state => state.itineraries.all;
 
@@ -47,10 +66,10 @@ const receiveErrors = errors => ({
 export const fetchItineraries = () => async dispatch => {
   try {
     const res = await jwtFetch ('/api/itineraries');
-    const trips = await res.json();
-    console.log("!!!");
-    console.log(itineraries);
-    dispatch(receiveTrips(trips))
+    const itineraries = await res.json();
+    // console.log("!!!");
+    // console.log(itineraries);
+    dispatch(receiveItineraries(itineraries))
   } catch (err) {
     const resBody = await err;
     if (resBody.statusCode == 400){
@@ -72,6 +91,12 @@ export const fetchItinerary = (itineraryId) => async dispatch => {
   }
 }
 
+export const selectingItinerary = (itinerary) => async dispatch => {
+    console.log("====!");
+    console.log(itinerary);
+    dispatch(selectItinerary(itinerary));
+}
+
 
 export const composeItinerary = data => async dispatch => {
   try {
@@ -82,6 +107,8 @@ export const composeItinerary = data => async dispatch => {
       body: JSON.stringify(data)
     });
     const itinerary = await res.json();
+    console.log("!=======!");
+    console.log(itinerary);
     dispatch(createItinerary(itinerary));
   } catch(err) {
     const resBody = await err.json();
@@ -99,7 +126,7 @@ export const updateItinerary = itinerary => async dispatch => {
       body: JSON.stringify(itinerary)
     });
     const itineraryData = await res.json();
-    dispatch(receiveItinerary(itineraryData));
+    dispatch(updatingItinerary(itineraryData));
   } catch(err) {
     const resBody = await err.json();
     if (resBody.statusCode === 400) {
@@ -146,26 +173,42 @@ export const generateItinerary = (data) => async dispatch => {
 };
 
 const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+    let newAll = Object.values({ ...state.all });
+    console.log(newAll);
+
     switch(action.type) {
-      case CREATE_ITINERARY:
-        return {
-            ...state, all: { ...state.all, [action.itinerary._id]: action.itinerary }, new: action.itinerary
+        case SELECT_ITINERARY:
+            return {...state, selected: action.itinerary}
+        case CLEAR_SELECTED:
+            return {...state, selected: null}
+        case CREATE_ITINERARY:
+            newAll.push(action.itinerary);
+            return {
+                ...state, all: newAll, new: action.itinerary, selected: action.itinerary
+                };
+        case RECEIVE_ITINERARIES:
+            return {...state, all: action.itineraries, new: undefined}
+        case RECEIVE_ITINERARY:
+            newAll.push(action.itinerary);
+            return {...state, all: newAll, user: action.itinerary._id, new: action.itinerary, selected: action.itinerary}
+        case UPDATE_ITINERARY:
+            let i = newAll.findIndex((ele) => ele._id === action.itinerary._id);
+            newAll[i] = action.itinerary;
+            return {...state, all: newAll, user: action.itinerary._id, new: action.itinerary, selected: action.itinerary}
+        
+        case REMOVE_ITINERARY:
+            let updatedAll = { ...state.all };
+            let u2 = Object.entries(updatedAll).filter((entry) => entry[1]._id !== action.itineraryId);
+            let updatedAll2 = Object.fromEntries(u2);
+
+            return {
+                ...state,
+                all: updatedAll2
             };
-      case RECEIVE_ITINERARIES:
-        return {...state, all: action.itineraries, new: undefined}
-      case RECEIVE_ITINERARY:
-        return {...state, user: action.itinerary.id, new: action.itinerary}
-      case REMOVE_ITINERARY:
-        // console.log("hit");
-        // console.log(state.trips);
-        // console.log(state.trips.all);
-        // console.log(action.tripId);
-        // delete state.trips.all[action.tripId];
-        return state;
-      case RECEIVE_USER_LOGOUT:
-        return { ...state, user: {}, new: undefined }
-      default:
-        return state;
+        case RECEIVE_USER_LOGOUT:
+            return { ...state, user: {}, new: undefined }
+        default:
+            return state;
     }
   };
   

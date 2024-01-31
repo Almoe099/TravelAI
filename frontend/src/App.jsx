@@ -34,6 +34,11 @@ const router = createBrowserRouter([
         path: "/",
         element: <AuthRoute component={MainPage} redirectTo="/profile" />
       },
+      {
+        path: "trips/:tripId",
+        // element: <TripShow />
+        element: <ProtectedRoute component={TripShow} />
+      },
       // {
       //   path: "home",
       //   element: <ProtectedRoute component={HomePage} />

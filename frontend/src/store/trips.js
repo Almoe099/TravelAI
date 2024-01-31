@@ -48,8 +48,6 @@ export const fetchTrips = () => async dispatch => {
   try {
     const res = await jwtFetch ('/api/trips');
     const trips = await res.json();
-    // console.log("!!!");
-    // console.log(trips);
     dispatch(receiveTrips(trips))
   } catch (err) {
     const resBody = await err.json();
@@ -75,13 +73,14 @@ export const fetchTrip = (tripId) => async dispatch => {
 
 export const composeTrip = data => async dispatch => {
   try {
+    console.log(data);
     const res = await jwtFetch('/api/trips/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
     const trip = await res.json();
-    console.log("Received trip data:", trip);
+    // console.log("Received trip data:", trip);
     dispatch(createTrip(trip));
   } catch (err) {
     const resBody = await err.json();
@@ -94,7 +93,7 @@ export const composeTrip = data => async dispatch => {
 
 export const updateTrip = trip => async dispatch => {
   try {
-    const res = await jwtFetch(`/api/trips/${trip.id}`, {
+    const res = await jwtFetch(`/api/trips/${trip._id}`, {
       method: 'PATCH',
       body: JSON.stringify(trip)
     });
@@ -109,7 +108,6 @@ export const updateTrip = trip => async dispatch => {
 };
 
 export const deleteTrip = tripId => async dispatch => {
-  console.log(tripId);
     try {
     const res = await jwtFetch(`/api/trips/${tripId}`, {
       method: 'DELETE'
@@ -130,15 +128,15 @@ export const deleteTrip = tripId => async dispatch => {
 
 export const generateTrip = (data) => async dispatch => {
     try {
-        console.log(data);
-        console.log("DATA");
+        // console.log(data);
+        // console.log("DATA");
         const res = await jwtFetch('/api/trips/GPT', {
             method: 'POST',
             body: JSON.stringify(data)
           });
         const trip = await res.json();
-        console.log(trip);
-        console.log("DONE!");
+        // console.log(trip);
+        // console.log("DONE!");
         dispatch(createTrip(trip));
     } catch (err) {
         const resBody = await err.json();
@@ -178,12 +176,14 @@ const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => 
       };
 
     case REMOVE_TRIP:
-      const updatedAll = { ...state.all };
-      delete updatedAll[action.tripId];
-      return {
+        let updatedAll = { ...state.all };
+        let u2 = Object.entries(updatedAll).filter((entry) => entry[1]._id !== action.tripId);
+        let updatedAll2 = Object.fromEntries(u2);
+
+        return {
         ...state,
-        all: updatedAll
-      };
+        all: updatedAll2
+    };
 
     case RECEIVE_USER_LOGOUT:
       return { ...state, user: {}, new: undefined };

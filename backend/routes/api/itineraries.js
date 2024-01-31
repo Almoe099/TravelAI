@@ -15,7 +15,13 @@ router.patch('/:id', async (req,res) => {
     const updatedItinerary = await Itinerary.findByIdAndUpdate(req.params.id,req.body,{
         new : true,
         runValidators : true
-      })
+      }).populate([{
+            path: "author", 
+            select: "_id username"
+        }, {
+            path: "trip",
+            select: "_id location"
+        }]);
 
     try{
         res.status(200).json({
@@ -53,7 +59,13 @@ router.delete('/:id', async(req,res) => {
 router.get('/', async (req, res) => {
     try {
         const itineraries = await Itinerary.find()
-                                .populate("author", "_id username")
+                                .populate([{
+                                    path: "author", 
+                                    select: "_id username"
+                                }, {
+                                    path: "trip",
+                                    select: "_id location"
+                                }])
                                 .sort({ createdAt: -1 });
         return res.json(itineraries);
     }
@@ -66,7 +78,13 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const itinerary = await Itinerary.findById(req.params.id)
-                                // .populate("author", "_id username");
+                                                .populate([{
+                                                    path: "author", 
+                                                    select: "_id username"
+                                                }, {
+                                                    path: "trip",
+                                                    select: "_id location"
+                                                }])
         return res.json(itinerary);
     }
     catch(err) {
@@ -82,21 +100,22 @@ router.post('/', async (req, res, next) => {
     try {
         const newItinerary = new Itinerary({
             itinerary: req.body.itinerary,
-            author: req.body.authorId,
-            trip: req.body.tripId
+            author: req.body.author,
+            trip: req.body.trip
         });
-        console.log("=======");
-        console.log(newItinerary);
-        console.log("=======");
+
+        // console.log("=====");
+        // console.log(newItinerary);
+        // console.log("=====");
 
         let itinerary = await newItinerary.save();
-        itinerary = await itinerary.populate('author', '_id username');
-        itinerary = await itinerary.populate('trip', '_id location startdate enddate');
-        
-        console.log("=======");
-        console.log("itinerary");
-        console.log(itinerary);
-        console.log("=======");
+        itinerary = await itinerary.populate([{
+            path: "author", 
+            select: "_id username"
+        }, {
+            path: "trip",
+            select: "_id location"
+        }])
         return res.json(itinerary);
     }
     catch(err) {

@@ -46,14 +46,27 @@ function MakeTrip() {
             return arr;
         };
         let days = getDaysArray(newTrip.startdate, newTrip.enddate);
+        console.log("=-=-=-=-");
         console.log(days);
+        var jsonData = {}
+        for (let i = 0; i < days.length; i++) {
+            var day = days[i];
+            jsonData[day] = {
+                activity1: "",
+                activity2: "",
+                activity3: ""
+            }
+        }
+        console.log(jsonData);
+        let itinerary = jsonData;
+        let authorId = sessionUser._id;
+        let tripId = newTrip._id;
+        dispatch(itineraryActions.composeItinerary({itinerary, authorId, tripId}))
         // let ed = new Date(endDate);
         // let edMonth = Date.getMonth(ed);
         // console.log(edMonth);
         // console.log(Date.getMonth(startDate));
         // console.log(Date.getMonth(endDate));
-
-        let authorId = sessionUser._id;
         // dispatch(itineraryActions.composeItinerary({authorId}));
     }
 

@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const trip = await Trip.findById(req.params.id)
-                                // .populate("author", "_id username");
+                                .populate("author", "_id username");
         return res.json(trip);
     }
     catch(err) {
@@ -85,11 +85,8 @@ router.post('/', async (req, res, next) => {
             startdate: req.body.startdate,
             enddate: req.body.enddate,
             // dates: req.body.dates,
-            author: req.body.authorId
+            author: req.body.author
         });
-        // console.log("=======");
-        // console.log(newTrip);
-        // console.log("=======");
 
         let trip = await newTrip.save();
         trip = await trip.populate('author', '_id username');
