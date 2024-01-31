@@ -114,6 +114,7 @@ export const deleteTrip = tripId => async dispatch => {
     //   body: JSON.stringify(tripId)
     });
         const tripData = await res.json();  // success
+        console.log(tripData)
         dispatch(removeTrip(tripId));
   } catch(err) {
     const resBody = await err;
@@ -194,4 +195,4 @@ const tripsReducer = (state = { all: {}, user: {}, new: undefined }, action) => 
 };
 
   
-  export default tripsReducer;
+export default tripsReducer;

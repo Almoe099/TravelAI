@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import OpenAI from "openai";
 
 import './CreateTrip.css';
-import { generateTrip } from '../../store/trips';
+// import { generateTrip } from '../../store/trips';
 import { generateItinerary } from '../../store/itineraries';
 
 // console.log(import.meta.env.VITE_SOME_KEY);
@@ -14,7 +14,7 @@ import { generateItinerary } from '../../store/itineraries';
 // const openai = new OpenAI();
 
 function CreateTrip() {
-  const [response, setResponse] = useState(null);
+  // const [response, setResponse] = useState(null);
   const [itinerary, setItinerary] = useState(null);
   const [check, setCheck] = useState(null);
 
@@ -23,7 +23,7 @@ function CreateTrip() {
   const [locationPref, setLocationPref] = useState("");
   const [interests, setInterests] = useState("");
   const [miscInfo, setMiscInfo] = useState("");
-  const [prompt, setPrompt] = useState("");
+  // const [prompt, setPrompt] = useState("");
   const [days, setDays] = useState(4);
   const [activitiesPerDay, setActivitiesPerDay] = useState(3);
   let myTrip = useSelector(state => state.trips.trip);
@@ -46,12 +46,12 @@ function CreateTrip() {
     console.log(itinerary);
   }, [itinerary])
 
-  function checkStuff() {
-      console.log("=====");
-      console.log(itinerary);
+  // function checkStuff() {
+  //     console.log("=====");
+  //     console.log(itinerary);
 
-      return "test";
-  }
+  //     return "test";
+  // }
 
   function showItinerary() {
 
@@ -109,7 +109,7 @@ function CreateTrip() {
     }
   }
 
-  function clearTrip(e) {
+  function clearTrip() {
     // setResponse(null);
     setCheck(null);
     setItinerary(null);

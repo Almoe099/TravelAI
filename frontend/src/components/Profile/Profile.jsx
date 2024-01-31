@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { composeTrip, fetchTrips, deleteTrip } from '../../store/trips';
 import TripBox from './Tripbox';
 import './Profile.css';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
+// import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 
 function Profile() {
   const sessionUser = useSelector(state => state.session.user);
@@ -16,7 +16,7 @@ function Profile() {
   });
 
   const dispatch = useDispatch();
-  const history = useNavigate();
+  // const history = useNavigate();
   const trips = useSelector(state => state.trips.all); 
 
   useEffect(() => {
@@ -54,6 +54,7 @@ function Profile() {
   };
 
   const handleViewTrip = tripId => {
+    console.log(tripId)
     // history.push(`/trips/${tripId}`); // this line doesn't work...  am navigating from tripbox now.
   };
 
