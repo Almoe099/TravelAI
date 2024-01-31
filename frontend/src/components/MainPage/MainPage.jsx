@@ -4,8 +4,7 @@ import SignupForm from '../SessionForms/SignupForm';
 import './MainPage.css';
 import { login } from '../../store/session';
 import { useDispatch } from 'react-redux';
-import airplaneGlobeImage from '../../../public/Noun_15537_ccElliotVerhaeren_travel.svg.png';
-import Footer from '../Footer/Footer';
+import airplaneGlobeImage from '../../Pictures/Noun_15537_ccElliotVerhaeren_travel.svg.png';
 
 function MainPage() {
   const [isLogin, setIsLogin] = useState(true);
