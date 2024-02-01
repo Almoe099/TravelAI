@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { useEffect } from 'react';
 
 // Assuming TechnologyStack and logo are correctly imported elsewhere in your project
-import TechnologyStack from './TechnologyStack';
+// import TechnologyStack from './TechnologyStack';
 import logo from '../../Pictures/TravelAI-1-31-2024_1.png';
 
 const CreatorModal = ({ show, onClose, creators, projectInfo }) => {
