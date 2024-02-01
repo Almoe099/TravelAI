@@ -5,6 +5,7 @@
     width: 450px;
     height: auto;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 .creator-modal-backdrop {
@@ -75,7 +76,7 @@
     text-decoration: underline;
   }
   
-  @keyframes modalEnter {
+  /* @keyframes modalEnter {
     from {
       transform: translateY(-50px);
       opacity: 0;
@@ -84,7 +85,7 @@
       transform: translateY(0);
       opacity: 1;
     }
-  }
+  } */
   
 
   .creator {
@@ -174,8 +175,16 @@
     font-size: 1rem;
     cursor: pointer;
     margin: 0 5px;
-    animation: tabEnter 0.3s ease; /* Apply animation */
+    animation: tabEnter 0.9s ease; /* Apply animation */
   }
+
+  .tab.active {
+    background-color: #eaeaea;
+    color: #333;
+    border-radius: 15px;
+    opacity: 1; /* Full opacity for active tab */
+    transform: scale(1); /* Scale to normal size for emphasis */
+}
   
   .tab.active {
     background-color: #eaeaea; /* Active tab background */
@@ -187,8 +196,8 @@
   .about-section {
     text-align: left; /* Align text to the left for a cleaner look */
     color: #333; /* Darker text for better readability */
-    font-size: 20px;
-    padding: 20px; /* Add padding for spacing */
+    font-size: 25px;
+    padding: 75px; /* Add padding for spacing */
     background-color: #f4f4f4; /* Subtle background color */
     border-radius: 4px; /* Soften the corners */
     margin-top: 20px; /* Space from the header */
@@ -260,3 +269,35 @@
       opacity: 1;
     }
   }
+
+  .tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+  
+  .tab-content.about,
+  .tab-content.team {
+    display: none;
+  }
+  
+  .tab-content.about.active,
+  .tab-content.team.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Ensure it takes full width to center content properly */
+}

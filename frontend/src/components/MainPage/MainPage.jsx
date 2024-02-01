@@ -5,10 +5,35 @@ import './MainPage.css';
 import { login } from '../../store/session';
 import { useDispatch } from 'react-redux';
 import airplaneGlobeImage from '../../Pictures/Noun_15537_ccElliotVerhaeren_travel.svg.png';
+import { gsap } from 'gsap';
+import { useEffect } from 'react';
+
 
 function MainPage() {
   const [isLogin, setIsLogin] = useState(true);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    gsap.fromTo(".info-image", { opacity: 0, y: -50, scale: 1.1 }, { duration: 1.2, y: 0, scale: 1, opacity: 1, ease: 'bounce.out' });
+    gsap.fromTo(".info-section h2", { opacity: 0, x: -100 }, { duration: 1.2, delay: 0.7, x: 0, opacity: 1, ease: 'power3.out' });
+    gsap.fromTo(".info-section p", { opacity: 0, x: 100 }, { duration: 1.2, delay: 1.4, x: 0, opacity: 1, ease: 'power3.out' });
+  }, []);
+  
+  useEffect(() => {
+    // Set initial opacity for the elements to be animated
+    gsap.set([".form-section", ".demo-login-btn", ".toggle-form", ".divider"], { opacity: 0 });
+  
+    // Fade in the form, buttons, and divider with a slight delay after the main content
+    gsap.to([".form-section", ".demo-login-btn", ".toggle-form", ".divider"], {
+      duration: 1.2, 
+      opacity: 1, 
+      ease: 'power2.inOut', 
+      delay: 1.2 // adjust the delay as needed
+    });
+  }, []);
+  
+  
+  
 
   const handleDemoLogin = async () => {
     console.log("Attempting to log in with demo user");

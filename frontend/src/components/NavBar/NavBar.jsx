@@ -17,12 +17,8 @@ function NavBar() {
   const navigate = useNavigate();
 
   const projectInfo = {
-    summary: `TravelAI revolutionizes travel planning by harnessing the power of AI to provide highly personalized destination recommendations and streamlined itinerary planning. Upon setting up a profile, users have the opportunity to define their travel preferences with precision, ranging from specific interests to dietary requirements. Our AI-driven system then rapidly curates a range of travel options tailored to each individual's unique tastes and budget constraints.
-
-    \n\n
-    The platform's interface, meticulously crafted using cutting-edge technologies such as React.js and Node.js, guarantees a user-friendly and visually appealing experience. Behind the scenes, MongoDB handles data management with utmost efficiency, ensuring that your travel plans are securely stored and readily accessible.\n\n
-    Our platform takes the hassle out of the entire travel planning process, from selecting a destination to creating a comprehensive itinerary. Thanks to an intuitive drag-and-drop interface, users can effortlessly organize their travel schedules, incorporating activities, dining experiences, and more. Additionally, TravelAI provides access to a wealth of travel guides and cultural insights, empowering modern travelers with valuable information and local knowledge.
-    In summary, TravelAI is not just a travel planning tool; it's your ultimate companion for crafting personalized travel experiences that cater to your every need and desire.`,
+    summary: `TravelAI transforms travel planning by utilizing AI to offer customized destination recommendations based on users' detailed preferences, including specific interests and dietary requirements. The platform's design, built with React.js and Node.js, delivers a smooth and visually appealing user experience, while MongoDB ensures secure and efficient data management.
+     \n\n Beyond simplifying destination selection, TravelAI enhances itinerary planning by allowing users to effortlessly organize their schedule and explore a rich collection of travel guides and cultural insights. Essentially, TravelAI redefines travel planning, serving as a personalized guide to crafting unforgettable travel experiences.`,
     technologies: [
       { name: 'MongoDB', icon: DiMongodb, color: "#47A248", link: 'https://www.mongodb.com/' },
       { name: 'Express.js', icon: SiExpress, color: "#000000", link: 'https://expressjs.com/' },
@@ -36,7 +32,7 @@ function NavBar() {
       { name: 'Prettier', icon: SiPrettier, color: "#F7B93E", link: 'https://prettier.io/' },
       { name: 'Postman', icon: SiPostman, color: "#FF6C37", link: 'https://www.postman.com/' },
       { name: 'Redux', icon: SiRedux, color: "#764ABC", link: 'https://redux.js.org/' },
-      { name: 'AWS', icon: FaAws, color: "#FF9900", link: 'https://aws.amazon.com/' },
+      // { name: 'AWS', icon: FaAws, color: "#FF9900", link: 'https://aws.amazon.com/' },
       { name: 'AWS S3', icon: FaAws, color: "#569A31", link: 'https://aws.amazon.com/s3/' },
       { name: 'Visual Studio Code', icon: SiVisualstudiocode, color: "#007ACC", link: 'https://code.visualstudio.com/' },
     ],
