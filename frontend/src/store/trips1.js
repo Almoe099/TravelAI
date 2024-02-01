@@ -21,7 +21,7 @@ export const postTrip = (data) => async dispatch => {
     } catch (err) {
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
-            dispatch(receiveErrors(resBody.errors));
+            // dispatch(receiveErrors(resBody.errors));
         }
     }
 };
