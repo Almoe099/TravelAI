@@ -569,27 +569,30 @@ const TripShow = () => {
 
         <div className='TripButtonContainer'>
             {suggestingA ? (
-                <>
-                    <button className='buttonG'>Suggesting...</button>
-                </>
+  <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  Suggesting
+  <div className="loader" style={{ marginLeft: '10px' }}></div>
+</div>
             ) : (
                 <>
                     <button onClick={(e) => handleSuggestActivitiesModal(e)} className='button'>Suggest Activities</button>
                 </>
             )}
             {suggestingR ? (
-                <>
-                    <button className='buttonG'>Suggesting...</button>
-                </>
+  <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  Suggesting
+  <div className="loader" style={{ marginLeft: '10px' }}></div>
+</div>
             ) : (
                 <>
                     <button onClick={(e) => handleSuggestRestaurantsModal(e)} className='button'>Suggest Restaurants</button>
                 </>
             )}
             {generatingI ? (
-                <>
-                    <button className='buttonG'>Generating...</button>
-                </>
+  <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  Generating
+  <div className="loader" style={{ marginLeft: '10px' }}></div>
+</div>
             ) : (
                 <>
                     <button onClick={(e) => handleGenerateItinerary(e)} className='button'>Generate Itinerary</button>

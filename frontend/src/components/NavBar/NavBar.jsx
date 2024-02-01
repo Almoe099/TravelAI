@@ -63,7 +63,7 @@ function NavBar() {
       github: 'https://github.com/almoe099', 
       linkedin: 'https://linkedin.com/in/creator2',
       email: 'almoe099@gmail.com',
-      image: 'https://amasphere-seeds1.s3.amazonaws.com/Screenshot+2024-02-01+at+2.59.16+PM.png'
+      image: 'https://amasphere-seeds1.s3.amazonaws.com/Screenshot+2024-02-01+at+4.53.48+PM.png'
     }
   ];
   
