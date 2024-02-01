@@ -1,5 +1,5 @@
 // TripBox.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Tripbox.css';
 import Share from '../Share/Share';
@@ -28,14 +28,12 @@ function TripBox({ trip, onDelete, onView, onShare }) {
           Delete
         </button>
         {onShare && (
-          <>
-              <Share
-                url={shareUrl}
-                title="Upcoming Trip Details"
-                text={shareText}
-                onClose={closeModal}
-              />
-          </>
+            <Share
+              url={shareUrl}
+              title="Upcoming Trip Details"
+              text={shareText}
+              onClose={closeModal}
+            />
         )}
       </div>
     </div>
