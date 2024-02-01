@@ -3,6 +3,8 @@ import './CreatorModal.css';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { gsap } from 'gsap';
 import { useEffect } from 'react';
+// Import all GSAP modules
+
 
 // Assuming TechnologyStack and logo are correctly imported elsewhere in your project
 // import TechnologyStack from './TechnologyStack';
@@ -37,6 +39,8 @@ const CreatorModal = ({ show, onClose, creators, projectInfo }) => {
             }
         }
     }, [show]);
+
+    
 
 
     const handleTabClick = (tab) => {

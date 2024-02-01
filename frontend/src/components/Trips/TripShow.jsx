@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import './TripShow.css';
 import * as tripActions from "../../store/trips";
 import * as itineraryActions from "../../store/itineraries";
+import gsap from 'gsap';
 
-// import { FaPlus } from 'react-icons/fa';
+
+import { FaPlus } from 'react-icons/fa';
 
 const TripShow = () => {
     const { tripId } = useParams();
@@ -44,6 +46,10 @@ const TripShow = () => {
         dispatch(itineraryActions.fetchItineraries());
         setCheck(false);
     }, [])
+
+
+    
+
     useEffect(() => {
         if (itineraries !== null && itineraries !== undefined) {
             if (myTrip !== null && myTrip !== undefined) {
@@ -56,12 +62,25 @@ const TripShow = () => {
             }
         }
     }, [itineraries])
-    // useEffect(() => {
-    //     if (myItinerary !== null && myItinerary !== undefined) {
-    //         // console.log("MY ITINERARY");
-    //         // console.log(myItinerary);
-    //     }
-    // }, [myItinerary])
+
+    useEffect(() => {
+        if (myItinerary !== null && myItinerary !== undefined) {
+            // console.log("MY ITINERARY");
+            // console.log(myItinerary);
+        }
+    }, [myItinerary])
+
+
+
+    useEffect(() => {
+        if (options.some(option => option.trim() !== "")) {
+          // Animate the selectionContainer and its child li elements
+          gsap.from('.selectionContainer', { opacity: 0, duration: 1, y: -50 });
+          gsap.from('.option', { opacity: 0, duration: 1, y: -20, stagger: 0.2 });
+        }
+      }, [options]);
+
+
     useEffect(() => {
         if (mySuggestions !== null && mySuggestions !== undefined) {
             let mySuggestions2 = Object.values(mySuggestions);
@@ -241,10 +260,18 @@ const TripShow = () => {
         let id = myItinerary._id;
         dispatch(itineraryActions.updateItinerary({itinerary, author, trip, id}));
     }
-    function handleCloseModal(e) {
+
+    useEffect(() => {
+        if (modalOpen !== null) {
+          gsap.to("#profile-modal", { scale: 1, autoAlpha: 1, ease: "back.out(1.7)", duration: 0.5 });
+        }
+      }, [modalOpen]);
+      
+      const handleCloseModal = (e) => {
         e.preventDefault();
-        setModalOpen(null);
-    }
+        gsap.to("#profile-modal", { scale: 0.95, autoAlpha: 0, ease: "back.in(1.7)", duration: 0.5, onComplete: () => setModalOpen(null) });
+      };
+
     function handleSuggestActivitiesModal(e) {
         e.preventDefault();
         setModalOpen("ACTIVITIES");
@@ -465,7 +492,7 @@ const TripShow = () => {
                                                             </div>
                                                             <div className="dayPlanH2">
                                                                 <div className="dayPlanDeleteHolder">
-                                                                    <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" >Save</button>
+                                                                                  <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" style={{ background: '#6c63ff' }}>Save</button>
                                                                 </div>
                                                             </div>
                                                         </>
@@ -687,28 +714,29 @@ const TripShow = () => {
         </div>
 
         <div className='selectionContainer'>
-          {/* Placeholder for TripOptions Component */}
-          <ul className='optionList'>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[0])} onDrop={(ev) => drop(ev)} className='option' draggable="true" >{options[0]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[1])} className='option' draggable="true" >{options[1]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[2])} className='option' draggable="true" >{options[2]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[3])} className='option' draggable="true" >{options[3]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[4])} className='option' draggable="true" >{options[4]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[5])} className='option' draggable="true" >{options[5]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[6])} className='option' draggable="true" >{options[6]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[7])} className='option' draggable="true" >{options[7]}</li>
-          <li onClick={(e) => handleAddToItineraryModal(e, options[8])} className='option' draggable="true" >{options[8]}</li>
-            {/* Additional options can be added here */}
-          </ul>
-        </div>
+  {options.some(option => option.trim() !== "") && (
+    <ul className='optionList'>
+      {options.map((option, index) => 
+        option.trim() !== "" && (
+          <li key={index} onClick={(e) => handleAddToItineraryModal(e, option)} onDrop={(ev) => drop(ev)} className='option' draggable="true">
+            <FaPlus className="addIcon" /> {option}
+          </li>
+        )
+      )}
+    </ul>
+  )}
+</div>
+
       </div>
 
       <div className="ItineraryHalf">
         <div className="ItineraryTopBar">
+            
             <h1 className='yourItinerary'>Your Itinerary</h1>
-            <div className="clearButtonHolder">
-                <button onClick={(e) => handleClearItinerary(e)}className='clearButton'>Clear Itinerary</button>
-            </div>
+            <div className="shareclearbuttonHolder">
+      <button onClick={(e) => handleShareTrip(e)} className='clearButton'>Share My Trip</button>
+      <button onClick={(e) => handleClearItinerary(e)} className='clearButton'>Clear Itinerary</button>
+    </div>
         </div>
         {/* Placeholder for Itinerary Component */}
         <ul className='itineraryList'>
