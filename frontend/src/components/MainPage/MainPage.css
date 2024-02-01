@@ -127,3 +127,7 @@ button {
     margin-top: 10px; /* Spacing between the buttons */
     /* ... other styles ... */
 }
+
+.info-image, .info-section h2, .info-section p {
+    /* opacity: 1 !important; Ensure visibility */
+  }
