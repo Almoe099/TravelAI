@@ -73,10 +73,10 @@ const router = createBrowserRouter([
       //   path: "tripsGPT",
       //   element: <ProtectedRoute component={CreateTrip} />
       // },
-      // {
-      //   path: "maketrip",
-      //   element: <ProtectedRoute component={MakeTrip} />
-      // },
+      {
+        path: "maketrip",
+        element: <ProtectedRoute component={MakeTrip} />
+      },
       // {
       //   path: "tripshow",
       //   element: <ProtectedRoute component={TripShow} />

@@ -11,6 +11,12 @@
 
     border: 2px solid red;
 }
+.tripErrors {
+    color: red;
+    font-size: 12px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 
 .tripHolder2 {
     display: flex;

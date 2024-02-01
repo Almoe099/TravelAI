@@ -9,6 +9,7 @@ function Profile() {
   const sessionUser = useSelector(state => state.session.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(null);
+  const [errors, setErrors] = useState([]);
   const [newTripData, setNewTripData] = useState({
     location: '',
     startdate: '',
@@ -40,10 +41,52 @@ function Profile() {
     setNewTripData({ ...newTripData, [name]: value });
   };
 
-  const handleCreateTrip = () => {
-    dispatch(composeTrip(newTripData));
-    setIsModalOpen(false);
+  const handleCreateTrip = (e) => {
+    e.preventDefault();
+
+    let myErrors = [];
+    let authorId = sessionUser._id;
+    // console.log(newTripData);
+    let location = newTripData.location;
+    let startdate = newTripData.startdate;
+    let enddate = newTripData.enddate;
+    if (location === "") {
+        myErrors.push("Location can't be blank");
+    }
+    if (startdate === "" || startdate === undefined) {
+        myErrors.push("Startdate can't be blank");
+    }
+    if (enddate === "" || enddate === undefined) {
+        myErrors.push("Enddate can't be blank");
+    }
+    if (new Date() > new Date(startdate)) {
+        myErrors.push("Startdate must be in the future");
+    }
+    if (new Date(startdate) > new Date(enddate)) {
+        myErrors.push("Enddate cannot be before startdate");
+    }
+    if (daysBetween(new Date(startdate), new Date(enddate)) > 14) {
+        myErrors.push("Can't have a trip longer than two weeks");
+    }
+    setErrors(myErrors); 
+    console.log(myErrors);
+    console.log(myErrors.length);
+    if (myErrors.length === 0) {
+        console.log("sent");
+        setIsModalOpen(false);
+        dispatch(composeTrip({location, startdate, enddate, authorId}));
+    }
   };
+  function treatAsUTC(date) {
+    var result = new Date(date);
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+  }
+  function daysBetween(startDate, endDate) {
+      var millisecondsPerDay = 24 * 60 * 60 * 1000;
+      return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+  }
+
 
   const handleDeleteTrip = (tripId) => {
     dispatch(deleteTrip(tripId));
@@ -89,17 +132,18 @@ function Profile() {
           <h3>Create a New Trip</h3>
           <label>
             Location:
-            <input type="text" name="location" value={newTripData.location} onChange={handleInputChange} required />
+            <input type="text" name="location" value={newTripData.location} onChange={(e) => handleInputChange(e)} required />
           </label>
           <label>
             Start Date:
-            <input type="date" name="startdate" value={newTripData.startdate} onChange={handleInputChange} required />
+            <input type="date" name="startdate" value={newTripData.startdate} onChange={(e) => handleInputChange(e)} required />
           </label>
           <label>
             End Date:
-            <input type="date" name="enddate" value={newTripData.enddate} onChange={handleInputChange} required />
+            <input type="date" name="enddate" value={newTripData.enddate} onChange={(e) => handleInputChange(e)} required />
           </label>
-          <button onClick={handleCreateTrip}>Create</button>
+          {errors.map(error => <p className="tripErrors">{error}</p>)}
+          <button onClick={(e) => handleCreateTrip(e)}>Create</button>
           <button onClick={handleModalClose}>Cancel</button>
         </div>
       )}
