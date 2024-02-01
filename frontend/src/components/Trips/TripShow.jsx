@@ -6,12 +6,13 @@ import './TripShow.css';
 import * as tripActions from "../../store/trips";
 import * as itineraryActions from "../../store/itineraries";
 import gsap from 'gsap';
-
+import Share from '../Share/Share';
 
 import { FaPlus } from 'react-icons/fa';
 
 const TripShow = () => {
     const { tripId } = useParams();
+    const trip = useSelector(tripActions.selectTrip({tripId}))
     const sessionUser = useSelector(state => state.session.user);
     const myTrip = useSelector(state => state.trips.new);
     const myItinerary = useSelector(state => state.itineraries.selected);
@@ -26,6 +27,8 @@ const TripShow = () => {
     const [generatingI, setGeneratingI] = useState(false);
     const [activeEdit, setActiveEdit] = useState([]);
     const [activeValue, setActiveValue] = useState("");
+    const [shareModal, setShareModal] = useState(false);
+    const closeModal = () => setIsModalOpen(false);
 
     // prefs
     const [cuisineType, setCuisineType] = useState("");
@@ -383,6 +386,16 @@ const TripShow = () => {
         var data = ev.dataTransfer.getData("text");
     }
 
+    const handleShareTrip = () => {
+        setShareModal(true)
+    }
+
+    const handleMessage = () => {
+
+        return JSON.stringify(myItinerary)
+    }
+
+
     function showItinerary() {
         if (myItinerary.itinerary === undefined) {
             return;
@@ -593,7 +606,15 @@ const TripShow = () => {
             
             <h1 className='yourItinerary'>Your Itinerary</h1>
             <div className="shareclearbuttonHolder">
-      <button onClick={(e) => handleShareTrip(e)} className='clearButton'>Share My Trip</button>
+      {/* <button onClick={(e) => handleShareTrip(e)} className='clearButton'>Share My Trip</button> */}
+      
+          <Share
+            url={`https://travelaiapp.onrender.com/`}
+            title="Upcoming Trip Details"
+            text={`Hey checkout my trip to ${JSON.stringify(myItinerary.trip.location)}, Here is what im going to do ${JSON.stringify(myItinerary.itinerary)}`}
+            onClose={closeModal}
+            className="clearButton"
+          />
       <button onClick={(e) => handleClearItinerary(e)} className='clearButton'>Clear Itinerary</button>
     </div>
         </div>

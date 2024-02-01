@@ -8,17 +8,22 @@
 
 /* Share Icon */
 #share-icon {
-  background-color: #007bff; /* Adjust the background color */
-  color: #ffffff; /* Adjust the text color */
-  padding: 10px;
   border: none;
+  padding: 10px 20px;
+  font-weight: 500; /* Slightly bolder text */
+  border-radius: 5px; /* Subtle rounded corners */
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #fff;
+  width: 100px;
+  max-width: 150px;
+  margin: 0;
+  padding: 10px;
+  background-color: #5f4b8b; /* A professional purple shade */
   cursor: pointer;
-  border-radius: 5px;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.25);
-  }
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  flex-grow: 1; /* This will make all buttons grow equally */
 }
 
 .media {
