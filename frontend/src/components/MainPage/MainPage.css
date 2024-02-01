@@ -5,7 +5,7 @@
     align-items: start; /* Align items to the start of the container */
     height: 100%;
     width: 100vw;
-    padding-bottom: 40px; /* Add padding at the bottom for balance */
+    padding-bottom: 170px; /* Add padding at the bottom for balance */
     background-color: #f5f3f7;
 }
 
@@ -82,11 +82,11 @@ button {
 }
 
 .form-container.login {
-    margin-top: 40px; /* Or any other value that suits the design */
+    margin-top: 70px; /* Or any other value that suits the design */
   }
 
   .form-container.signup {
-    margin-top: -40px; /* Raise the signup form higher up */
+    margin-top: -10px; /* Raise the signup form higher up */
   }
 
 @media (max-width: 768px) {
