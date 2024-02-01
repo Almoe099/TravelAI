@@ -28,6 +28,7 @@ const TripShow = () => {
     const [activeEdit, setActiveEdit] = useState([]);
     const [activeValue, setActiveValue] = useState("");
     const [shareModal, setShareModal] = useState(false);
+    const [errors, setErrors] = useState([]);
     const closeModal = () => setIsModalOpen(false);
 
     // prefs
@@ -190,12 +191,41 @@ const TripShow = () => {
     function handleAddToItinerary(e, myActivity, myDate){
         e.preventDefault();
 
+        let canPlace = false;
+
+        let itinerary = Object.entries(myItinerary.itinerary);
+        let used = false;
+
+        // first, check if you have an empty spot to put something...
+        for (let i = 0; i < itinerary.length; i++) {
+            for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
+                if (itinerary[i][0] === myDate) {
+                    // set.
+                    console.log("======");
+                    console.log(Object.entries(itinerary[i][1]));
+                    console.log(Object.entries(itinerary[i][1])[j][1]);
+                    if (Object.entries(itinerary[i][1])[j][1] === "") {
+                        canPlace = true;
+                    }
+                }
+            }
+        }
+        console.log(canPlace);
+
+        if (!canPlace) {
+            let error = "There are no open activity slots on this date."
+            let myErrors = [];
+            myErrors.push(error);
+            setErrors(myErrors);
+            // console.log(errors);
+            return;
+        }
+
+        setErrors([]);
         setModalOpen(null);
         setActivity("");
         setDate("");
 
-        let itinerary = Object.entries(myItinerary.itinerary);
-        let used = false;
         for (let i = 0; i < itinerary.length; i++) {
             for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
                 if (!used) {
@@ -272,6 +302,7 @@ const TripShow = () => {
       
       const handleCloseModal = (e) => {
         e.preventDefault();
+        setErrors([]);
         gsap.to("#profile-modal", { scale: 0.95, autoAlpha: 0, ease: "back.in(1.7)", duration: 0.5, onComplete: () => setModalOpen(null) });
       };
 
@@ -496,6 +527,7 @@ const TripShow = () => {
                                         Time of Day:
                                         <input type="text" onChange={(e) => setTimeOfDay(e.target.value)} value={timeOfDay} />
                                     </label>
+                                    
                                     <button onClick={(e) => handleSuggestActivities(e, true)}>Suggest With These Preferences</button>
                                     <button onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular Activities</button>
                                     {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
@@ -519,6 +551,7 @@ const TripShow = () => {
                                         Meal Type:
                                         <input type="text" onChange={(e) => setMealType(e.target.value)} value={mealType} />
                                     </label>
+                                    
                                     <button onClick={(e) => handleSuggestRestaurants(e, true)}>Suggest With These Preferences</button>
                                     <button onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular Restaurants</button>
                                     <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
@@ -542,7 +575,7 @@ const TripShow = () => {
                                             )}
                                         </select>
                                     </div>
-                                    
+                                    {errors.map(error => <p className="tripErrors">{error}</p>)}
                                     {/* <button onClick={(e) => console.log(Object.keys(myItinerary.itinerary))}>check</button> */}
                                     <button onClick={(e) => handleAddToItinerary(e, activity, date)}>Accept</button>
                                     {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
