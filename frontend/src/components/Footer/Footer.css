@@ -1,59 +1,15 @@
 .footer-container {
-  background-color: #5e548e; /* Darker shade for a more professional look */
-  padding: 40px 0;
-  color: #adb9c3; /* Light grey text for subtlety */
+  background-color: #5e548e;
+  padding: 60px;
+  color: #adb9c3;
   text-align: center;
   position: relative;
-  font-family: Arial, sans-serif; /* Common in corporate designs */
-}
-
-.footer-column {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; /* Ensures responsiveness */
-}
-
-.column {
-  flex: 1;
-  text-align: center;
-  padding: 0 15px; /* Adds padding on smaller screens */
-}
-
-.column h3 {
-  font-size: 16px;
-  font-weight: bold; /* Use bold for hierarchy */
-  color: #fff; /* White for main titles */
-  margin-bottom: 8px;
-}
-
-.column h1 {
-  font-size: 16px;
-  font-weight: normal;
-  color: #adb9c3; /* Light grey for less emphasis */
-  margin-top: 0;
-}
-
-.column a {
-  text-decoration: none;
-  color: #adb9c3; /* Match the text color */
-  transition: color 0.3s ease;
-}
-
-.column a:hover {
-  color: #fff; /* White on hover for contrast */
-}
-
-.LinkList a {
-    margin: 0 12px; /* Even spacing around icons */
-    transition: transform 0.3s ease;
-}
-
-.LinkList a:hover {
-  transform: scale(1.05); /* Subtle scale */
+  font-family: Arial, sans-serif;
 }
 
 .rights {
-    font-size: 14px; /* Smaller font size for legal text */
-    margin-top: 30px; /* Space from the icons */
-    color: #adb9c3; /* Match other text */
+  font-size: 18px;
+  color: #adb9c3;
 }
+
+

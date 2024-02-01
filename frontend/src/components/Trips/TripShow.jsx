@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -44,9 +44,6 @@ const TripShow = () => {
         dispatch(itineraryActions.clearingSuggestions());
         dispatch(itineraryActions.clearingGeneration());
         dispatch(itineraryActions.fetchItineraries());
-        // console.log("CHECKING!!!!!");
-        // console.log(activeEdit);
-        // console.log(activeValue);
         setCheck(false);
     }, [])
 
@@ -65,6 +62,7 @@ const TripShow = () => {
             }
         }
     }, [itineraries])
+
     useEffect(() => {
         if (myItinerary !== null && myItinerary !== undefined) {
             // console.log("MY ITINERARY");
@@ -82,10 +80,9 @@ const TripShow = () => {
         }
       }, [options]);
 
+
     useEffect(() => {
         if (mySuggestions !== null && mySuggestions !== undefined) {
-            console.log(mySuggestions);
-            console.log(Object.values(mySuggestions));
             let mySuggestions2 = Object.values(mySuggestions);
             let newOptions = [];
             for (let i = 0; i < mySuggestions2.length; i++) {
@@ -102,8 +99,6 @@ const TripShow = () => {
     }, [mySuggestions])
     useEffect(() => {
         if (myGeneration !== null && myGeneration !== undefined) {
-            // console.log("GENERATION COMPLETE!!!");
-            // console.log(myGeneration);
             if (generatingI) {
                 setGeneratingI(false);
                 handleUpdateGeneratedItinerary();
@@ -125,10 +120,10 @@ const TripShow = () => {
             itinerary = itineraries2[0];
         }
         if (itinerary !== null) {
-            console.log("FOUND ITINERARY");
+            // console.log("Found Itinerary!");
             dispatch(itineraryActions.selectingItinerary(itinerary));
         } else {
-            console.log("COULD NOT FIND ITINERARY");
+            // console.log("Couldn't Find Itinerary. . .");
             handleCreateItinerary();
         } 
     }
@@ -168,7 +163,6 @@ const TripShow = () => {
                 activity3: ""
             }
         }
-        console.log(jsonData);
         let itinerary = jsonData;
         let author = sessionUser._id;
         let trip = myTrip._id;
@@ -193,10 +187,6 @@ const TripShow = () => {
     function handleAddToItinerary(e, myActivity, myDate){
         e.preventDefault();
 
-        console.log("adding...");
-        console.log(myActivity);
-        console.log(myDate);
-
         setModalOpen(null);
         setActivity("");
         setDate("");
@@ -218,10 +208,7 @@ const TripShow = () => {
                 }
             }
         }
-        // console.log("=======");
-        // console.log("END ITINERARY");
         itinerary = Object.fromEntries(itinerary);
-        // console.log(itinerary);
         let author = sessionUser._id;
         let trip = myTrip._id;
         let id = myItinerary._id
@@ -229,7 +216,6 @@ const TripShow = () => {
     }
     function handleDeleteFromItinerary(e, myDay, myActivity) {
         e.preventDefault();
-        // console.log("=======");
         let itinerary = Object.entries(myItinerary.itinerary);
         let used = false;
         for (let i = 0; i < itinerary.length; i++) {
@@ -296,7 +282,6 @@ const TripShow = () => {
     }
     function handleSuggestActivities(e, isSpecific) {
         e.preventDefault();
-        console.log("SUGGESTING ACTIVITIES !!!");
         setSuggestingA(true);
         setModalOpen(null);
 
@@ -309,7 +294,6 @@ const TripShow = () => {
     }
     function handleSuggestRestaurants(e, isSpecific) {
         e.preventDefault();
-        console.log("SUGGESTING RESTAURANTS !!!");
         setSuggestingR(true);
         setModalOpen(null);
 
@@ -322,7 +306,6 @@ const TripShow = () => {
     }
     function handleGenerateItinerary(e) {
         e.preventDefault();
-        console.log("GENERATING ITINERARY !!!");
         setGeneratingI(true);
 
         let location = myTrip.location;
@@ -353,7 +336,6 @@ const TripShow = () => {
     }
     function handleEditFromItinerary(e, myDay, myActivity, myIndex) {
         e.preventDefault();
-        console.log("handling...");
         setActiveEdit([myDay, myActivity, myIndex]);
         setActiveValue(myActivity);
     }
@@ -399,7 +381,6 @@ const TripShow = () => {
     function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
-        console.log(data);
     }
 
     function showItinerary() {
@@ -610,7 +591,6 @@ const TripShow = () => {
 
     function settingDate(e) {
         e.preventDefault();
-        console.log(e.target.value);
         setDate(e.target.value);
     }
   return (

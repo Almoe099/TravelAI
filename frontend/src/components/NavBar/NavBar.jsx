@@ -5,8 +5,8 @@ import './NavBar.css';
 import { logout } from '../../store/session';
 import TravelAILogo from '../../Pictures/TravelAILogo.png';
 import CreatorModal from './CreatorModal';
-import { FaReact, FaNodeJs, FaDatabase } from 'react-icons/fa';
-import { DiMongodb, DiJavascript1 } from 'react-icons/di';
+import { FaReact, FaNodeJs } from 'react-icons/fa';
+import { DiMongodb } from 'react-icons/di';
 import { SiExpress, SiOpenai } from 'react-icons/si';
 import { FaGitAlt, FaGithub, FaNpm, FaAws } from 'react-icons/fa';
 import { SiEslint, SiPrettier, SiPostman, SiRedux, SiVisualstudiocode } from 'react-icons/si';
@@ -53,7 +53,7 @@ function NavBar() {
       name: 'Nick Cioffi',
       role: 'Backend',
       github: 'https://github.com/ncioffi1', 
-      linkedin: 'https://linkedin.com/in/creator1',
+      linkedin: 'https://www.linkedin.com/in/nicholas-cioffi-373913139/',
       email: 'imnickcioffi@gmail.com',
       image: 'https://amasphere-seeds1.s3.amazonaws.com/Panigale-V4R-MY23-Model-Preview-1050x650.png' 
     },
