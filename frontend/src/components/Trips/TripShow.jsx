@@ -569,30 +569,36 @@ const TripShow = () => {
 
         <div className='TripButtonContainer'>
             {suggestingA ? (
-  <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-  Suggesting
-  <div className="loader" style={{ marginLeft: '10px' }}></div>
-</div>
+                <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div className="loaderDiv">
+                        <p className="loaderText">Suggesting</p>
+                        <div className="loader"></div>
+                    </div>
+                </div>
             ) : (
                 <>
                     <button onClick={(e) => handleSuggestActivitiesModal(e)} className='button'>Suggest Activities</button>
                 </>
             )}
             {suggestingR ? (
-  <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-  Suggesting
-  <div className="loader" style={{ marginLeft: '10px' }}></div>
-</div>
+                <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div className="loaderDiv">
+                        <p className="loaderText">Suggesting</p>
+                        <div className="loader"></div>
+                    </div>
+                </div>
             ) : (
                 <>
                     <button onClick={(e) => handleSuggestRestaurantsModal(e)} className='button'>Suggest Restaurants</button>
                 </>
             )}
             {generatingI ? (
-  <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-  Generating
-  <div className="loader" style={{ marginLeft: '10px' }}></div>
-</div>
+                <div className='buttonG' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div className="loaderDiv">
+                        <p className="loaderText">Generating</p>
+                        <div className="loader"></div>
+                    </div>
+                </div>
             ) : (
                 <>
                     <button onClick={(e) => handleGenerateItinerary(e)} className='button'>Generate Itinerary</button>
