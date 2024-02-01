@@ -128,6 +128,9 @@ router.post('/', async (req, res, next) => {
 router.post('/GPT/restaurants', async (req, res, next) => {
     try {
         let location = req.body.location;
+        let mealType = req.body.mealType;
+        let setting = req.body.setting;
+        let cuisineType = req.body.cuisineType;
 
         // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
         const completion = await openai.chat.completions.create({
@@ -136,6 +139,9 @@ router.post('/GPT/restaurants', async (req, res, next) => {
             content: `Create a list of possible restaurants for a travelling user to go to with the following preferences: 
             {
                 "Location": ${location}
+                "Meal Type": ${mealType}
+                "Setting": ${setting}
+                "Type Of Cuisine": ${cuisineType}
             }
                       
             Your response must maintain the key names EXACTLY as they are shown here below.  This will be JSON parsed.
@@ -177,6 +183,8 @@ router.post('/GPT/restaurants', async (req, res, next) => {
 router.post('/GPT/activities', async (req, res, next) => {
     try {
         let location = req.body.location;
+        let timeOfDay = req.body.timeOfDay;
+        let interests = req.body.interests;
 
         // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
         const completion = await openai.chat.completions.create({
@@ -185,6 +193,8 @@ router.post('/GPT/activities', async (req, res, next) => {
             content: `Create a list of possible activities for a travelling user with the following preferences: 
             {
                 "Location": ${location}
+                "Time Of Day": ${timeOfDay}
+                "Interests": ${interests}
             }
                       
             Your response must maintain the key names EXACTLY as they are shown here below.  This will be JSON parsed.
@@ -245,7 +255,7 @@ router.post('/GPT', async (req, res, next) => {
                 "Day 1": {
                     "activity1": "",
                     "activity2": "",
-                    "restaurant1": ""
+                    "restaurant1": "Try the famous pastrami sandwich at Katz's Delicatessen."
                 },
                 "Day 2": {
                     "activity1": "",
