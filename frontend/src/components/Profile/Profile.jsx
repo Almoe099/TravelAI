@@ -4,7 +4,6 @@ import { composeTrip, fetchTrips, deleteTrip } from '../../store/trips';
 import TripBox from './Tripbox';
 import './Profile.css';
 import Footer from '../Footer/Footer';
-import { EmailShareButton } from 'react-share';
 
 function Profile() {
   const sessionUser = useSelector(state => state.session.user);
