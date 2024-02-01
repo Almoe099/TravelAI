@@ -24,7 +24,13 @@ function Profile() {
 
   useEffect(() => {
     dispatch(fetchTrips());
+    // Using gsap.fromTo for explicit control over the animation
+    gsap.fromTo(".profile-container", 
+      { opacity: 0, y: 100 }, // starting properties
+      { duration: 2, opacity: 1, y: 0, ease: "power2.out" } // ending properties
+    );
   }, [dispatch]);
+  
 
   const sortedTrips = Object.values(trips).sort((a, b) => new Date(a.startdate) - new Date(b.startdate));
 
@@ -102,9 +108,18 @@ function Profile() {
     setSelectedTrip(trip);
   };
 
+  const modalAnimation = useSpring({
+    opacity: isModalOpen ? 1 : 0,
+    transform: isModalOpen ? `translate(-50%, -50%) scale(1)` : `translate(-50%, -50%) scale(0.5)`,
+    top: '50%',
+    left: '50%',
+    position: 'absolute',
+    config: { duration: 300 }
+  });
+
   return (
     <>
-      <div className="profile-container">
+      <div className="profile-container"> {/* Initial opacity set to 0 */}
         <div id="profile-left-half">
           <div id="profile-right-half">
             <div className="button-container">
@@ -130,7 +145,7 @@ function Profile() {
         </div>
       </div>
       {isModalOpen && (
-        <div id="profile-modal">
+        <animated.div style={modalAnimation} id="profile-modal">
           <h3>Create a New Trip</h3>
           <label>
             Location:
@@ -147,7 +162,7 @@ function Profile() {
           {errors.map(error => <p className="tripErrors">{error}</p>)}
           <button onClick={(e) => handleCreateTrip(e)}>Create</button>
           <button onClick={handleModalClose}>Cancel</button>
-        </div>
+          </animated.div>
       )}
       <Footer />
     </>
