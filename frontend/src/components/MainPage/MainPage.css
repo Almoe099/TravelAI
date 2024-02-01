@@ -3,9 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: start; /* Align items to the start of the container */
-    height: calc(100vh - 80px); /* Adjust height to account for any headers/navbars */
+    height: 100%;
     width: 100vw;
-    padding-top: 40px; /* Add padding at the top to push content down slightly */
     padding-bottom: 40px; /* Add padding at the bottom for balance */
     background-color: #f5f3f7;
 }
@@ -16,6 +15,10 @@
     text-align: left;
     position: relative;
     text-align: center; /* Center align the content for a better visual hierarchy */
+}
+.main-page {
+    width: 100%;
+    height: 100%;
 }
 
 .info-image {
