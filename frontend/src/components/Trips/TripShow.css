@@ -1,12 +1,12 @@
 .TripShowMainContainer {
   display: flex;
   justify-content: stretch; /* This will stretch the child elements to take the full width */
-  font-family: 'Arial', sans-serif;
   color: #333;
   height: 100vh; /* This will make the container take the full viewport height */
   margin: 0;
   padding: 0;
 }
+
 
 .TripDetailsHalf, .ItineraryHalf {
   flex: 1; /* This ensures that each half takes up half the width of the container */
@@ -14,12 +14,18 @@
   flex-direction: column;
   justify-content: start;
   align-items: stretch; /* This will make the children take the full width */
-  padding: 60px; /* This padding will ensure there's space from the top (below navbar), sides, and between halves */
+  background: #fff; /* Use white for clean appearance */
+  padding: 30px;
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for depth */
 }
 
 .TripInfo {
   margin-bottom: 30px;
 }
+
+
+
 
 .TripLocation, .TripDate {
   font-size: 24px;
@@ -30,6 +36,14 @@
   display: flex;
   justify-content: space-around; /* This will space the buttons evenly */
   margin-bottom: 30px;
+}
+
+.button, .buttonG, .clearButton {
+  border: none;
+  padding: 10px 20px;
+  font-weight: 500; /* Slightly bolder text */
+  border-radius: 5px; /* Subtle rounded corners */
+  transition: all 0.3s ease;
 }
 
 .buttonG {
@@ -179,14 +193,14 @@
   margin-left: 30px; */
   margin: 0;
   padding: 4px;
-  background-color: green; /* A professional purple shade */
+  background-color: #6c63ff; /* A professional purple shade */
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
   flex-grow: 1; /* This will make all buttons grow equally */
 }
 .dayPlanSave:hover {
-  background-color: rgb(0, 78, 0); /* A darker shade of purple for hover effect */
+  background-color: #564dc7); /* A darker shade of purple for hover effect */
 }
 .dayPlanTextHolder {
   width: 80%;
@@ -208,6 +222,12 @@
   justify-content: right;
   min-width: 50px;
   /* border: 2px solid orange; */
+}
+
+.shareclearbuttonHolder {
+  display: flex; /* Use flexbox to align buttons horizontally */
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Add space between buttons */
 }
 
 
@@ -267,18 +287,11 @@ input[type="text"]{
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: space-evenly; */
+  justify-content: space-evenly;
   margin-bottom: 20px;
   /* border: 1px solid red; */
 }
-.clearButtonHolder {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  width: 50%;
-  /* border: 1px solid red; */
-}
+
 .clearButton {
   /* border: 2px solid red; */
   font-size: 16px;
@@ -328,4 +341,64 @@ input[type="text"]{
 
 .dayList:first-child {
   margin-top: 0; /* Remove the top margin for the first day */
+}
+
+.selectionContainer {
+  max-height: 600px; /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+.addIcon {
+  margin-right: 20px; /* Adjust the space as needed */
+  color: #5f4b8b; /* Optional: Match the icon color with your theme */
+}
+
+#profile-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalLine {
+  height: 2px;
+  background-color: #eee;
+  margin: 20px 0;
+}
+
+#profile-modal label {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#profile-modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+#profile-modal button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5f4b8b;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#profile-modal button:hover {
+  background-color: #503d74;
 }
