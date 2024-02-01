@@ -385,6 +385,18 @@ const TripShow = () => {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
     }
+    function removeComma(str1) {
+        console.log(str1);
+        return str1;
+    }
+
+    function getShareText() {
+        let paragraph = `${Object.entries(myItinerary.itinerary).map(day => 
+            `\n${formatTripDate(day[0], "long")} : 
+            ${Object.values(day[1]).map(newActivity => `\n${newActivity}`).join("")}\n`
+            ).join("")}\n\n`
+        return `Hey!  Checkout my trip to ${myItinerary.trip.location}.  Here's what I'm planning on doing:  \n${paragraph}`
+    }
 
     const handleShareTrip = () => {
         setShareModal(true)
@@ -611,7 +623,7 @@ const TripShow = () => {
           <Share
             url={`https://travelaiapp.onrender.com/`}
             title="Upcoming Trip Details"
-            text={`Hey checkout my trip to ${JSON.stringify(myItinerary.trip.location)}, Here is what im going to do ${JSON.stringify(myItinerary.itinerary)}`}
+            text={getShareText()}
             onClose={closeModal}
             className="clearButton"
           />
