@@ -10,9 +10,13 @@ const CreatorModal = ({ show, onClose, creators, projectInfo }) => {
 
     useEffect(() => {
         if (show && activeTab === 'about') {
-            gsap.fromTo('.technology-icon', { y: -20, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 });
+            // Animate the summary paragraphs
+            gsap.fromTo('.about-section p', { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.7 });
+    
+            // Delay the start of the technologies animation so it happens after the summary
+            gsap.fromTo('.technology-icon', { y: -20, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, delay: 0.5 });
         } else if (show && activeTab === 'team') {
-            gsap.fromTo('.creator', { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.2, duration: .7 });
+            gsap.fromTo('.creator', { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.2, duration: 0.7 });
         }
     }, [activeTab, show]);
     
