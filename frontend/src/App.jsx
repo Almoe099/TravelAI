@@ -51,36 +51,36 @@ const router = createBrowserRouter([
         path: "signup",
         element: <AuthRoute component={SignupForm} />
       },
-      {
-        path: "notes",
-        element: <Outlet />,
-        children: [
-          {
-            index: true,
-            element: <ProtectedRoute component={Notes} />
-          },
-          {
-            path: "new",
-            element: <ProtectedRoute component={NoteCompose} />
-          }
-        ]
-      },
+      // {
+      //   path: "notes",
+      //   element: <Outlet />,
+      //   children: [
+      //     {
+      //       index: true,
+      //       element: <ProtectedRoute component={Notes} />
+      //     },
+      //     {
+      //       path: "new",
+      //       element: <ProtectedRoute component={NoteCompose} />
+      //     }
+      //   ]
+      // },
       {
         path: "profile",
         element: <ProtectedRoute component={Profile} />
       },
-      {
-        path: "tripsGPT",
-        element: <ProtectedRoute component={CreateTrip} />
-      },
-      {
-        path: "maketrip",
-        element: <ProtectedRoute component={MakeTrip} />
-      },
-      {
-        path: "tripshow",
-        element: <ProtectedRoute component={TripShow} />
-      }
+      // {
+      //   path: "tripsGPT",
+      //   element: <ProtectedRoute component={CreateTrip} />
+      // },
+      // {
+      //   path: "maketrip",
+      //   element: <ProtectedRoute component={MakeTrip} />
+      // },
+      // {
+      //   path: "tripshow",
+      //   element: <ProtectedRoute component={TripShow} />
+      // }
     ]
   }
 ]);
