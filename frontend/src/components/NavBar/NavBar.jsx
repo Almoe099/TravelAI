@@ -55,7 +55,7 @@ function NavBar() {
       github: 'https://github.com/ncioffi1', 
       linkedin: 'https://www.linkedin.com/in/nicholas-cioffi-373913139/',
       email: 'imnickcioffi@gmail.com',
-      image: 'https://amasphere-seeds1.s3.amazonaws.com/Panigale-V4R-MY23-Model-Preview-1050x650.png' 
+      image: 'https://amasphere-seeds1.s3.amazonaws.com/nicks_picture.jpg' 
     },
     { 
       name: 'Almutasim Mohamed', 
