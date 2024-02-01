@@ -432,14 +432,7 @@ input[type="text"]{
   font-weight: bold;
 }
 
-#profile-modal input[type="text"] {
-  width: 300px;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-}
+
 
 #profile-modal button {
   width: 300px; /* Adjust as needed */

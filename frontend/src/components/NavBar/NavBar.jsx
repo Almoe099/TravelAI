@@ -87,13 +87,12 @@ function NavBar() {
           {loggedIn ? (
             <>
               <Link to='/profile'>Profile</Link>
-              <a onClick={openModal} className="nav-link">About Us</a>
+              <a onClick={openModal} className="nav-link">About</a>
               {/* other links */}
             </>
           ) : (
             <>
-              <Link to='/features'>Features</Link>
-              <a onClick={openModal} className="nav-link">About Us</a>
+              <a onClick={openModal} className="nav-link">About</a>
               {/* other links */}
             </>
           )}
