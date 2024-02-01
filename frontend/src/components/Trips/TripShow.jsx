@@ -389,196 +389,55 @@ const TripShow = () => {
         }
 
         return (
-            <>  
-                {Object.entries(myItinerary.itinerary).map(day => 
-                <>
+            <>
+            {Object.entries(myItinerary.itinerary).map(day => (
+                <div key={day[0]}>
                     <h2 className='subHeader'>{formatTripDate(day[0], "short")}</h2>
-                        <>
-                            <div className="dayPlanBox">
-
-                                    {Object.values(day[1])[0] === "" ? (
-                                        // IF EMPTY
+                    <div className="dayPlanBox">
+                        {Object.entries(day[1]).map(([time, activity], index) => (
+                            <div className="dayPlanHolder" key={time}>
+                                {activity === "" ? (
+                                    checkForActiveEdit(day[0], activity, index) ? (
                                         <>
-                                            <div className="dayPlanHolder">
-                                            {checkForActiveEdit(day[0], Object.values(day[1])[0], 0) ? (
-                                                <>
-                                                    <div className="dayPlanTextHolder">
-                                                        <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
-                                                    </div>
-                                                    <div className="dayPlanH2">
-                                                        <div className="dayPlanDeleteHolder">
-                                                            <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" >Save</button>
-                                                        </div>
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <div className="dayPlanPlusHolder">
-                                                        <button className="dayPlanPlus" onClick={(e) => handleEditFromItinerary(e, day[0], Object.values(day[1])[0], 0)}>+</button>
-                                                    </div>
-                                                </>
-                                            )}
+                                            <div className="dayPlanTextHolder">
+                                                <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
+                                            </div>
+                                            <div className="dayPlanH2">
+                                                <button onClick={(e) => handleSaveToItinerary(e, day[0], activeValue, time)} className="dayPlanSave">Save</button>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <button className="dayPlanPlus" onClick={(e) => handleEditFromItinerary(e, day[0], activity, index)}>Add Event</button>
+                                    )
+                                ) : (
+                                    checkForActiveEdit(day[0], activity, index) ? (
+                                        <>
+                                            <div className="dayPlanTextHolder">
+                                                <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
+                                            </div>
+                                            <div className="dayPlanH2">
+                                                <button onClick={(e) => handleSaveToItinerary(e, day[0], activeValue, time)} className="dayPlanSave">Save</button>
                                             </div>
                                         </>
                                     ) : (
                                         <>
-                                            <div className="dayPlanHolder">
-                                                {checkForActiveEdit(day[0], Object.values(day[1])[0], 0) ? (
-                                                    <>
-                                                        <div className="dayPlanTextHolder">
-                                                            <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
-                                                        </div>
-                                                        <div className="dayPlanH2">
-                                                            <div className="dayPlanDeleteHolder">
-                                                                <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" >Save</button>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <div className="dayPlanTextHolder">
-                                                            <p className="dayPlans">{Object.values(day[1])[0]}</p>
-                                                        </div>
-                                                        <div className="dayPlanH">
-                                                            <div className="dayPlanDeleteHolder">
-                                                                <button className="dayPlanDelete" onClick={(e) => handleEditFromItinerary(e, day[0], Object.values(day[1])[0], 0)}>Edit</button>
-                                                            </div>
-                                                            <div className="dayPlanDeleteHolder">
-                                                                <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], Object.values(day[1])[0])}>Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                )}
-                                                
+                                            <div className="dayPlanTextHolder">
+                                                <p className="dayPlans">{activity}</p>
+                                            </div>
+                                            <div className="dayPlanH">
+                                                <button className="dayPlanDelete" onClick={(e) => handleEditFromItinerary(e, day[0], activity, index)}>Edit</button>
+                                                <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], activity, time)}>Delete</button>
                                             </div>
                                         </>
-                                    )}
-
-                                    {/* section 2 */}
-                                    {Object.values(day[1])[1] === "" ? (
-                                        // IF EMPTY
-                                            <>
-                                                <div className="dayPlanHolder">
-                                                {checkForActiveEdit(day[0], Object.values(day[1])[1], 1) ? (
-                                                    <>
-                                                        <div className="dayPlanTextHolder">
-                                                            <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
-                                                        </div>
-                                                        <div className="dayPlanH2">
-                                                            <div className="dayPlanDeleteHolder">
-                                                                <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" >Save</button>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        
-                                                            <div className="dayPlanPlusHolder">
-                                                                <button className="dayPlanPlus" onClick={(e) => handleEditFromItinerary(e, day[0], Object.values(day[1])[1], 1)}>+</button>
-                                                            </div>
-                                                       
-                                                    </>
-                                                )}
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="dayPlanHolder">
-                                                    {checkForActiveEdit(day[0], Object.values(day[1])[1], 1) ? (
-                                                        <>
-                                                            <div className="dayPlanTextHolder">
-                                                                <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
-                                                            </div>
-                                                            <div className="dayPlanH2">
-                                                                <div className="dayPlanDeleteHolder">
-                                                                                  <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" style={{ background: '#6c63ff' }}>Save</button>
-                                                                </div>
-                                                            </div>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <div className="dayPlanTextHolder">
-                                                                <p className="dayPlans">{Object.values(day[1])[1]}</p>
-                                                            </div>
-                                                            <div className="dayPlanH">
-                                                                <div className="dayPlanDeleteHolder">
-                                                                    <button className="dayPlanDelete" onClick={(e) => handleEditFromItinerary(e, day[0], Object.values(day[1])[1], 1)}>Edit</button>
-                                                                </div>
-                                                                <div className="dayPlanDeleteHolder">
-                                                                    <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], Object.values(day[1])[1])}>Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </>
-                                                    )}
-                                                    
-                                                </div>
-                                            </>
-                                    )}
-                                    {Object.values(day[1])[2] === "" ? (
-                                        // IF EMPTY
-                                            <>
-                                                <div className="dayPlanHolder">
-                                                {checkForActiveEdit(day[0], Object.values(day[1])[2], 2) ? (
-                                                    <>
-                                                        <div className="dayPlanTextHolder">
-                                                            <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
-                                                        </div>
-                                                        <div className="dayPlanH2">
-                                                            <div className="dayPlanDeleteHolder">
-                                                                <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" >Save</button>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <div className="dayPlanPlusHolder">
-                                                            <button className="dayPlanPlus" onClick={(e) => handleEditFromItinerary(e, day[0], Object.values(day[1])[2], 2)}>+</button>
-                                                        </div>
-                                                    </>
-                                                )}
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="dayPlanHolder">
-                                                {checkForActiveEdit(day[0], Object.values(day[1])[2], 2) ? (
-                                                        <>
-                                                            <div className="dayPlanTextHolder">
-                                                                <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
-                                                            </div>
-                                                            <div className="dayPlanH2">
-                                                                <div className="dayPlanDeleteHolder">
-                                                                    <button onClick={(e) => handleSaveToItinerary(e)} className="dayPlanSave" >Save</button>
-                                                                </div>
-                                                            </div>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <div className="dayPlanTextHolder">
-                                                                <p className="dayPlans">{Object.values(day[1])[2]}</p>
-                                                            </div>
-                                                            <div className="dayPlanH">
-                                                                <div className="dayPlanDeleteHolder">
-                                                                    <button className="dayPlanDelete" onClick={(e) => handleEditFromItinerary(e, day[0], Object.values(day[1])[2], 2)}>Edit</button>
-                                                                </div>
-                                                                <div className="dayPlanDeleteHolder">
-                                                                    <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], Object.values(day[1])[2])}>Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </>
-                                                )}
-                                                </div>
-                                            </>
-                                    )}
+                                    )
+                                )}
                             </div>
-                        </>
-                        <>
-                            
-                        </>
-                </>
-                )}
-            </>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </>
+        
         )
     }
 
@@ -613,7 +472,7 @@ const TripShow = () => {
                                         <input type="text" onChange={(e) => setTimeOfDay(e.target.value)} value={timeOfDay} />
                                     </label>
                                     <button onClick={(e) => handleSuggestActivities(e, true)}>Suggest With These Preferences</button>
-                                    <button onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular</button>
+                                    <button onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular Activities</button>
                                     {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
                                     <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
                                 </div>
@@ -621,7 +480,7 @@ const TripShow = () => {
                         ) : (
                             <>
                                 <div id="profile-modal">
-                                    <p>Input Your Restaurant Preferences...</p>
+                                    <p className='pModalText'>Input Your Restaurant Preferences...</p>
                                     <div className="modalLine"></div>
                                     <label>
                                         Type of Cuisine:
@@ -636,7 +495,7 @@ const TripShow = () => {
                                         <input type="text" onChange={(e) => setMealType(e.target.value)} value={mealType} />
                                     </label>
                                     <button onClick={(e) => handleSuggestRestaurants(e, true)}>Suggest With These Preferences</button>
-                                    <button onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular</button>
+                                    <button onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular Restaurants</button>
                                     <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
                                 </div>
                             </>
