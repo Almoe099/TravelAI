@@ -31,6 +31,8 @@ const TripShow = () => {
     const [mealType, setMealType] = useState("");
     const [interests, setInterests] = useState("");
     const [timeOfDay, setTimeOfDay] = useState("");
+    const [activity, setActivity] = useState("");
+    const [date, setDate] = useState("");
 
     const dispatch = useDispatch();
 
@@ -164,14 +166,30 @@ const TripShow = () => {
         }
         return false;
     }
-    function handleAddToItinerary(e, myActivity){
+    function handleAddToItineraryModal(e, myActivity) {
         e.preventDefault();
+        if (myActivity !== "") {
+            setActivity(myActivity);
+            setModalOpen("OPTIONS");
+        }
+    }
+    function handleAddToItinerary(e, myActivity, myDate){
+        e.preventDefault();
+
+        console.log("adding...");
+        console.log(myActivity);
+        console.log(myDate);
+
+        setModalOpen(null);
+        setActivity("");
+        setDate("");
+
         let itinerary = Object.entries(myItinerary.itinerary);
         let used = false;
         for (let i = 0; i < itinerary.length; i++) {
             for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
                 if (!used) {
-                    if (Object.entries(itinerary[i][1])[j][1] === "") {
+                    if (itinerary[i][0] === myDate && Object.entries(itinerary[i][1])[j][1] === "") {
                         // set.
                         let newDay = Object.assign(itinerary[i][1]);
                         newDay = Object.entries(newDay);
@@ -565,50 +583,88 @@ const TripShow = () => {
         return null;
     }
 
+    function settingDate(e) {
+        e.preventDefault();
+        console.log(e.target.value);
+        setDate(e.target.value);
+    }
   return (
     <>
         {modalOpen !== null && (
             <>
-                {modalOpen === "ACTIVITIES" ? (
+                {(modalOpen === "ACTIVITIES" || modalOpen === "RESTAURANTS") ? (
                     <>
-                        <div id="profile-modal">
-                            <p className='pModalText'>Input Your Activity Preferences...</p>
-                            <div className="modalLine"></div>
-                            <label>
-                                Interests:
-                                <input type="text" onChange={(e) => setInterests(e.target.value)} value={interests} />
-                            </label>
-                            <label>
-                                Time of Day:
-                                <input type="text" onChange={(e) => setTimeOfDay(e.target.value)} value={timeOfDay} />
-                            </label>
-                            <button onClick={(e) => handleSuggestActivities(e, true)}>Suggest With These Preferences</button>
-                            <button onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular</button>
-                            {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
-                            <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
-                        </div>
+                        {modalOpen === "ACTIVITIES" ? (
+                            <>
+                                <div id="profile-modal">
+                                    <p className='pModalText'>Input Your Activity Preferences...</p>
+                                    <div className="modalLine"></div>
+                                    <label>
+                                        Interests:
+                                        <input type="text" onChange={(e) => setInterests(e.target.value)} value={interests} />
+                                    </label>
+                                    <label>
+                                        Time of Day:
+                                        <input type="text" onChange={(e) => setTimeOfDay(e.target.value)} value={timeOfDay} />
+                                    </label>
+                                    <button onClick={(e) => handleSuggestActivities(e, true)}>Suggest With These Preferences</button>
+                                    <button onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular</button>
+                                    {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
+                                    <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div id="profile-modal">
+                                    <p>Input Your Restaurant Preferences...</p>
+                                    <div className="modalLine"></div>
+                                    <label>
+                                        Type of Cuisine:
+                                        <input type="text" onChange={(e) => setCuisineType(e.target.value)} value={cuisineType} />
+                                    </label>
+                                    <label>
+                                        Ambiance / Setting: 
+                                        <input type="text" onChange={(e) => setSetting(e.target.value)} value={setting} />
+                                    </label>
+                                    <label>
+                                        Meal Type:
+                                        <input type="text" onChange={(e) => setMealType(e.target.value)} value={mealType} />
+                                    </label>
+                                    <button onClick={(e) => handleSuggestRestaurants(e, true)}>Suggest With These Preferences</button>
+                                    <button onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular</button>
+                                    <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                </div>
+                            </>
+                        )}
                     </>
+                    
                 ) : (
                     <>
-                        <div id="profile-modal">
-                            <p>Input Your Restaurant Preferences...</p>
-                            <div className="modalLine"></div>
-                            <label>
-                                Type of Cuisine:
-                                <input type="text" onChange={(e) => setCuisineType(e.target.value)} value={cuisineType} />
-                            </label>
-                            <label>
-                                Ambiance / Setting: 
-                                <input type="text" onChange={(e) => setSetting(e.target.value)} value={setting} />
-                            </label>
-                            <label>
-                                Meal Type:
-                                <input type="text" onChange={(e) => setMealType(e.target.value)} value={mealType} />
-                            </label>
-                            <button onClick={(e) => handleSuggestRestaurants(e, true)}>Suggest With These Preferences</button>
-                            <button onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular</button>
-                            <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
-                        </div>
+                        {modalOpen === "OPTIONS" ? (
+                            <>
+                                <div id="profile-modal">
+                                    <p className='pModalText'>Select A Day.</p>
+                                    <div className="modalLine"></div>
+                                    <div className="selectHolder">
+                                        <select name="dates" id="date-select" onChange={(e) => settingDate(e, this)}>
+                                            <option value="">--Please choose an option--</option>
+                                            {Object.keys(myItinerary.itinerary).map(myDate => 
+                                                <option value={myDate}>{formatTripDate(myDate, "short")}</option>
+                                            )}
+                                        </select>
+                                    </div>
+                                    
+                                    {/* <button onClick={(e) => console.log(Object.keys(myItinerary.itinerary))}>check</button> */}
+                                    <button onClick={(e) => handleAddToItinerary(e, activity, date)}>Accept</button>
+                                    {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
+                                    <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                            
+                            </>
+                        )}
                     </>
                 )}
             </>
@@ -655,15 +711,15 @@ const TripShow = () => {
         <div className='selectionContainer'>
           {/* Placeholder for TripOptions Component */}
           <ul className='optionList'>
-          <li onClick={(e) => handleAddToItinerary(e, options[0])} onDrop={(ev) => drop(ev)} className='option' draggable="true" >{options[0]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[1])} className='option' draggable="true" >{options[1]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[2])} className='option' draggable="true" >{options[2]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[3])} className='option' draggable="true" >{options[3]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[4])} className='option' draggable="true" >{options[4]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[5])} className='option' draggable="true" >{options[5]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[6])} className='option' draggable="true" >{options[6]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[7])} className='option' draggable="true" >{options[7]}</li>
-          <li onClick={(e) => handleAddToItinerary(e, options[8])} className='option' draggable="true" >{options[8]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[0])} onDrop={(ev) => drop(ev)} className='option' draggable="true" >{options[0]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[1])} className='option' draggable="true" >{options[1]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[2])} className='option' draggable="true" >{options[2]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[3])} className='option' draggable="true" >{options[3]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[4])} className='option' draggable="true" >{options[4]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[5])} className='option' draggable="true" >{options[5]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[6])} className='option' draggable="true" >{options[6]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[7])} className='option' draggable="true" >{options[7]}</li>
+          <li onClick={(e) => handleAddToItineraryModal(e, options[8])} className='option' draggable="true" >{options[8]}</li>
             {/* Additional options can be added here */}
           </ul>
         </div>
