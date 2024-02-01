@@ -13,7 +13,12 @@ body, input, button {
     background-color: #f7f7f7;
   }
 
- 
+  .tripErrors {
+    color: red;
+    font-size: 12px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
   
   #profile-left-half {
     flex-basis: 60%;
