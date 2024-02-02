@@ -9,6 +9,8 @@ import gsap from 'gsap';
 import Share from '../Share/Share';
 
 import { FaPlus } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaSave } from 'react-icons/fa';
+
 
 const TripShow = () => {
     const { tripId } = useParams();
@@ -92,6 +94,8 @@ const TripShow = () => {
           gsap.from('.option', { opacity: 0, duration: 1, y: -20, stagger: 0.2 });
         }
       }, [options]);
+
+      
 
 
     useEffect(() => {
@@ -355,6 +359,7 @@ const TripShow = () => {
         let days = Object.keys(myItinerary.itinerary).length;
         // let days = myItinerary.itinerary 
         dispatch(itineraryActions.generateItinerary({location, days}));
+        
     }
     function handleUpdateGeneratedItinerary() {
         let itinerary = Object.entries(myItinerary.itinerary);
@@ -468,7 +473,7 @@ const TripShow = () => {
                                                 <input className="dayPlanInput" type="text" onChange={(e) => setActiveValue(e.target.value)} value={activeValue}></input>
                                             </div>
                                             <div className="dayPlanH2">
-                                                <button onClick={(e) => handleSaveToItinerary(e, day[0], activeValue, time)} className="dayPlanSave">Save</button>
+                                            <button onClick={(e) => handleSaveToItinerary(e, day[0], activeValue, time)} className="dayPlanSave">Save</button>
                                             </div>
                                         </>
                                     ) : (
@@ -490,8 +495,12 @@ const TripShow = () => {
                                                 <p className="dayPlans">{activity}</p>
                                             </div>
                                             <div className="dayPlanH">
-                                                <button className="dayPlanDelete" onClick={(e) => handleEditFromItinerary(e, day[0], activity, index)}>Edit</button>
-                                                <button className="dayPlanDelete" onClick={(e) => handleDeleteFromItinerary(e, day[0], activity, time)}>Delete</button>
+                                            <button className="icon-button-edit" onClick={(e) => handleEditFromItinerary(e, day[0], activity, index)}>
+    <FaEdit />
+</button>
+<button className="icon-button-delete" onClick={(e) => handleDeleteFromItinerary(e, day[0], activity, time)}>
+    <FaTrash />
+</button>
                                             </div>
                                         </>
                                     )

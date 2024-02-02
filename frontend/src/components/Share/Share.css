@@ -28,6 +28,7 @@
 
 .media {
     transition: transform 0.3s ease;
+    margin: 0 15px; /* Adds spacing between icons */
 
     &:hover {
         transform: scale(1.25);
@@ -55,6 +56,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
   text-align: center;
+  animation: slideIn 0.5s;
 }
 
 /* Share Button */
@@ -63,10 +65,51 @@
   margin-top: -10px;
 }
 
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideIn {
+  from {transform: translateY(-20px);}
+  to {transform: translateY(0);}
+}
+
+.Share-modal-overlay.open {
+  display: flex;
+  animation: fadeIn 0.5s;
+}
 
 /* Adjust the styles based on your design preferences */
 
 .share-email-buttons {
     display: flex;
     flex-direction: row;
+}
+
+.close-modal {
+  margin-top: 20px;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Share-modal-overlay.open {
+  display: flex;
+  animation: fadeIn 0.5s forwards; /* Ensure the animation completes to the end */
+}
+
+.Share-modal-content {
+  animation: slideIn 0.5s forwards; /* Use forwards to retain the final animation state */
+}
+
+.Share-modal-content.closing {
+  animation: slideOut 0.5s forwards; /* New closing animation */
+}
+
+@keyframes slideOut {
+  from {transform: translateY(0);}
+  to {transform: translateY(-20px); opacity: 0;} /* Move up and fade out */
 }

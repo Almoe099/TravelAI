@@ -1,55 +1,50 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import {
   EmailShareButton,
   FacebookShareButton,
   TwitterShareButton,
   WhatsappShareButton,
-} from "react-share";
-import { EmailIcon, FacebookIcon, XIcon, WhatsappIcon } from "react-share";
-
-import "./Share.css";
+  EmailIcon,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from 'react-share';
+import './Share.css';
 
 const Share = ({ url, title, text }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
+  const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
+  // Dynamically apply animation class based on the isOpen state
+  const modalClass = isOpen ? 'Share-modal-overlay open' : 'Share-modal-overlay';
+
   return (
     <div className="Share-container">
-      <button id="share-icon" onClick={toggleDropdown}>
+      <button id="share-icon" onClick={toggleModal}>
         Share
       </button>
       {isOpen && (
-        <div className="Share-modal-overlay" onClick={toggleDropdown}>
-          <div
-            className="Share-modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className={modalClass} onClick={toggleModal}>
+          <div className="Share-modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Share Your Trip</h2>
             <div className="share-email-buttons">
-              <div id="share-button">
-                <EmailShareButton url={url} subject={title} body={text}>
-                  <EmailIcon size={40} round className="media"/>
-                </EmailShareButton>
-              </div>
-              <div id="share-button">
-                <FacebookShareButton url={url}>
-                  <FacebookIcon size={40} round className="media" />
-                </FacebookShareButton>
-              </div>
-              <div id="share-button">
-                <TwitterShareButton url={url} title={text}>
-                  <XIcon size={40} round className="media"/>
-                </TwitterShareButton>
-              </div>
-              <div id="share-button">
-                <WhatsappShareButton url={url} title={text}>
-                  <WhatsappIcon size={40} round className="media"/>
-                </WhatsappShareButton>
-              </div>
+              <EmailShareButton url={url} subject={title} body={text} className="share-button">
+                <EmailIcon size={40} round />
+              </EmailShareButton>
+              <FacebookShareButton url={url} quote={title} className="share-button">
+                <FacebookIcon size={40} round />
+              </FacebookShareButton>
+              <TwitterShareButton url={url} title={title} className="share-button">
+                <TwitterIcon size={40} round />
+              </TwitterShareButton>
+              <WhatsappShareButton url={url} title={title} separator=":: " className="share-button">
+                <WhatsappIcon size={40} round />
+              </WhatsappShareButton>
             </div>
+            <button className="close-modal" onClick={toggleModal}>Close</button>
           </div>
         </div>
       )}
