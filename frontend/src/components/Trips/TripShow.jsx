@@ -42,6 +42,15 @@ const TripShow = () => {
 
     const dispatch = useDispatch();
 
+    const [pageLoaded, setPageLoaded] = useState(false);
+
+    useEffect(() => {
+        // Trigger the fade-in effect after the component mounts
+        setPageLoaded(true);
+      }, []);
+
+
+
     useEffect(() => {
         dispatch(tripActions.fetchTrip(tripId));
         dispatch(itineraryActions.clearingSelected());
@@ -593,7 +602,7 @@ const TripShow = () => {
             
         )}
     
-    <div className='TripShowMainContainer'>
+    <div className={`TripShowMainContainer ${pageLoaded ? 'fadeInUpAnimation' : ''}`}>
       <div className="TripDetailsHalf">
         <div className='TripInfo'>
           <h1 className='TripLocation'>Trip Location: {myTrip.location}</h1>
