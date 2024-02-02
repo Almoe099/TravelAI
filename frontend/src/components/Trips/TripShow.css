@@ -138,7 +138,7 @@
 .dayPlanBox {
   min-height: 94px;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border: 1px solid #e0e0e0; /* Light border for definition */
   border-radius: 4px; /* Rounded corners */
   background-color: #f9f9f9; /* Slightly off-white background */
@@ -163,20 +163,6 @@
   margin: 0;
   padding: 4px;
   background-color: #6c63ff; /* A professional purple shade */
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s ease-in-out;
-  flex-grow: 1; /* This will make all buttons grow equally */
-}
-
-
-
-.dayPlanDelete {
-  font-size: 14px;
-  color: #fff;
-  margin: 0;
-  padding: 4px;
-  background-color: #8e7cb5; /* A professional purple shade */
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
@@ -284,7 +270,8 @@ input[type="text"]{
   min-width: 14%;
   display: flex;
   flex-direction: row;
-  margin-left: 4px;
+  margin-left: 40px;
+  margin-bottom: 5px;
   /* align-items: right; */
   /* justify-content: left; */
   /* border: 2px solid teal; */
@@ -315,7 +302,7 @@ input[type="text"]{
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   /* border: 1px solid red; */
 }
 
@@ -563,6 +550,89 @@ input[type="text"]{
   text-align: center; /* Centered text */
   box-shadow: inset 0 -2px 4px -3px rgba(0, 0, 0, 0.2); /* Subtle inner shadow for depth */
 }
+
+.dayPlanDelete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayPlanDelete:hover {
+  opacity: 0.7;
+}
+
+.icon-button-edit, .icon-button-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button-edit:hover, .icon-button-delete:hover {
+  opacity: 0.7;
+}
+
+/* Specific styles for edit icon */
+.icon-button-edit {
+  color: #7a7d80; /* Example color for edit */
+}
+
+/* Specific styles for delete icon */
+.icon-button-delete {
+  color: #7a7d80; /* Example color for delete */
+}
+
+.icon-button-save {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button-save:hover {
+  opacity: 0.7;
+}
+
+.icon-button-edit, .icon-button-delete {
+  margin-bottom: 5px; /* Pushes up the button by reducing space at the bottom */
+  /* ... other styles ... */
+}
+
+/* Specific styles for save icon */
+.icon-button-save {
+  color: #7a7d80; /* Example color for save */
+}
+
+/* Reset any button styles that shouldn't apply to this icon button */
+button:not(.icon-button-save) {
+  /* Your generic button styles here */
+}
+
+
+
+
+/* Reset any button styles that shouldn't apply to these icon buttons */
+button:not(.icon-button-edit):not(.icon-button-delete) {
+  /* Your generic button styles here */
+}
+
+
+/* Style the icons with a specific size and color */
+.fa-trash, .fa-edit {
+  font-size: 1.5rem; /* Adjust the size as needed */
+  color: #333; /* Use your preferred icon color */
+}
+
 
 /* Responsive Design for Modal */
 @media (max-width: 600px) {
