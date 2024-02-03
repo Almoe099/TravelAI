@@ -35,9 +35,16 @@ function Profile() {
   // const userTrips = Object.entries(trips).filter(trip => trip[1].user._id === sessionUser._id);
   useEffect(() => {
     if (trips !== undefined && trips !== null) {
-      const sortedTrips1 = Object.values(trips).sort((a, b) => new Date(a.startdate) - new Date(b.startdate));
-      const sortedTrips2 = sortedTrips1.filter(sortedTrip => sortedTrip.author._id === sessionUser._id);
-      setSortedTrips(sortedTrips2);
+      if (Object.entries(trips).length > 0) {
+        const sortedTrips1 = Object.values(trips).sort((a, b) => new Date(a.startdate) - new Date(b.startdate));
+        let sortedTrips2 = [];
+        for (let i = 0; i < sortedTrips1.length; i++) {
+          if (sortedTrips1[i].author !== null && sortedTrips1[i].author._id === sessionUser._id) {
+            sortedTrips2.push(sortedTrips1[i]);
+          }
+        }
+        setSortedTrips(sortedTrips2);
+      }
     }
   }, [trips])
   

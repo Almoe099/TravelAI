@@ -21,6 +21,7 @@ const TripShow = () => {
     const itineraries = useSelector(state => state.itineraries.all);
     const mySuggestions = useSelector(state => state.itineraries.suggestions);
     const myGeneration = useSelector(state => state.itineraries.generation);
+    const GPTErrors = useSelector(state => state.itineraries.GPTErrors);
     const [check, setCheck] = useState(false);
     const [options, setOptions] = useState(["", "", "", "", "", "", "", "", ""]);
     const [modalOpen, setModalOpen] = useState(null);
@@ -58,6 +59,7 @@ const TripShow = () => {
         dispatch(itineraryActions.clearingSelected());
         dispatch(itineraryActions.clearingSuggestions());
         dispatch(itineraryActions.clearingGeneration());
+        dispatch(itineraryActions.clearingChatGPTErrors());
         dispatch(itineraryActions.fetchItineraries());
         setCheck(false);
     }, [])
@@ -658,6 +660,14 @@ const TripShow = () => {
         </div>
 
         <div className='selectionContainer'>
+    {(GPTErrors === undefined || GPTErrors === null) ? (
+        <>
+        </>
+    ) : (
+        <>
+            <p className="tripErrors">{GPTErrors}</p>
+        </>
+    )}
   {options.some(option => option.trim() !== "") && (
     <ul className='optionList'>
       {options.map((option, index) => 

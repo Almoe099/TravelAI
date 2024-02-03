@@ -10,12 +10,14 @@ const CREATE_GENERATION = "itineraries/CREATE_GENERATION";
 const CLEAR_SELECTED = "itineraries/CLEAR_SELECTED";
 const CLEAR_SUGGESTIONS = "itineraries/CLEAR_SUGGESTIONS";
 const CLEAR_GENERATION = "itineraries/CLEAR_GENERATION";
+const CLEAR_CHATGPT_ERRORS = "itineraries/CLEAR_CHATGPT_ERRORS";
 
 const RECEIVE_ITINERARIES = "itineraries/RECEIVE_ITINERARIES";
 const UPDATE_ITINERARY = "itineraries/UPDATE_ITINERARY";
 const RECEIVE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
 const REMOVE_ITINERARY = "itineraries/REMOVE_ITINERARY";
 const RECEIVE_ITINERARY_ERRORS = "itineraries/RECEIVE_ITINERARY_ERRORS";
+const RECEIVE_CHATGPT_ERRORS = "itineraries/RECEIVE_CHATGPT_ERRORS";
 
 const createItinerary = itinerary => ({
   type: CREATE_ITINERARY,
@@ -57,6 +59,10 @@ const receiveErrors = errors => ({
   type: RECEIVE_ITINERARY_ERRORS,
   errors
 });
+const receiveChatGPTErrors = errors => ({
+  type: RECEIVE_CHATGPT_ERRORS,
+  errors
+})
 
 const clearSelected = () => ({
     type: CLEAR_SELECTED
@@ -67,6 +73,9 @@ const clearSuggestions = () => ({
 const clearGeneration = () => ({
     type: CLEAR_GENERATION
 });
+const clearChatGPTErrors = () => ({
+    type: CLEAR_CHATGPT_ERRORS
+})
 
 export const clearingSelected = () => async dispatch => {
     dispatch(clearSelected());
@@ -76,6 +85,9 @@ export const clearingSuggestions = () => async dispatch => {
 }
 export const clearingGeneration = () => async dispatch => {
     dispatch(clearGeneration());
+}
+export const clearingChatGPTErrors = () => async dispatch => {
+    dispatch(clearChatGPTErrors());
 }
 
 // const selectAllItineraries = state => state.itineraries.all;
@@ -188,9 +200,7 @@ export const suggestActivities = (data) => async dispatch => {
         dispatch(createSuggestions(suggestions));
     } catch (err) {
         const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            dispatch(receiveErrors(resBody.errors));
-        }
+        dispatch(receiveChatGPTErrors(resBody.message));
     }
 };
 export const suggestRestaurants = (data) => async dispatch => {
@@ -203,9 +213,7 @@ export const suggestRestaurants = (data) => async dispatch => {
         dispatch(createSuggestions(suggestions));
     } catch (err) {
         const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            dispatch(receiveErrors(resBody.errors));
-        }
+        dispatch(receiveChatGPTErrors(resBody.message));
     }
 };
 
@@ -221,9 +229,7 @@ export const generateItinerary = (data) => async dispatch => {
         dispatch(createGeneration(generation));
     } catch (err) {
         const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            dispatch(receiveErrors(resBody.errors));
-        }
+        dispatch(receiveChatGPTErrors(resBody.message));
     }
 };
 
@@ -272,6 +278,12 @@ const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, actio
                 ...state,
                 all: updatedAll2
             };
+        case RECEIVE_CHATGPT_ERRORS: {
+            return { ...state, GPTErrors: action.errors}
+        }
+        case CLEAR_CHATGPT_ERRORS: {
+            return { ...state, GPTErrors: undefined}
+        }
         case RECEIVE_USER_LOGOUT:
             return { ...state, user: {}, new: undefined }
         default:
