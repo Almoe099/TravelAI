@@ -12,6 +12,7 @@ function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [errors, setErrors] = useState([]);
+  const [sortedTrips, setSortedTrips] = useState([]);
   const [newTripData, setNewTripData] = useState({
     location: '',
     startdate: '',
@@ -31,8 +32,17 @@ function Profile() {
     );
   }, [dispatch]);
   
+  // const userTrips = Object.entries(trips).filter(trip => trip[1].user._id === sessionUser._id);
+  useEffect(() => {
+    if (trips !== undefined && trips !== null) {
+      const sortedTrips1 = Object.values(trips).sort((a, b) => new Date(a.startdate) - new Date(b.startdate));
+      const sortedTrips2 = sortedTrips1.filter(sortedTrip => sortedTrip.author._id === sessionUser._id);
+      setSortedTrips(sortedTrips2);
+    }
+  }, [trips])
+  
 
-  const sortedTrips = Object.values(trips).sort((a, b) => new Date(a.startdate) - new Date(b.startdate));
+      
 
   const handleNewTripClick = () => {
     setIsModalOpen(true);
@@ -53,7 +63,7 @@ function Profile() {
     e.preventDefault();
 
     let myErrors = [];
-    let authorId = sessionUser._id;
+    let author = sessionUser._id;
     // console.log(newTripData);
     let location = newTripData.location;
     let startdate = newTripData.startdate;
@@ -82,7 +92,7 @@ function Profile() {
     if (myErrors.length === 0) {
         console.log("sent");
         setIsModalOpen(false);
-        dispatch(composeTrip({location, startdate, enddate, authorId}));
+        dispatch(composeTrip({location, startdate, enddate, author}));
     }
   };
   function treatAsUTC(date) {
