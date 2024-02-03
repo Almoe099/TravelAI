@@ -52,7 +52,11 @@ router.delete('/:id', async(req,res) => {
 // GET ALL TRIPS
 router.get('/', async (req, res) => {
     try {
-        const trips = await Trip.find().populate("author", "_id username")
+        const trips = await Trip.find()
+                                .populate([{
+                                    path: "author", 
+                                    select: "_id username"
+                                }])
                                 .sort({ createdAt: -1 });
         return res.json(trips);
     }
@@ -65,7 +69,10 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const trip = await Trip.findById(req.params.id)
-                                .populate("author", "_id username");
+                                            .populate([{
+                                                path: "author", 
+                                                select: "_id username"
+                                            }])
         return res.json(trip);
     }
     catch(err) {
@@ -89,7 +96,10 @@ router.post('/', async (req, res, next) => {
         });
 
         let trip = await newTrip.save();
-        trip = await trip.populate('author', '_id username');
+        trip = await trip.populate([{
+            path: "author", 
+            select: "_id username"
+        }])
         return res.json(trip);
     }
     catch(err) {
