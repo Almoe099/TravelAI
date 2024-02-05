@@ -35,6 +35,12 @@
     }
 }
 
+.share-button:hover {
+  transition: transform 0.3s ease;
+  transform: scale(1.25);
+  box-shadow: none;
+}
+
 /* Share Modal Overlay */
 .Share-modal-overlay {
   position: fixed;
@@ -60,9 +66,11 @@
 }
 
 /* Share Button */
-#share-button {
-  padding: 20px;
-  margin-top: -10px;
+.share-button {
+  margin-left: 5px;
+  margin-right: 5px;
+  /* padding: 20px; */
+  /* margin-top: -10px; */
 }
 
 @keyframes fadeIn {
@@ -81,10 +89,16 @@
 }
 
 /* Adjust the styles based on your design preferences */
-
+.share-header {
+  font-size: 18px;
+  padding-bottom: 10px;
+}
 .share-email-buttons {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    padding-bottom: 10px;
+    /* padding-top: 10px; */
 }
 
 .close-modal {
