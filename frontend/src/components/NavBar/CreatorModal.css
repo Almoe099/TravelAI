@@ -236,6 +236,7 @@
     width: 45px; /* Adjust based on the new size of icons */
     height: 45px; /* Adjust based on the new size of icons */
     transition: transform 0.3s ease, color 0.3s ease;
+    /* z-index: 99; */
   }
 
   .technologies-used img {

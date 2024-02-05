@@ -29,7 +29,7 @@ const Share = ({ url, title, text }) => {
       {isOpen && (
         <div className={modalClass} onClick={toggleModal}>
           <div className="Share-modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Share Your Trip</h2>
+            <h2 className="share-header">Share Your Trip</h2>
             <div className="share-email-buttons">
               <EmailShareButton url={url} subject={title} body={text} className="share-button">
                 <EmailIcon size={40} round />
