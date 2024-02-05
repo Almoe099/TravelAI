@@ -254,7 +254,7 @@
   }
 
   .technology-icon:hover {
-    transform: scale(1.2); /* Enlarge icons on hover */
+    transform: scale(1.2) !important; /* Enlarge icons on hover */
     color: #007bff; /* Change color on hover */
   }
   
