@@ -1,14 +1,18 @@
 # TravelAI App
+---
 
 ## Overview
+---
 
 The TravelAI App is designed to transform the travel planning experience by harnessing the power of artificial intelligence, delivered through a user-friendly interface. This application caters to the modern traveler, offering personalized itinerary planning, travel recommendations, and a seamless user experience from start to finish. By integrating the MERN stack with the OpenAI API, TravelAI App provides a unique solution to travel planning that is both innovative and accessible.
 
 ### Live Site
+---
 
 Explore the TravelAI App and begin your journey to effortless travel planning at [TravelAI App Live Site](#).
 
 ## Technologies Used
+---
 
 This project leverages a robust set of technologies to deliver a high-performance, scalable, and secure application:
 
@@ -21,6 +25,7 @@ This project leverages a robust set of technologies to deliver a high-performanc
 - **bcrypt**: A powerful library for hashing and securing user passwords.
 
 ## Core Features
+---
 
 ### User Authentication System
 ---
@@ -52,6 +57,7 @@ app.post('/token', (req, res) => {
 ```
 
 ### Dynamic Itinerary Planning with OpenAI
+---
 
 **Objective**: To leverage the OpenAI API for generating personalized travel itineraries that adapt to user preferences and feedback.
 
@@ -81,6 +87,7 @@ async function generateItinerary(preferences) {
 }
 ```
 ### Trip Management (CRUD Operations)
+---
 
 **Objective**: To enable users to have full control over their travel plans by implementing comprehensive Create, Read, Update, and Delete (CRUD) operations for trip management within the TravelAI App.
 
@@ -133,6 +140,7 @@ app.post('/api/trips', async (req, res) => {
 This route exemplifies how we handle trip creation requests, including data validation and interaction with the MongoDB database to save the new trip. It's a critical component of our CRUD functionality, enabling users to start planning their journeys within the Travel AI App.
 
 ## Future Enhancements
+---
 
 - **Enhanced AI Personalization**: Further refine the AI's understanding of user preferences for even more tailored travel suggestions.
 - **Social Features**: Implement functionality for users to share itineraries and travel experiences within the app.
