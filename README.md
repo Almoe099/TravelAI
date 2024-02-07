@@ -55,28 +55,70 @@ Utilizing OpenAI to generate itineraries tailored to user preferences.
 **Implementation Overview**:
 - Designed a system that sends user preferences and historical data to the OpenAI model to generate tailored travel suggestions.
 - Implemented an interface for users to fine-tune their preferences and receive updated recommendations in real-time.
-- Utilized MongoDB to store user preferences and itinerary items for dynamic retrieval and updates.
+- Utilized MongoDB to store itinerary items for dynamic retrieval and updates.
 
 **Challenges & Solutions**:
-Integrating AI recommendations that accurately reflect user preferences required iterative testing and user feedback loops. We enhanced our data modeling to capture nuanced user preferences, enabling more personalized AI-generated content.
+Getting OpenAI's API to produce reliable output that served our goals took quite a bit of tweaking.  Ultimately, we were able to successfully fine tune our requests in the backend that served up the information we needed from ChatGPT.
+
+Below, you'll find the request we send to OpenAI when a user clicks the "Suggest Activities" button.  The user passes in the optional fields of time of day and interests, and the location field is pulled from the trip in the front-end prior to the sending of the request.
+
+ChatGPT reads the request, and sends back a data block in the format that we've requested, allowing us to read the response and format it properly into our application.
 
 ```javascript
-async function generateItinerary(preferences) {
-  const prompt = `Generate a travel itinerary for ${preferences.destination} including activities and dining options for a ${preferences.tripDuration} day trip, focusing on interests in ${preferences.interests.join(', ')}.`;
-  
-  const response = await openAiApi.createCompletion({
-    engine: 'davinci',
-    prompt: prompt,
-    maxTokens: 500,
-    temperature: 0.6,
-    topP: 1,
-    frequencyPenalty: 0,
-    presencePenalty: 0,
+// SUGGEST ACTIVITIES
+router.post('/GPT/activities', async (req, res, next) => {
+    try {
+        let location = req.body.location;
+        let timeOfDay = req.body.timeOfDay;
+        let interests = req.body.interests;
+
+        // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
+        const completion = await openai.chat.completions.create({
+            messages: [{ role: 'system', 
+            // content: 'You are a helpful assistant.' 
+            content: `Create a list of possible activities for a travelling user with the following preferences: 
+            {
+                "Location": ${location}
+                "Time Of Day": ${timeOfDay}
+                "Interests": ${interests}
+            }
+                      
+            Your response must maintain the key names EXACTLY as they are shown here below.  This will be JSON parsed.
+            You will suggest a total of 9 activities.  Your response should reflect this while maintaining the name structure of the below keys.
+            
+            Here is an example:
+            {
+                "activity1": "",
+                "activity2": "",
+                "activity3": "",
+                "activity4": "",
+                "activity5": "",
+                "activity6": "",
+                "activity7": "",
+                "activity8": "",
+                "activity9": "",
+            }
+            `
+            }],
+            model: 'gpt-3.5-turbo',
+            max_tokens: 500
+        });
+
+        if (completion.choices !== null && completion.choices !== undefined) {
+            // console.log("=======");
+            console.log(completion.choices);
+            console.log(completion.choices[0].message.content);
+            let response = JSON.parse(completion.choices[0].message.content);
+            return res.json(response);
+            // return response;
+        }
+    }
+    catch(err) {
+      next(err);
+    }
   });
-  
-  return response.choices[0].text.trim();
-}
 ```
+
 ### Trip Management (CRUD Operations)
 
 Comprehensive control over travel plans through Create, Read, Update, and Delete operations.
