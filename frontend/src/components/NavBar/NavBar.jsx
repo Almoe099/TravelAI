@@ -61,7 +61,7 @@ function NavBar() {
       name: 'Almutasim Mohamed', 
       role: 'Frontend',
       github: 'https://github.com/almoe099', 
-      linkedin: 'https://linkedin.com/in/creator2',
+      linkedin: 'https://www.linkedin.com/in/almutasim-mohamed-17464b2b2/',
       email: 'almoe099@gmail.com',
       image: 'https://amasphere-seeds1.s3.amazonaws.com/Screenshot+2024-02-01+at+4.53.48+PM.png'
     }
