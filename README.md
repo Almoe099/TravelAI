@@ -23,6 +23,7 @@ This project leverages a robust set of technologies to deliver a high-performanc
 ## Core Features
 
 ### User Authentication System
+---
 
 **Objective**: To implement a secure and efficient user authentication system that protects user data and provides a seamless user experience.
 
