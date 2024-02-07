@@ -4,7 +4,7 @@
 
 The TravelAI App is designed to transform the travel planning experience by harnessing the power of artificial intelligence, delivered through a user-friendly interface. This application caters to the modern traveler, offering personalized itinerary planning, travel recommendations, and a seamless user experience from start to finish. By integrating the MERN stack with the OpenAI API, TravelAI App provides a unique solution to travel planning that is both innovative and accessible.
 
-[Explore the TravelAI App Live Site](#)
+[Explore the TravelAI App Live Site](https://travelaiapp.onrender.com/)
 
 ## Technologies Used
 
