@@ -102,10 +102,6 @@ Comprehensive control over travel plans through Create, Read, Update, and Delete
 **Solution:**
 - Implemented transactional operations with MongoDB to ensure that all CRUD operations are atomic and consistent. Additionally, we used optimistic concurrency control to handle simultaneous edits, ensuring that the latest changes are accurately reflected without overwriting.
 
-### Code Snippet: Trip Creation Endpoint
-
-Below is an example of the Express.js route handler for creating a new trip, which demonstrates the backend's handling of trip data and interaction with the MongoDB database.
-
 ```javascript
 app.post('/api/trips', async (req, res) => {
   const { userId, destination, startDate, endDate, itineraryItems } = req.body;
