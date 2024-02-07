@@ -79,11 +79,9 @@ async function generateItinerary(preferences) {
   return response.choices[0].text.trim();
 }
 ```
-## Trip Management (CRUD Operations)
+### Trip Management (CRUD Operations)
 
-### Objective
-
-To enable users to have full control over their travel plans by implementing comprehensive Create, Read, Update, and Delete (CRUD) operations for trip management within the TravelAI App.
+**Objective**: To enable users to have full control over their travel plans by implementing comprehensive Create, Read, Update, and Delete (CRUD) operations for trip management within the TravelAI App.
 
 ### Implementation Overview
 
