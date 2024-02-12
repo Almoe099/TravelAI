@@ -348,6 +348,7 @@ const TripShow = () => {
             } else {
                 setSuggestingA(true);
                 setModalOpen(null);
+                setSuggestionErrors([]);
                 dispatch(itineraryActions.suggestActivities({location, timeOfDay, interests}));
             }
         } else {
@@ -384,6 +385,7 @@ const TripShow = () => {
         } else {
             setSuggestingR(true);
             setModalOpen(null);
+            setSuggestionErrors([]);
             dispatch(itineraryActions.suggestRestaurants({location}));
         }
     }
