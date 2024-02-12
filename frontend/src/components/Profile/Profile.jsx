@@ -132,10 +132,10 @@ function Profile() {
     }
 
     setErrors(myErrors); 
-    console.log(myErrors);
-    console.log(myErrors.length);
+    // console.log(myErrors);
+    // console.log(myErrors.length);
     if (myErrors.length === 0) {
-        console.log("sent");
+        // console.log("sent");
         setIsModalOpen(false);
         dispatch(composeTrip({location, startdate, enddate, author}));
     }

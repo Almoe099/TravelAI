@@ -151,7 +151,7 @@
   justify-content: space-between; /* Distribute space */
   margin-bottom: 12px;
   padding: 5px;
-  cursor: pointer; /* Indicate interactivity */
+  /* cursor: pointer; */
   transition: background-color 0.3s ease;
 }
 
@@ -203,7 +203,7 @@
 }
 
 .dayPlanSave:hover {
-  background-color: #564dc7); /* A darker shade of purple for hover effect */
+  background-color: #564dc7; /* A darker shade of purple for hover effect */
 }
 
 .dayPlanTextHolder, .dayPlanInput {
@@ -260,9 +260,11 @@ input[type="text"]{
   flex-direction: row;
   align-items: center;
   justify-content: left;
+  word-break: break-all;
   /* border: 1px solid red; */
   font-size: 16px;
   min-height: 20px;
+  
   /* margin-bottom: 10px;  */
 }
 
