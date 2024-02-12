@@ -128,23 +128,17 @@ export const fetchItinerary = (itineraryId) => async dispatch => {
 }
 
 export const selectingItinerary = (itinerary) => async dispatch => {
-    console.log("====!");
-    console.log(itinerary);
     dispatch(selectItinerary(itinerary));
 }
 
 
 export const composeItinerary = data => async dispatch => {
   try {
-    console.log("=======");
-    console.log(data);
     const res = await jwtFetch('/api/itineraries/', {
       method: 'POST',
       body: JSON.stringify(data)
     });
     const itinerary = await res.json();
-    console.log("!=======!");
-    console.log(itinerary);
     dispatch(createItinerary(itinerary));
   } catch(err) {
     const resBody = await err.json();
@@ -162,7 +156,6 @@ export const updateItinerary = itinerary => async dispatch => {
         body: JSON.stringify(itinerary)
         });
         const itineraryData = await res.json();
-        console.log("TEST");
         dispatch(updatingItinerary(itineraryData));
     } catch(err) {
         const resBody = await err.json();
@@ -173,7 +166,6 @@ export const updateItinerary = itinerary => async dispatch => {
 };
 
 export const deleteItinerary = itineraryId => async dispatch => {
-  console.log(itineraryId);
     try {
     const res = await jwtFetch(`/api/itineraries/${itineraryId}`, {
       method: 'DELETE'
@@ -219,8 +211,6 @@ export const suggestRestaurants = (data) => async dispatch => {
 
 export const generateItinerary = (data) => async dispatch => {
     try {
-        // console.log(data);
-        // console.log("DATA");
         const res = await jwtFetch('/api/itineraries/GPT', {
             method: 'POST',
             body: JSON.stringify(data)
@@ -235,7 +225,6 @@ export const generateItinerary = (data) => async dispatch => {
 
 const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
     let newAll = Object.values({ ...state.all });
-    console.log(newAll);
 
     switch(action.type) {
         case CREATE_SUGGESTIONS:
@@ -261,10 +250,6 @@ const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, actio
             newAll.push(action.itinerary);
             return {...state, all: newAll, user: action.itinerary._id, new: action.itinerary, selected: action.itinerary}
         case UPDATE_ITINERARY:
-            // console.log("LOG");
-            // console.log(action.itinerary);
-            // console.log(action.itinerary.data);
-            // console.log(action.itinerary.data.updatedItinerary);
             let i = newAll.findIndex((ele) => ele._id === action.itinerary.data.updatedItinerary._id);
             newAll[i] = action.itinerary.data.updatedItinerary;
             return {...state, all: newAll, user: action.itinerary.data.updatedItinerary._id, new: action.itinerary.data.updatedItinerary, selected: action.itinerary.data.updatedItinerary}

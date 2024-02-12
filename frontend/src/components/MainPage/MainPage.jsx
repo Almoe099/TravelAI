@@ -36,7 +36,6 @@ function MainPage() {
   
 
   const handleDemoLogin = async () => {
-    console.log("Attempting to log in with demo user");
   
     const demoUser = {
       email: 'demo-user@appacademy.io',
@@ -45,9 +44,7 @@ function MainPage() {
   
     try {
       await dispatch(login(demoUser));
-      console.log("Login successful");
     } catch (error) {
-      console.error("Error during demo login:", error);
     }
   };
   

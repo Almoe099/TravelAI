@@ -82,8 +82,6 @@ const TripShow = () => {
 
     useEffect(() => {
         if (myItinerary !== null && myItinerary !== undefined) {
-            // console.log("MY ITINERARY");
-            // console.log(myItinerary);
         }
     }, [myItinerary])
 
@@ -139,10 +137,8 @@ const TripShow = () => {
             itinerary = itineraries2[0];
         }
         if (itinerary !== null) {
-            // console.log("Found Itinerary!");
             dispatch(itineraryActions.selectingItinerary(itinerary));
         } else {
-            // console.log("Couldn't Find Itinerary. . .");
             handleCreateItinerary();
         } 
     }
@@ -158,7 +154,6 @@ const TripShow = () => {
         }
     }
     // function deleteAll(){
-    //     console.log("deleting...");
     //     for (let i = 0; i < itineraries.length; i++) {
     //         dispatch(itineraryActions.deleteItinerary(itineraries[i]._id));
     //     }
@@ -216,23 +211,18 @@ const TripShow = () => {
             for (let j = 0; j < Object.entries(itinerary[i][1]).length; j++) {
                 if (itinerary[i][0] === myDate) {
                     // set.
-                    console.log("======");
-                    console.log(Object.entries(itinerary[i][1]));
-                    console.log(Object.entries(itinerary[i][1])[j][1]);
                     if (Object.entries(itinerary[i][1])[j][1] === "") {
                         canPlace = true;
                     }
                 }
             }
         }
-        console.log(canPlace);
 
         if (!canPlace) {
             let error = "There are no open activity slots on this date."
             let myErrors = [];
             myErrors.push(error);
             setErrors(myErrors);
-            // console.log(errors);
             return;
         }
 
@@ -433,7 +423,6 @@ const TripShow = () => {
         var data = ev.dataTransfer.getData("text");
     }
     function removeComma(str1) {
-        console.log(str1);
         return str1;
     }
 
@@ -596,7 +585,6 @@ const TripShow = () => {
                                         </select>
                                     </div>
                                     {errors.map(error => <p className="tripErrors">{error}</p>)}
-                                    {/* <button onClick={(e) => console.log(Object.keys(myItinerary.itinerary))}>check</button> */}
                                     <button onClick={(e) => handleAddToItinerary(e, activity, date)}>Accept</button>
                                     {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
                                     <button onClick={(e) => handleCloseModal(e)}>Cancel</button>

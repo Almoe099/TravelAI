@@ -71,7 +71,6 @@ function Profile() {
 
     let myErrors = [];
     let author = sessionUser._id;
-    // console.log(newTripData);
     let location = newTripData.location;
     let startdate = newTripData.startdate;
     let enddate = newTripData.enddate;
@@ -94,10 +93,7 @@ function Profile() {
         myErrors.push("Can't have a trip longer than two weeks");
     }
     setErrors(myErrors); 
-    console.log(myErrors);
-    console.log(myErrors.length);
     if (myErrors.length === 0) {
-        console.log("sent");
         setIsModalOpen(false);
         dispatch(composeTrip({location, startdate, enddate, author}));
     }
@@ -133,6 +129,8 @@ function Profile() {
     position: 'absolute',
     config: { duration: 300 }
   });
+
+  
 
   return (
     <>
@@ -179,6 +177,7 @@ function Profile() {
           {errors.map(error => <p className="tripErrors">{error}</p>)}
           <button onClick={(e) => handleCreateTrip(e)}>Create</button>
           <button onClick={handleModalClose}>Cancel</button>
+
           </animated.div>
       )}
       <Footer />
