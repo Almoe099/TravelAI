@@ -73,14 +73,12 @@ export const fetchTrip = (tripId) => async dispatch => {
 
 export const composeTrip = data => async dispatch => {
   try {
-    console.log(data);
     const res = await jwtFetch('/api/trips/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
     const trip = await res.json();
-    // console.log("Received trip data:", trip);
     dispatch(createTrip(trip));
   } catch (err) {
     const resBody = await err.json();
@@ -114,7 +112,6 @@ export const deleteTrip = tripId => async dispatch => {
     //   body: JSON.stringify(tripId)
     });
         const tripData = await res.json();  // success
-        console.log(tripData)
         dispatch(removeTrip(tripId));
   } catch(err) {
     const resBody = await err;
@@ -129,15 +126,11 @@ export const deleteTrip = tripId => async dispatch => {
 
 export const generateTrip = (data) => async dispatch => {
     try {
-        // console.log(data);
-        // console.log("DATA");
         const res = await jwtFetch('/api/trips/GPT', {
             method: 'POST',
             body: JSON.stringify(data)
           });
         const trip = await res.json();
-        // console.log(trip);
-        // console.log("DONE!");
         dispatch(createTrip(trip));
     } catch (err) {
         const resBody = await err.json();

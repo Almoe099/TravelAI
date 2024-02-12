@@ -128,20 +128,20 @@ export const fetchItinerary = (itineraryId) => async dispatch => {
 }
 
 export const selectingItinerary = (itinerary) => async dispatch => {
-    
+
     dispatch(selectItinerary(itinerary));
 }
 
 
 export const composeItinerary = data => async dispatch => {
   try {
-   
+
     const res = await jwtFetch('/api/itineraries/', {
       method: 'POST',
       body: JSON.stringify(data)
     });
     const itinerary = await res.json();
-    
+
     dispatch(createItinerary(itinerary));
   } catch(err) {
     const resBody = await err.json();
@@ -253,10 +253,6 @@ const itinerariesReducer = (state = { all: {}, user: {}, new: undefined }, actio
             newAll.push(action.itinerary);
             return {...state, all: newAll, user: action.itinerary._id, new: action.itinerary, selected: action.itinerary}
         case UPDATE_ITINERARY:
-            // console.log("LOG");
-            // console.log(action.itinerary);
-            // console.log(action.itinerary.data);
-            // console.log(action.itinerary.data.updatedItinerary);
             let i = newAll.findIndex((ele) => ele._id === action.itinerary.data.updatedItinerary._id);
             newAll[i] = action.itinerary.data.updatedItinerary;
             return {...state, all: newAll, user: action.itinerary.data.updatedItinerary._id, new: action.itinerary.data.updatedItinerary, selected: action.itinerary.data.updatedItinerary}

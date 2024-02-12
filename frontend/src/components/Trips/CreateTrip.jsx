@@ -7,7 +7,6 @@ import './CreateTrip.css';
 // import { generateTrip } from '../../store/trips';
 import { generateItinerary } from '../../store/itineraries';
 
-// console.log(import.meta.env.VITE_SOME_KEY);
 // let MY_KEY = import.meta.env.VITE_API_KEY;
 
 // const openai = new OpenAI({ apiKey: MY_KEY, dangerouslyAllowBrowser: true });
@@ -32,23 +31,15 @@ function CreateTrip() {
 
   useEffect(() => {
     if (myTrip !== null && myTrip !== undefined) {
-        console.log("=============");
-        console.log("=== TRIP ====");
-        console.log(myTrip);
-        console.log("=============");
         setItinerary(myTrip);
         // setResponse(myTrip);
     }
   }, [myTrip]);
 
   useEffect(() => {
-    console.log("ITINERARY");
-    console.log(itinerary);
   }, [itinerary])
 
   // function checkStuff() {
-  //     console.log("=====");
-  //     console.log(itinerary);
 
   //     return "test";
   // }
@@ -65,8 +56,6 @@ function CreateTrip() {
         <div className='line2'></div>
         <p className="textBold">Activities:</p>
         <div className='line3'></div>
-        {console.log(itinerary.Activities)}
-        {console.log(Object.entries(itinerary.Activities))}
         {Object.entries(itinerary.Activities).map((dayActivities) => 
         <>
           <div className='holder3'>
@@ -90,8 +79,6 @@ function CreateTrip() {
   function generateResponse(e) {
     e.preventDefault();
 
-    // console.log(days);
-    // console.log(activitiesPerDay);
 
     if (check === null) {
         setCheck(true);

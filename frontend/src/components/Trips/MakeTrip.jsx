@@ -23,10 +23,8 @@ function MakeTrip() {
         author: sessionUser._id,
       });
     const handleInputChange = (e) => {
-        // console.log(e.target);
         const { name, value } = e.target;
         setNewTripData({ ...newTripData, [name]: value });
-        // console.log(newTripData);
     };
     const handleModalClose = () => {
         setIsModalOpen(false);
@@ -35,10 +33,8 @@ function MakeTrip() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(newTrip);
     }, [newTrip])
     useEffect(() => {
-        console.log(newItinerary);
     }, [newItinerary])
     useEffect(() => {
         dispatch(tripActions.fetchTrips());
@@ -50,7 +46,6 @@ function MakeTrip() {
         
         let myErrors = [];
         let authorId = sessionUser._id;
-        console.log(newTripData);
         let location = newTripData.location;
         let startdate = newTripData.startdate;
         let enddate = newTripData.enddate;
@@ -73,10 +68,7 @@ function MakeTrip() {
             myErrors.push("Can't have a trip longer than two weeks");
         }
         setErrors(myErrors); 
-        console.log(myErrors);
-        console.log(myErrors.length);
         if (myErrors.length === 0) {
-            console.log("sent");
             setIsModalOpen(false);
             dispatch(tripActions.composeTrip({location, startdate, enddate, authorId}));
         }
@@ -101,8 +93,6 @@ function MakeTrip() {
             return arr;
         };
         let days = getDaysArray(newTrip.startdate, newTrip.enddate);
-        console.log("=-=-=-=-");
-        console.log(days);
         var jsonData = {}
         for (let i = 0; i < days.length; i++) {
             var day = days[i];
@@ -112,16 +102,12 @@ function MakeTrip() {
                 activity3: ""
             }
         }
-        console.log(jsonData);
         let itinerary = jsonData;
         let authorId = sessionUser._id;
         let tripId = newTrip._id;
         dispatch(itineraryActions.composeItinerary({itinerary, authorId, tripId}))
         // let ed = new Date(endDate);
         // let edMonth = Date.getMonth(ed);
-        // console.log(edMonth);
-        // console.log(Date.getMonth(startDate));
-        // console.log(Date.getMonth(endDate));
         // dispatch(itineraryActions.composeItinerary({authorId}));
     }
 
@@ -129,7 +115,6 @@ function MakeTrip() {
     //     e.preventDefault();
     // }
     function checkItinerary() {
-        console.log(newItinerary);
     }
 
     return (

@@ -105,9 +105,6 @@ router.post('/GPT/activities', async (req, res, next) => {
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
-            // console.log("=======");
-            console.log(completion.choices);
-            console.log(completion.choices[0].message.content);
             let response = JSON.parse(completion.choices[0].message.content);
             return res.json(response);
             // return response;

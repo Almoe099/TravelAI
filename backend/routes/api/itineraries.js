@@ -31,14 +31,11 @@ router.patch('/:id', async (req,res) => {
             }
           })
     }catch(err){
-        console.log(err)
     }
 })
 
 // DELETE ITINERARY
 router.delete('/:id', async(req,res) => {
-    console.log("========");
-    console.log(req.params.id);
 
     const deletedItinerary = await Itinerary.findByIdAndDelete(req.params.id)
     
@@ -104,9 +101,6 @@ router.post('/', async (req, res, next) => {
             trip: req.body.trip
         });
 
-        // console.log("=====");
-        // console.log(newItinerary);
-        // console.log("=====");
 
         let itinerary = await newItinerary.save();
         itinerary = await itinerary.populate([{
@@ -166,6 +160,7 @@ router.post('/GPT/restaurants', async (req, res, next) => {
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
+
             // console.log("=======");
             // console.log(completion.choices);
             // console.log(completion.choices[0].message.content);
@@ -187,6 +182,7 @@ router.post('/GPT/restaurants', async (req, res, next) => {
             } else {
                 // console.log(`All good!  Char after last quote is: ${completion.choices[0].message.content[index + 1]}`)
             }
+
 
             let response = JSON.parse(completion.choices[0].message.content);
             return res.json(response);
@@ -239,6 +235,7 @@ router.post('/GPT/activities', async (req, res, next) => {
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
+
             // console.log("=======");
             // console.log(completion.choices);
             // console.log(completion.choices[0].message.content);
@@ -319,6 +316,7 @@ router.post('/GPT', async (req, res, next) => {
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
+
             // console.log("=======");
             // console.log(completion.choices);
             // console.log(completion.choices[0].message.content);
