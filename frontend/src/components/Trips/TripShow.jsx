@@ -32,6 +32,7 @@ const TripShow = () => {
     const [activeValue, setActiveValue] = useState("");
     const [shareModal, setShareModal] = useState(false);
     const [errors, setErrors] = useState([]);
+    const [suggestionErrors, setSuggestionErrors] = useState([]);
     const closeModal = () => setIsModalOpen(false);
 
     // prefs
@@ -318,6 +319,7 @@ const TripShow = () => {
       const handleCloseModal = (e) => {
         e.preventDefault();
         setErrors([]);
+        setSuggestionErrors([]);
         gsap.to("#profile-modal", { scale: 0.95, autoAlpha: 0, ease: "back.in(1.7)", duration: 0.5, onComplete: () => setModalOpen(null) });
       };
 
@@ -331,25 +333,55 @@ const TripShow = () => {
     }
     function handleSuggestActivities(e, isSpecific) {
         e.preventDefault();
-        setSuggestingA(true);
-        setModalOpen(null);
 
         let location = myTrip.location;
         if (isSpecific) {
-            dispatch(itineraryActions.suggestActivities({location, timeOfDay, interests}));
+            let myErrors = [];
+            if (timeOfDay === "") {
+                myErrors.push("Please input a time of day");
+            }
+            if (interests === "") {
+                myErrors.push("Please input your interests");
+            }
+            if (myErrors.length > 0) {
+                setSuggestionErrors(myErrors);
+            } else {
+                setSuggestingA(true);
+                setModalOpen(null);
+                dispatch(itineraryActions.suggestActivities({location, timeOfDay, interests}));
+            }
         } else {
+            setSuggestingA(true);
+            setModalOpen(null);
             dispatch(itineraryActions.suggestActivities({location}));
         }
     }
     function handleSuggestRestaurants(e, isSpecific) {
         e.preventDefault();
-        setSuggestingR(true);
-        setModalOpen(null);
 
         let location = myTrip.location;
         if (isSpecific) {
-            dispatch(itineraryActions.suggestRestaurants({location, mealType, setting, cuisineType}));
+            let myErrors = [];
+            if (mealType === "") {
+                myErrors.push("Please input a meal type");
+            }
+            if (setting === "") {
+                myErrors.push("Please input your setting");
+            }
+            if (cuisineType === "") {
+                myErrors.push("Please input a cuisine type")
+            }
+
+            if (myErrors.length > 0) {
+                setSuggestionErrors(myErrors);
+            } else {
+                setSuggestingR(true);
+                setModalOpen(null);
+                dispatch(itineraryActions.suggestRestaurants({location, mealType, setting, cuisineType}));
+            }
         } else {
+            setSuggestingR(true);
+            setModalOpen(null);
             dispatch(itineraryActions.suggestRestaurants({location}));
         }
     }
@@ -538,6 +570,16 @@ const TripShow = () => {
                             <>
                                 <div id="profile-modal">
                                     <p className='pModalText'>Input Your Activity Preferences...</p>
+                                    
+                                    {suggestionErrors.length > 0 ? (
+                                        <>
+                                            {suggestionErrors.map(error => <p className="tripErrors">{error}</p>)}
+                                        </>
+                                    ) : (
+                                        <>
+
+                                        </>
+                                    )}
                                     <div className="modalLine"></div>
                                     <label>
                                         Interests:
@@ -558,6 +600,15 @@ const TripShow = () => {
                             <>
                                 <div id="profile-modal">
                                     <p className='pModalText'>Input Your Restaurant Preferences...</p>
+                                    {suggestionErrors.length > 0 ? (
+                                        <>
+                                            {suggestionErrors.map(error => <p className="tripErrors">{error}</p>)}
+                                        </>
+                                    ) : (
+                                        <>
+
+                                        </>
+                                    )}
                                     <div className="modalLine"></div>
                                     <label>
                                         Type of Cuisine:
