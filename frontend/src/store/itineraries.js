@@ -128,17 +128,20 @@ export const fetchItinerary = (itineraryId) => async dispatch => {
 }
 
 export const selectingItinerary = (itinerary) => async dispatch => {
+
     dispatch(selectItinerary(itinerary));
 }
 
 
 export const composeItinerary = data => async dispatch => {
   try {
+
     const res = await jwtFetch('/api/itineraries/', {
       method: 'POST',
       body: JSON.stringify(data)
     });
     const itinerary = await res.json();
+
     dispatch(createItinerary(itinerary));
   } catch(err) {
     const resBody = await err.json();
