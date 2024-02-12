@@ -6,6 +6,7 @@ import './Profile.css';
 import Footer from '../Footer/Footer';
 import gsap from 'gsap';
 import { useSpring, animated } from '@react-spring/web';
+import { Country, State, City} from 'country-state-city';
 
 function Profile() {
   const sessionUser = useSelector(state => state.session.user);
@@ -93,11 +94,48 @@ function Profile() {
     if (daysBetween(new Date(startdate), new Date(enddate)) > 14) {
         myErrors.push("Can't have a trip longer than two weeks");
     }
+    // validate location.
+    // console.log("==== test ==== ");
+    // console.log(Country.getAllCountries());
+    // console.log(State.getAllStates());
+    // console.log(City.getAllCities());
+    let countries = Country.getAllCountries();
+    let states = State.getAllStates();
+    let cities = City.getAllCities();
+
+    let locationCheck = false;
+    for (let i = 0; i < countries.length; i++) {
+      if (!locationCheck) {
+        if (location.includes(countries[i].name)){
+          locationCheck = true;
+        } else if (location.includes("USA") || location.includes("America")) {
+          locationCheck = true;
+        }
+      }
+    }
+    for (let i = 0; i < states.length; i++) {
+      if (!locationCheck) {
+        if (location.includes(states[i].name)){
+          locationCheck = true;
+        }
+      }
+    }
+    for (let i = 0; i < cities.length; i++) {
+      if (!locationCheck) {
+        if (location.includes(cities[i].name)){
+          locationCheck = true;
+        }
+      }
+    }
+    if (!locationCheck) {
+        myErrors.push("Location isn't recognized");
+    }
+
     setErrors(myErrors); 
-    console.log(myErrors);
-    console.log(myErrors.length);
+    // console.log(myErrors);
+    // console.log(myErrors.length);
     if (myErrors.length === 0) {
-        console.log("sent");
+        // console.log("sent");
         setIsModalOpen(false);
         dispatch(composeTrip({location, startdate, enddate, author}));
     }
