@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './TripShow.css';
 import * as tripActions from "../../store/trips";
@@ -34,6 +35,7 @@ const TripShow = () => {
     const [errors, setErrors] = useState([]);
     const [suggestionErrors, setSuggestionErrors] = useState([]);
     const closeModal = () => setIsModalOpen(false);
+    const [clickListener, setClickListener] = useState(false);
 
     // prefs
     const [cuisineType, setCuisineType] = useState("");
@@ -123,6 +125,33 @@ const TripShow = () => {
             }
         }
     }, [myGeneration])
+
+    useEffect(() => {
+        if (modalOpen) {
+            if (!clickListener) {
+                // console.log(clickListener);
+                document.addEventListener("click", handleHide, {capture: true});
+                setClickListener(true);
+            }
+        } else {
+        //   console.log(clickListener);
+          document.removeEventListener("click", handleHide, {capture: true});
+          setClickListener(false);
+        }
+    }, [modalOpen])
+    
+    const handleHide = useCallback((e) => {
+        e.preventDefault();
+
+        // console.log(`classname: ${e.target.className}`);
+        // console.log(`id: ${e.target.id}`);
+
+        if (!e.target.id.includes("modal") && !e.target.className.includes("modal")) {
+            handleCloseModal(e);
+            document.removeEventListener("click", handleHide, {capture: true});
+            setClickListener(false);
+        }
+    }, [])
 
     function findItineraryByTripId(tripId) {
         let itineraries2 = [];
@@ -302,16 +331,16 @@ const TripShow = () => {
 
     useEffect(() => {
         if (modalOpen !== null) {
-          gsap.to("#profile-modal", { scale: 1, autoAlpha: 1, ease: "back.out(1.7)", duration: 0.5 });
+            gsap.to("#profile-modal", { scale: 1, autoAlpha: 1, ease: "back.out(1.7)", duration: 0.5 });
         }
-      }, [modalOpen]);
+    }, [modalOpen]);
       
-      const handleCloseModal = (e) => {
+    const handleCloseModal = (e) => {
         e.preventDefault();
         setErrors([]);
         setSuggestionErrors([]);
         gsap.to("#profile-modal", { scale: 0.95, autoAlpha: 0, ease: "back.in(1.7)", duration: 0.5, onComplete: () => setModalOpen(null) });
-      };
+    };
 
     function handleSuggestActivitiesModal(e) {
         e.preventDefault();
@@ -562,63 +591,63 @@ const TripShow = () => {
                         {modalOpen === "ACTIVITIES" ? (
                             <>
                                 <div id="profile-modal">
-                                    <p className='pModalText'>Input Your Activity Preferences...</p>
+                                    <p className='pModalText' id="modal-ele">Input Your Activity Preferences...</p>
                                     
                                     {suggestionErrors.length > 0 ? (
                                         <>
-                                            {suggestionErrors.map(error => <p className="tripErrors">{error}</p>)}
+                                            {suggestionErrors.map(error => <p className="tripErrors" id="modal-ele">{error}</p>)}
                                         </>
                                     ) : (
                                         <>
 
                                         </>
                                     )}
-                                    <div className="modalLine"></div>
-                                    <label>
+                                    <div className="modalLine" id="modal-ele"></div>
+                                    <label id="modal-ele">
                                         Interests:
-                                        <input type="text" onChange={(e) => setInterests(e.target.value)} value={interests} />
+                                        <input type="text" id="modal-ele" onChange={(e) => setInterests(e.target.value)} value={interests} />
                                     </label>
-                                    <label>
+                                    <label id="modal-ele">
                                         Time of Day:
-                                        <input type="text" onChange={(e) => setTimeOfDay(e.target.value)} value={timeOfDay} />
+                                        <input type="text" id="modal-ele" onChange={(e) => setTimeOfDay(e.target.value)} value={timeOfDay} />
                                     </label>
                                     
-                                    <button onClick={(e) => handleSuggestActivities(e, true)}>Suggest With These Preferences</button>
-                                    <button onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular Activities</button>
+                                    <button id="modal-ele" onClick={(e) => handleSuggestActivities(e, true)}>Suggest With These Preferences</button>
+                                    <button id="modal-ele" onClick={(e) => handleSuggestActivities(e, false)}>Suggest Popular Activities</button>
                                     {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
-                                    <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                    <button id="modal-ele" onClick={(e) => handleCloseModal(e)}>Cancel</button>
                                 </div>
                             </>
                         ) : (
                             <>
                                 <div id="profile-modal">
-                                    <p className='pModalText'>Input Your Restaurant Preferences...</p>
+                                    <p className='pModalText' id="modal-ele">Input Your Restaurant Preferences...</p>
                                     {suggestionErrors.length > 0 ? (
                                         <>
-                                            {suggestionErrors.map(error => <p className="tripErrors">{error}</p>)}
+                                            {suggestionErrors.map(error => <p className="tripErrors" id="modal-ele">{error}</p>)}
                                         </>
                                     ) : (
                                         <>
 
                                         </>
                                     )}
-                                    <div className="modalLine"></div>
-                                    <label>
+                                    <div className="modalLine" id="modal-ele"></div>
+                                    <label id="modal-ele">
                                         Type of Cuisine:
-                                        <input type="text" onChange={(e) => setCuisineType(e.target.value)} value={cuisineType} />
+                                        <input type="text" id="modal-ele" onChange={(e) => setCuisineType(e.target.value)} value={cuisineType} />
                                     </label>
-                                    <label>
+                                    <label id="modal-ele">
                                         Ambiance / Setting: 
-                                        <input type="text" onChange={(e) => setSetting(e.target.value)} value={setting} />
+                                        <input type="text" id="modal-ele" onChange={(e) => setSetting(e.target.value)} value={setting} />
                                     </label>
-                                    <label>
+                                    <label id="modal-ele">
                                         Meal Type:
-                                        <input type="text" onChange={(e) => setMealType(e.target.value)} value={mealType} />
+                                        <input type="text" id="modal-ele" onChange={(e) => setMealType(e.target.value)} value={mealType} />
                                     </label>
                                     
-                                    <button onClick={(e) => handleSuggestRestaurants(e, true)}>Suggest With These Preferences</button>
-                                    <button onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular Restaurants</button>
-                                    <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                    <button id="modal-ele" onClick={(e) => handleSuggestRestaurants(e, true)}>Suggest With These Preferences</button>
+                                    <button id="modal-ele" onClick={(e) => handleSuggestRestaurants(e, false)}>Suggest Popular Restaurants</button>
+                                    <button id="modal-ele" onClick={(e) => handleCloseModal(e)}>Cancel</button>
                                 </div>
                             </>
                         )}
@@ -629,20 +658,20 @@ const TripShow = () => {
                         {modalOpen === "OPTIONS" ? (
                             <>
                                 <div id="profile-modal">
-                                    <p className='pModalText'>Select A Day.</p>
-                                    <div className="modalLine"></div>
-                                    <div className="selectHolder">
-                                        <select name="dates" id="date-select" onChange={(e) => settingDate(e, this)}>
-                                            <option value="">--Please choose an option--</option>
+                                    <p className='pModalText' id="modal-ele">Select A Day.</p>
+                                    <div className="modalLine" id="modal-ele"></div>
+                                    <div className="selectHolder" id="modal-ele">
+                                        <select name="dates" className="modal-ele" id="date-select" onChange={(e) => settingDate(e, this)}>
+                                            <option id="modal-ele" value="">--Please choose an option--</option>
                                             {Object.keys(myItinerary.itinerary).map(myDate => 
-                                                <option value={myDate}>{formatTripDate(myDate, "short")}</option>
+                                                <option id="modal-ele" value={myDate}>{formatTripDate(myDate, "short")}</option>
                                             )}
                                         </select>
                                     </div>
-                                    {errors.map(error => <p className="tripErrors">{error}</p>)}
-                                    <button onClick={(e) => handleAddToItinerary(e, activity, date)}>Accept</button>
+                                    {errors.map(error => <p className="tripErrors" id="modal-ele">{error}</p>)}
+                                    <button id="modal-ele" onClick={(e) => handleAddToItinerary(e, activity, date)}>Accept</button>
                                     {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
-                                    <button onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                    <button id="modal-ele" onClick={(e) => handleCloseModal(e)}>Cancel</button>
                                 </div>
                             </>
                         ) : (

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { composeTrip, fetchTrips, deleteTrip } from '../../store/trips';
 import TripBox from './Tripbox';
@@ -21,6 +22,8 @@ function Profile() {
     author: sessionUser._id,
   });
 
+  const [clickListener, setClickListener] = useState(false);
+
   const dispatch = useDispatch();
   const trips = useSelector(state => state.trips.all);
 
@@ -32,8 +35,7 @@ function Profile() {
       { duration: 2, opacity: 1, y: 0, ease: "power2.out" } // ending properties
     );
   }, [dispatch]);
-  
-  // const userTrips = Object.entries(trips).filter(trip => trip[1].user._id === sessionUser._id);
+
   useEffect(() => {
     if (trips !== undefined && trips !== null) {
       if (Object.entries(trips).length > 0) {
@@ -50,7 +52,32 @@ function Profile() {
   }, [trips])
   
 
-      
+  useEffect(() => {
+    if (isModalOpen) {
+        if (!clickListener) {
+            // console.log(clickListener);
+            document.addEventListener("click", handleHide, {capture: true});
+            setClickListener(true);
+        }
+    } else {
+      // console.log(clickListener);
+      document.removeEventListener("click", handleHide, {capture: true});
+      setClickListener(false);
+    }
+  }, [isModalOpen]) 
+
+  const handleHide = useCallback((e) => {
+    e.preventDefault();
+
+    // console.log(`classname: ${e.target.className}`);
+    // console.log(`id: ${e.target.id}`);
+
+    if (!e.target.id.includes("modal") && !e.target.className.includes("modal")) {
+        handleModalClose();
+        document.removeEventListener("click", handleHide, {capture: true});
+        setClickListener(false);
+    }
+  }, [])
 
   const handleNewTripClick = () => {
     setIsModalOpen(true);
@@ -132,8 +159,6 @@ function Profile() {
 
     setErrors(myErrors); 
 
-    if (myErrors.length === 0) {
-
     // console.log(myErrors);
     // console.log(myErrors.length);
     if (myErrors.length === 0) {
@@ -143,6 +168,7 @@ function Profile() {
         dispatch(composeTrip({location, startdate, enddate, author}));
     }
   };
+
   function treatAsUTC(date) {
     var result = new Date(date);
     result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
@@ -175,7 +201,6 @@ function Profile() {
     config: { duration: 300 }
   });
 
-  
 
   return (
     <>
@@ -206,22 +231,22 @@ function Profile() {
       </div>
       {isModalOpen && (
         <animated.div style={modalAnimation} id="profile-modal">
-          <h3>Create a New Trip</h3>
-          <label>
+          <h3 id="modal-ele">Create a New Trip</h3>
+          <label id="modal-ele">
             Location:
-            <input type="text" name="location" value={newTripData.location} onChange={(e) => handleInputChange(e)} required />
+            <input id="modal-ele" type="text" name="location" value={newTripData.location} onChange={(e) => handleInputChange(e)} required />
           </label>
-          <label>
+          <label id="modal-ele">
             Start Date:
-            <input type="date" name="startdate" value={newTripData.startdate} onChange={(e) => handleInputChange(e)} required />
+            <input id="modal-ele" type="date" name="startdate" value={newTripData.startdate} onChange={(e) => handleInputChange(e)} required />
           </label>
-          <label>
+          <label id="modal-ele">
             End Date:
-            <input type="date" name="enddate" value={newTripData.enddate} onChange={(e) => handleInputChange(e)} required />
+            <input id="modal-ele" type="date" name="enddate" value={newTripData.enddate} onChange={(e) => handleInputChange(e)} required />
           </label>
           {errors.map(error => <p className="tripErrors">{error}</p>)}
-          <button onClick={(e) => handleCreateTrip(e)}>Create</button>
-          <button onClick={handleModalClose}>Cancel</button>
+          <button id="modal-ele" onClick={(e) => handleCreateTrip(e)}>Create</button>
+          <button id="modal-ele" onClick={handleModalClose}>Cancel</button>
 
           </animated.div>
       )}

@@ -214,6 +214,11 @@ button {
     /* filter: invert(25%) sepia(20%) saturate(1000%) hue-rotate(270deg) brightness(60%) contrast(90%); */
   }
 
+  /* giving modal stuff an ID to check for... that way can close on outside click.*/
+  /* #modal-ele {
+
+  } */
+
   .profile-right {
     display: flex;
     flex-direction: column;
