@@ -71,6 +71,7 @@ function Profile() {
 
     // console.log(`classname: ${e.target.className}`);
     // console.log(`id: ${e.target.id}`);
+    // console.log("modal checking");
 
     if (!e.target.id.includes("modal") && !e.target.className.includes("modal")) {
         handleModalClose();
