@@ -375,90 +375,115 @@ const TripShow = () => {
 
     function handleSuggestActivitiesModal(e) {
         e.preventDefault();
-        setModalOpen("ACTIVITIES");
+        if (!suggestingA && !suggestingR && !generatingI) {
+            if (modalOpen === null) {
+                setModalOpen("ACTIVITIES");
+            }
+        }
     }
     function handleSuggestRestaurantsModal(e) {
         e.preventDefault();
-        setModalOpen("RESTAURANTS");
+        if (!suggestingA && !suggestingR && !generatingI) {
+            if (modalOpen === null) {
+                setModalOpen("RESTAURANTS");
+            }
+        }
     }
     function handleGenerateItineraryModal(e) {
         e.preventDefault();
-        if (!checkIfItineraryEmpty()) {
-            setModalOpen("GENERATE");
-        } else {
-            handleGenerateItinerary(e);
+        if (!suggestingA && !suggestingR && !generatingI) {
+            if (modalOpen === null) {
+                if (!checkIfItineraryEmpty()) {
+                    setModalOpen("GENERATE");
+                } else {
+                    handleGenerateItinerary(e);
+                }
+            }
         }
     }
     function handleSuggestActivities(e, isSpecific) {
         e.preventDefault();
 
-        let location = myTrip.location;
-        if (isSpecific) {
-            let myErrors = [];
-            if (timeOfDay === "") {
-                myErrors.push("Please input a time of day");
-            }
-            if (interests === "") {
-                myErrors.push("Please input your interests");
-            }
-            if (myErrors.length > 0) {
-                setSuggestionErrors(myErrors);
+        if (!suggestingA && !suggestingR && !generatingI) {
+            // console.log("chatgpt");
+            let location = myTrip.location;
+            if (isSpecific) {
+                let myErrors = [];
+                if (timeOfDay === "") {
+                    myErrors.push("Please input a time of day");
+                }
+                if (interests === "") {
+                    myErrors.push("Please input your interests");
+                }
+                if (myErrors.length > 0) {
+                    setSuggestionErrors(myErrors);
+                } else {
+                    setSuggestingA(true);
+                    setModalOpen(null);
+                    setSuggestionErrors([]);
+                    dispatch(itineraryActions.suggestActivities({location, timeOfDay, interests}));
+                }
             } else {
                 setSuggestingA(true);
                 setModalOpen(null);
                 setSuggestionErrors([]);
-                dispatch(itineraryActions.suggestActivities({location, timeOfDay, interests}));
+                dispatch(itineraryActions.suggestActivities({location}));
             }
-        } else {
-            setSuggestingA(true);
-            setModalOpen(null);
-            setSuggestionErrors([]);
-            dispatch(itineraryActions.suggestActivities({location}));
         }
     }
+
     function handleSuggestRestaurants(e, isSpecific) {
         e.preventDefault();
 
-        let location = myTrip.location;
-        if (isSpecific) {
-            let myErrors = [];
-            if (mealType === "") {
-                myErrors.push("Please input a meal type");
-            }
-            if (setting === "") {
-                myErrors.push("Please input your setting");
-            }
-            if (cuisineType === "") {
-                myErrors.push("Please input a cuisine type")
-            }
+        if (!suggestingA && !suggestingR && !generatingI) {
+            // console.log("chatgpt");
+            let location = myTrip.location;
+            if (isSpecific) {
+                let myErrors = [];
+                if (mealType === "") {
+                    myErrors.push("Please input a meal type");
+                }
+                if (setting === "") {
+                    myErrors.push("Please input your setting");
+                }
+                if (cuisineType === "") {
+                    myErrors.push("Please input a cuisine type")
+                }
 
-            if (myErrors.length > 0) {
-                setSuggestionErrors(myErrors);
+                if (myErrors.length > 0) {
+                    setSuggestionErrors(myErrors);
+                } else {
+                    setSuggestingR(true);
+                    setModalOpen(null);
+                    setSuggestionErrors([]);
+                    dispatch(itineraryActions.suggestRestaurants({location, mealType, setting, cuisineType}));
+                }
             } else {
                 setSuggestingR(true);
                 setModalOpen(null);
                 setSuggestionErrors([]);
-                dispatch(itineraryActions.suggestRestaurants({location, mealType, setting, cuisineType}));
+                dispatch(itineraryActions.suggestRestaurants({location}));
             }
-        } else {
-            setSuggestingR(true);
-            setModalOpen(null);
-            setSuggestionErrors([]);
-            dispatch(itineraryActions.suggestRestaurants({location}));
         }
     }
     function handleGenerateItinerary(e) {
         e.preventDefault();
-        setGeneratingI(true);
-        setModalOpen(null);
-        handleClearItinerary(e);
-
-        let location = myTrip.location;
-        let days = Object.keys(myItinerary.itinerary).length;
-        // let days = myItinerary.itinerary 
-        dispatch(itineraryActions.generateItinerary({location, days}));
         
+        if (!suggestingA && !suggestingR && !generatingI) {
+            // console.log("chatgpt");
+            setGeneratingI(true);
+            setModalOpen(null);
+            handleClearItinerary(e);
+
+            let location = myTrip.location;
+            let days = Object.keys(myItinerary.itinerary).length;
+            // let days = myItinerary.itinerary 
+
+            
+            dispatch(itineraryActions.generateItinerary({location, days}));
+        }
     }
+
     function handleUpdateGeneratedItinerary() {
         let itinerary = Object.entries(myItinerary.itinerary);
         for (let i = 0; i < itinerary.length; i++) {
