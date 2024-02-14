@@ -273,6 +273,8 @@ router.post('/GPT', async (req, res, next) => {
     try {
         let location = req.body.location;
         let days = req.body.days;
+        console.log(`location: ${location}`);
+        console.log(`days: ${days}`);
         // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
         const completion = await openai.chat.completions.create({
             messages: [{ role: 'system', 
@@ -312,14 +314,14 @@ router.post('/GPT', async (req, res, next) => {
             `
             }],
             model: 'gpt-3.5-turbo',
-            max_tokens: 1000
+            max_tokens: 2000
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
 
-            // console.log("=======");
-            // console.log(completion.choices);
-            // console.log(completion.choices[0].message.content);
+            console.log("=======");
+            console.log(completion.choices);
+            console.log(completion.choices[0].message.content);
 
             let index = 0;
             let found = false;
@@ -327,15 +329,15 @@ router.post('/GPT', async (req, res, next) => {
                 if (!found && completion.choices[0].message.content[i] === '"') {
                     index = i;
                     found = true;
-                    // console.log(`Total Length of Message: ${completion.choices[0].message.content.length}`);
-                    // console.log(`Index with last quote: ${index}`);
+                    console.log(`Total Length of Message: ${completion.choices[0].message.content.length}`);
+                    console.log(`Index with last quote: ${index}`);
                 }
             }
             if (completion.choices[0].message.content[index + 1] === ",") {
-                // console.log("Detected Bad Comma! (this causes parsing error...");
+                console.log("Detected Bad Comma! (this causes parsing error...");
                 completion.choices[0].message.content[index + 1] = " "
             } else {
-                // console.log(`All good!  Char after last quote is: ${completion.choices[0].message.content[index + 1]}`)
+                console.log(`All good!  Char after last quote is: ${completion.choices[0].message.content[index + 1]}`)
             }
 
             let response = JSON.parse(completion.choices[0].message.content);
