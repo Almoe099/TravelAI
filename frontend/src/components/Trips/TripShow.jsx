@@ -58,6 +58,7 @@ const TripShow = () => {
 
 
     useEffect(() => {
+        // console.log("hit");
         dispatch(tripActions.fetchTrip(tripId));
         dispatch(itineraryActions.clearingSelected());
         dispatch(itineraryActions.clearingSuggestions());
@@ -66,6 +67,12 @@ const TripShow = () => {
         dispatch(itineraryActions.fetchItineraries());
         setCheck(false);
     }, [])
+
+    // useEffect(() => {
+    //     // console.log("hit");
+    //     // dispatch(itineraryActions.clearingSuggestions());
+    // }, [tripId])
+
 
 
     
@@ -102,21 +109,25 @@ const TripShow = () => {
 
 
     useEffect(() => {
-        if (mySuggestions !== null && mySuggestions !== undefined) {
-            let mySuggestions2 = Object.values(mySuggestions);
-            let newOptions = [];
-            for (let i = 0; i < mySuggestions2.length; i++) {
-                newOptions.push(mySuggestions2[i]);
-            }
-            setOptions(newOptions);
-            if (suggestingA) {
-                setSuggestingA(false);
-            }
-            if (suggestingR) {
-                setSuggestingR(false);
+        // need to make sure we've cleared stuff before we load options.
+        if (check) {
+            if (mySuggestions !== null && mySuggestions !== undefined) {
+                let mySuggestions2 = Object.values(mySuggestions);
+                let newOptions = [];
+                for (let i = 0; i < mySuggestions2.length; i++) {
+                    newOptions.push(mySuggestions2[i]);
+                }
+                setOptions(newOptions);
+                if (suggestingA) {
+                    setSuggestingA(false);
+                }
+                if (suggestingR) {
+                    setSuggestingR(false);
+                }
             }
         }
     }, [mySuggestions])
+
     useEffect(() => {
         if (myGeneration !== null && myGeneration !== undefined) {
             if (generatingI) {
@@ -342,6 +353,26 @@ const TripShow = () => {
         gsap.to("#profile-modal", { scale: 0.95, autoAlpha: 0, ease: "back.in(1.7)", duration: 0.5, onComplete: () => setModalOpen(null) });
     };
 
+    function checkIfItineraryEmpty() {
+        let activities = Object.values(myItinerary.itinerary);
+
+        // console.log(myItinerary);
+        // console.log(activities);
+        for (let i = 0; i < activities.length; i++) {
+            let plans = Object.values(activities[i]);
+            // console.log(plans);
+            for (let j = 0; j < plans.length; j++) {
+                if (plans[j] !== "") {
+                    // console.log(plans[j]);
+                    // console.log(false);
+                    return false;
+                }
+            }
+        }
+        // console.log(true);
+        return true;
+    }
+
     function handleSuggestActivitiesModal(e) {
         e.preventDefault();
         setModalOpen("ACTIVITIES");
@@ -349,6 +380,14 @@ const TripShow = () => {
     function handleSuggestRestaurantsModal(e) {
         e.preventDefault();
         setModalOpen("RESTAURANTS");
+    }
+    function handleGenerateItineraryModal(e) {
+        e.preventDefault();
+        if (!checkIfItineraryEmpty()) {
+            setModalOpen("GENERATE");
+        } else {
+            handleGenerateItinerary(e);
+        }
     }
     function handleSuggestActivities(e, isSpecific) {
         e.preventDefault();
@@ -411,6 +450,8 @@ const TripShow = () => {
     function handleGenerateItinerary(e) {
         e.preventDefault();
         setGeneratingI(true);
+        setModalOpen(null);
+        handleClearItinerary(e);
 
         let location = myTrip.location;
         let days = Object.keys(myItinerary.itinerary).length;
@@ -676,7 +717,29 @@ const TripShow = () => {
                             </>
                         ) : (
                             <>
-                            
+                                {modalOpen === "GENERATE" ? (
+                                    <>
+                                        <div id="profile-modal">
+                                            <p className='pModalText' id="modal-ele">Clicking Accept will clear your itinerary and fill out a new one for you.  Do you want to proceed?</p>
+                                            <div className="modalLine" id="modal-ele"></div>
+                                            {/* <div className="selectHolder" id="modal-ele">
+                                                <select name="dates" className="modal-ele" id="date-select" onChange={(e) => settingDate(e, this)}>
+                                                    <option id="modal-ele" value="">--Please choose an option--</option>
+                                                    {Object.keys(myItinerary.itinerary).map(myDate => 
+                                                        <option id="modal-ele" value={myDate}>{formatTripDate(myDate, "short")}</option>
+                                                    )}
+                                                </select>
+                                            </div> */}
+                                            {/* {errors.map(error => <p className="tripErrors" id="modal-ele">{error}</p>)} */}
+                                            <button id="modal-ele" onClick={(e) => handleGenerateItinerary(e)}>Accept</button>
+                                            {/* <button onClick={(e) => handleSuggestActivities(e, false)}>Skip</button> */}
+                                            <button id="modal-ele" onClick={(e) => handleCloseModal(e)}>Cancel</button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                    </>
+                                )}
                             </>
                         )}
                     </>
@@ -726,7 +789,7 @@ const TripShow = () => {
                 </div>
             ) : (
                 <>
-                    <button onClick={(e) => handleGenerateItinerary(e)} className='button'>Generate Itinerary</button>
+                    <button onClick={(e) => handleGenerateItineraryModal(e)} className='button'>Generate Itinerary</button>
                 </>
             )}
         </div>

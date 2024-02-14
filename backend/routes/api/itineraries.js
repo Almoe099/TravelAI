@@ -273,6 +273,8 @@ router.post('/GPT', async (req, res, next) => {
     try {
         let location = req.body.location;
         let days = req.body.days;
+        // console.log(`location: ${location}`);
+        // console.log(`days: ${days}`);
         // completion = runCompletion(tripPrefs.name, tripPrefs.weatherPref, tripPrefs.locationPref);
         const completion = await openai.chat.completions.create({
             messages: [{ role: 'system', 
@@ -312,7 +314,7 @@ router.post('/GPT', async (req, res, next) => {
             `
             }],
             model: 'gpt-3.5-turbo',
-            max_tokens: 1000
+            max_tokens: 2000
         });
 
         if (completion.choices !== null && completion.choices !== undefined) {
